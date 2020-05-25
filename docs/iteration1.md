@@ -230,4 +230,4 @@ Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (onlin
 <br>
 
 ## Scrum master 
-In der Iteration 1 war abdula11 der Scrum-Master. 
+In der Iteration 1 war Asya Abdulaeva (abdula11) der Scrum-Master. 
