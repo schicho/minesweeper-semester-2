@@ -193,22 +193,37 @@ erstellt von: abdula11
 
 ### #31
 
-erstellt von: 
+erstellt von: cz999
 <br>beigetragen: 
 
 
 ### #32
 
-erstellt von: 
+erstellt von: cz999
 <br>beigetragen: 
 
 
 ### #33
-erstellt von: 
+erstellt von: abdula11
 <br>beigetragen: 
 
 
 ### #34
+
+erstellt von: abdula11
+<br>beigetragen: 
+
+### #35
+
+erstellt von: abdula11
+<br>beigetragen: 
+
+### #36
+
+erstellt von: 
+<br>beigetragen: 
+
+### #37
 
 erstellt von: 
 <br>beigetragen: 
