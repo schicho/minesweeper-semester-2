@@ -2,231 +2,249 @@
 <br>
 
 ## Gruppenmitglieder
-Asya Abdulaeva => abdula11
-<br>Simon Höfer => HoeferSi
-<br>Finn Ribbeck => 3nc0der
-<br>Johann Schicho => schicho
-<br>Christian Zavaczki => cz999
+Asya Abdulaeva => abdula01
+<br>Simon Höfer => hoefer12
+<br>Finn Ribbeck => ribbec01
+<br>Johann Schicho => schich09
+<br>Christian Zavaczki => zavacz02
 
 <br>
 
 ## User Stories 
 ### #1
 
-erstellt von: schicho
+erstellt von: schich09
 <br>beigetragen: 
 
 
 ### #2
 
-erstellt von: schicho
+erstellt von: schich09
 <br>beigetragen: 
 
 
 ### #3
 
-erstellt von: schicho
+erstellt von: schich09
 <br>beigetragen: 
 
 
 ### #4
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #5
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #6
 
-erstellt von: schicho
+erstellt von: schich09
 <br>beigetragen: 
 
 
 ### #7
 
-erstellt von: schicho
+erstellt von: schich09
 <br>beigetragen: 
 
 
 ### #8
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #9
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #10 (closed)
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #11
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #12
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #13
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #14 (closed)
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #15
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #16
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #17
 
-erstellt von: cz999
+erstellt von: zavacz02
 <br>beigetragen: 
 
 
 ### #18
 
-erstellt von: cz999
+erstellt von: zavacz02
 <br>beigetragen: 
 
 
 ### #19
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #20
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #21
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #22
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #23
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #24
 
-erstellt von: 3nc0der
+erstellt von: ribbec01
 <br>beigetragen: 
 
 
 ### #25
 
-erstellt von: cz999
+erstellt von: zavacz02
 <br>beigetragen: 
 
 
 ### #26
 
-erstellt von: HoeferSi
+erstellt von: hoefer12
 <br>beigetragen: 
 
 
 ### #27
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 
 ### #28
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 
 ### #29
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 
 ### #30
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 
 ### #31
 
-erstellt von: cz999
+erstellt von: zavacz02
 <br>beigetragen: 
 
 
 ### #32
 
-erstellt von: cz999
+erstellt von: zavacz02
 <br>beigetragen: 
 
 
 ### #33
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 
 ### #34
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 ### #35
 
-erstellt von: abdula11
+erstellt von: abdula01
 <br>beigetragen: 
 
 ### #36
 
-erstellt von: 
-<br>beigetragen: 
+erstellt von: ribbec01
+<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
 
 ### #37
 
-erstellt von: 
-<br>beigetragen: 
+erstellt von: ribbec01
+<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+
+
+### #38
+
+erstellt von: schich09
+<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+
+
+### #39
+
+erstellt von: ribbec01
+<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+
+
+### #48
+
+erstellt von: ribbec01
+<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
 
 <br>
 
@@ -235,12 +253,13 @@ Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (onlin
 - Kanban Board
 - Product Backlog
 - Sprint Backlog
-- Milestone
+- Milestone für die Iteration 2
 
 <br>
 
 ## Tasks 
-Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020
+Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+Angelegt wurden diese durch verschiedene Mitglieder, beigetragen haben bei jedem Task alle Teammitglieder, deshalb wurden die Tasks auch nicht weiter kommentiert, weil diese während dem Meeting durchgesprochen und angelegt wurden. 
 
 <br>
 
