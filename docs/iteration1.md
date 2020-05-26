@@ -2,11 +2,11 @@
 <br>
 
 ## Gruppenmitglieder
-Asya Abdulaeva => abdula01
-<br>Simon Höfer => hoefer12
-<br>Finn Ribbeck => ribbec01
-<br>Johann Schicho => schich09
-<br>Christian Zavaczki => zavacz02
+- Asya Abdulaeva => abdula01
+- Simon Höfer => hoefer12
+- Finn Ribbeck => ribbec01
+- Johann Schicho => schich09
+- Christian Zavaczki => zavacz02
 <br>
 
 ## User Stories 
