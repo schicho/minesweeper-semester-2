@@ -62,7 +62,7 @@
 
 ### #10 (closed)
 - erstellt von: hoefer12
-- editiert/kommentiert von: ribbec01, schich09
+- editiert/kommentiert von: ribbec01, schich09 
 
 
 ### #11
