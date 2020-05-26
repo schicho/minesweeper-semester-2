@@ -201,7 +201,7 @@
 
 <br>
 
-## Sprint Panning
+## Sprint Planning
 **Gemeinsame Ausarbeitung folgender Inhalte unter Teilnahme aller Mitgleider beim Teammeeting (online) am 20.05.2020:**
 - Kanban Board
 - Product Backlog mit entsprechenden User Stories
@@ -212,7 +212,7 @@
 
 ## Tasks 
 **Gemeinsame Ausarbeitung der Tasks unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.**
-Angelegt wurden diese durch verschiedene Mitglieder, beigetragen haben bei jedem Task alle Teammitglieder, deshalb wurden die Tasks auch nicht weiter kommentiert, weil diese während dem Meeting durchgesprochen und angelegt wurden. 
+Angelegt wurden diese durch verschiedene Mitglieder, beigetragen haben bei jedem Task alle Teammitglieder, deshalb wurden die Tasks auch nicht weiter kommentiert, weil diese während des Meetings durchgesprochen und angelegt wurden. 
 
 <br>
 
