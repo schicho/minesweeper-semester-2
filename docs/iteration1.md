@@ -158,7 +158,7 @@ erstellt von: ribbec01
 ### #25
 
 erstellt von: zavacz02
-<br>beigetragen: 
+<br>beigetragen:  
 
 
 ### #26
