@@ -11,7 +11,7 @@
 
 ## User Stories 
 
-Bei der Dokumentation wurde unter dem Punkt "editiert/kommentiert von:" der jeweilige Ersteller der User Story nicht nochmal erwähnt. 
+**Bei der Dokumentation wurden unter dem Punkt "editiert/kommentiert von:" die jeweiligen Ersteller der User Stories nicht nochmal erwähnt.** 
 <br>
 
 
@@ -52,167 +52,152 @@ Bei der Dokumentation wurde unter dem Punkt "editiert/kommentiert von:" der jewe
 
 ### #8
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: abdula01, ribbec01, zavacz02
 
 
 ### #9
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, schich09
 
 
 ### #10 (closed)
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, schich09
 
 
 ### #11
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, schich09, zavacz02
 
 
 ### #12
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
-
-
-### #13
-- erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01
 
 
 ### #14 (closed)
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
-
-
-### #15
-- erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
-
-
-### #16
-- erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: hoefer12, zavacz02
 
 
 ### #17
 - erstellt von: zavacz02
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01
 
 
 ### #18
 - erstellt von: zavacz02
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01
 
 
 ### #19
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: schich09, zavacz02
 
 
 ### #20
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: zavacz02
 
 
 ### #21
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: zavacz02
 
 
 ### #22
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: abdula01, schich09, zavacz02
 
 
 ### #23
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: hoefer12, zavacz02
 
 
 ### #24
 - erstellt von: ribbec01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: schich09
 
 
 ### #25
 - erstellt von: zavacz02
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: -
 
 
 ### #26
 - erstellt von: hoefer12
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, schich09
 
 
 ### #27
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: hoefer12, ribbec01, schich09
 
 
 ### #28
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01
 
 
 ### #29
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: zavacz02
 
 
 ### #30
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: zavacz02
 
 
 ### #31
 - erstellt von: zavacz02
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: schich09
 
 
 ### #32
 - erstellt von: zavacz02
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: schich09
 
 
 ### #33
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, zavacz02
 
 
 ### #34
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, zavacz02
 
 
 ### #35
 - erstellt von: abdula01
-- editiert/kommentiert von: abdula01, hoefer12, ribbec01, schich09, zavacz02
+- editiert/kommentiert von: ribbec01, schich09, zavacz02
 
 
 ### #36
 - erstellt von: ribbec01
-- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #37
 - erstellt von: ribbec01
-- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #38
 - erstellt von: schich09
-- beigetragen: abdula01, hoefer12, ribbec01, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, ribbec01, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #39
 - erstellt von: ribbec01
-- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #48
 - erstellt von: ribbec01
-- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 <br>
 
