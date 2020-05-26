@@ -14,209 +14,209 @@ Asya Abdulaeva => abdula01
 ### #1
 
 erstellt von: schich09
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #2
 
 erstellt von: schich09
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #3
 
 erstellt von: schich09
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #4
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #5
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von:  
 
 
 ### #6
 
 erstellt von: schich09
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #7
 
 erstellt von: schich09
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #8
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #9
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #10 (closed)
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #11
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #12
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #13
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #14 (closed)
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #15
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #16
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #17
 
 erstellt von: zavacz02
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #18
 
 erstellt von: zavacz02
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #19
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #20
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #21
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #22
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #23
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #24
 
 erstellt von: ribbec01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #25
 
 erstellt von: zavacz02
-<br>beigetragen:  
+<br>editiert/kommentiert von: 
 
 
 ### #26
 
 erstellt von: hoefer12
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #27
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #28
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #29
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #30
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #31
 
 erstellt von: zavacz02
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #32
 
 erstellt von: zavacz02
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #33
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 
 ### #34
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 ### #35
 
 erstellt von: abdula01
-<br>beigetragen: 
+<br>editiert/kommentiert von: 
 
 ### #36
 
@@ -251,8 +251,8 @@ erstellt von: ribbec01
 ## Sprint Panning
 Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 20.05.2020:
 - Kanban Board
-- Product Backlog
-- Sprint Backlog
+- Product Backlog mit entsprechenden User Stories
+- Sprint Backlog mit entsprechenden Tasks
 - Milestone für die Iteration 2
 
 <br>
@@ -264,4 +264,8 @@ Angelegt wurden diese durch verschiedene Mitglieder, beigetragen haben bei jedem
 <br>
 
 ## Scrum master 
-In der Iteration 1 war Asya Abdulaeva (abdula11) der Scrum-Master. 
+In der Iteration 1 hat abdula01 die Rolle des Scrum-Masters übernommen. 
+<br>Für die 2. Iteration wird diese Rolle hoefer12 übernehmen.
+<br>Für die 3. Iteration wird diese Rolle schich09 übernehmen.
+<br>Für die 4. Iteration wird diese Rolle zavacz02 übernehmen.
+<br>Für die 5. Iteration wird diese Rolle ribbec01 übernehmen.
