@@ -192,27 +192,27 @@ Bei der Dokumentation wurde unter dem Punkt "editiert/kommentiert von:" der jewe
 
 ### #36
 - erstellt von: ribbec01
-- beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #37
 - erstellt von: ribbec01
-- beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #38
-erstellt von: schich09
-<br>beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+- erstellt von: schich09
+- beigetragen: abdula01, hoefer12, ribbec01, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #39
 - erstellt von: ribbec01
-- beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 
 ### #48
 - erstellt von: ribbec01
-- beigetragen: Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+- beigetragen: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
 
 <br>
 
