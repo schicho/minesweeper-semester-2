@@ -177,32 +177,32 @@
 
 ### #36
 - erstellt von: ribbec01
-- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 *[gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]*
 
 
 ### #37
 - erstellt von: ribbec01
-- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 *[gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]*
 
 
 ### #38
 - erstellt von: schich09
-- beigetragen haben: abdula01, hoefer12, ribbec01, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, ribbec01, zavacz02 *[gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]*
 
 
 ### #39
 - erstellt von: ribbec01
-- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 *[gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]*
 
 
 ### #48
 - erstellt von: ribbec01
-- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 [gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]
+- beigetragen haben: abdula01, hoefer12, schich09, zavacz02 *[gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.]*
 
 <br>
 
 ## Sprint Panning
-Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 20.05.2020:
+**Gemeinsame Ausarbeitung folgender Inhalte unter Teilnahme aller Mitgleider beim Teammeeting (online) am 20.05.2020:**
 - Kanban Board
 - Product Backlog mit entsprechenden User Stories
 - Sprint Backlog mit entsprechenden Tasks
@@ -211,7 +211,7 @@ Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (onlin
 <br>
 
 ## Tasks 
-Gemeinsame Ausarbeitung unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.
+**Gemeinsame Ausarbeitung der Tasks unter Teilnahme aller Mitgleider beim Teammeeting (online) am 25.05.2020.**
 Angelegt wurden diese durch verschiedene Mitglieder, beigetragen haben bei jedem Task alle Teammitglieder, deshalb wurden die Tasks auch nicht weiter kommentiert, weil diese während dem Meeting durchgesprochen und angelegt wurden. 
 
 <br>
