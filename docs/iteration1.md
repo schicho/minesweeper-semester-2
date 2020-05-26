@@ -7,26 +7,24 @@ Asya Abdulaeva => abdula01
 <br>Finn Ribbeck => ribbec01
 <br>Johann Schicho => schich09
 <br>Christian Zavaczki => zavacz02
-
 <br>
 
 ## User Stories 
+
+Bei der Dokumentation wurde unter dem Punkt "editiert/kommentiert von:" der jeweilige Ersteller der User Story nicht nochmal ausgenommen. 
+<br>
+
 ### #1
-
-erstellt von: schich09
-<br>editiert/kommentiert von: 
-
+- erstellt von: schich09
+- editiert/kommentiert von: ribbec01, hoefer12, abdula01
 
 ### #2
-
-erstellt von: schich09
-<br>editiert/kommentiert von: 
-
+- erstellt von: schich09
+- editiert/kommentiert von: ribbec01
 
 ### #3
-
-erstellt von: schich09
-<br>editiert/kommentiert von: 
+- erstellt von: schich09
+- editiert/kommentiert von: ribbec01, hoefer12, abdula01, zavacz02
 
 
 ### #4
