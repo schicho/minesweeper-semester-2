@@ -1,12 +1,19 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Cli{
     private int stepX;
     private int stepY;
     char[][] intField = new char[9][9];
     private Scanner lineReader = new Scanner(System.in);
+    private List<cliListener> listeners = new ArrayList<cliListener>();
 
-    public Cli(){
+    public void addListerner(cliListener newListener){
+        this.listeners.add(newListener);
+        System.out.println(listeners.toString());
+    }
+
+
+    public void startGame(){
         for(int row=0; row<intField.length; row++){
             for (int cell = 0; cell<intField[row].length; cell++ ){
                 intField[row][cell]='_'; //or what ever char is chosen for a untouched tile
@@ -18,7 +25,7 @@ public class Cli{
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
         System.out.println("Wähle eine Mine mit dem Schema \"m:n\" um anzufangen");
         readInput();
-        System.out.println(getStepY()+":"+getStepX());
+        //System.out.println(getStepY()+":"+getStepX());
     }
 
     public void readInput(){
@@ -28,6 +35,9 @@ public class Cli{
         String yString=InputBuilder.substring(0,InputBuilder.indexOf(":"));
         this.stepX=Integer.parseInt(xString);
         this.stepY=Integer.parseInt(yString);
+        for(cliListener listener:listeners){
+            listener.reactToInput();
+        }
     }
 
 
