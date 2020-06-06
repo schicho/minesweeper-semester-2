@@ -1,15 +1,9 @@
 public class Model {
 
     /**
-     * enum of Difficulty settings. This indicates the size of the minefield
-     * and the count of bombs placed.
+     * the Field itself provides the core functionality on the 2D Tile array.
+     * Model manipulations are forwarded to this object.
      */
-    public enum Difficulty{
-        EASY,
-        NORMAL,
-        HARD
-    }
-
     private Field minesweeperField;
 
     /**
@@ -49,15 +43,8 @@ public class Model {
     /**
      * @return the core 2D Tile Array
      */
-    public Tile[][] getTileField(){
-        return minesweeperField.getMinefield();
-    }
-
-    /**
-     * @return the Field object
-     */
-    public Field getMinesweeperField(){
-        return minesweeperField;
+    public Tile[][] getTileArray(){
+        return minesweeperField.getTileArray();
     }
 
 }

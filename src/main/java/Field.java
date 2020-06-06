@@ -2,8 +2,11 @@ import java.util.Random;
 
 public class Field {
 
-    private int rows;
-    private int cols;
+    private final int rows;
+    private final int cols;
+    /**
+     * This is the core 2D tile array.
+     */
     private Tile[][] minefield;
 
     /**
@@ -64,30 +67,30 @@ public class Field {
                 //check all 8 surrounding tiles for mines. This is very ugly.
                 //top 3
                 try {
-                    if(minefield[i-1][j-1].getIsMine){count++;}
+                    if(minefield[i-1][j-1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i-1][j].getIsMine){count++;}
+                    if(minefield[i-1][j].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i-1][j+1].getIsMine){count++;}
+                    if(minefield[i-1][j+1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 //left and right
                 try {
-                    if(minefield[i][j-1].getIsMine){count++;}
+                    if(minefield[i][j-1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i][j+1].getIsMine){count++;}
+                    if(minefield[i][j+1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 //bottom 3
                 try {
-                    if(minefield[i+1][j-1].getIsMine){count++;}
+                    if(minefield[i+1][j-1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i+1][j].getIsMine){count++;}
+                    if(minefield[i+1][j].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i+1][j+1].getIsMine){count++;}
+                    if(minefield[i+1][j+1].getIsMine()){count++;}
                 }catch (IndexOutOfBoundsException e){}
 
                 //write to the current tile which's surrounding mines we counted
@@ -108,7 +111,7 @@ public class Field {
     /**
      * @return 2D Array of Tiles
      */
-    public Tile[][] getMinefield(){
+    public Tile[][] getTileArray(){
         return minefield;
     }
 }
