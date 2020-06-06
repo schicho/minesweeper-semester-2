@@ -1,17 +1,13 @@
-//Eigentliche Cli Klasse. Funktioniert nicht ohne Klasse Field! Entklammern, wenn es um die richtige Implementation geht.
-
-/*
-import java.lang.reflect.Field;
 import java.util.*;
-
-public class Cli{
+//Klasse Existiert nur zum Testen und soll nach Mergen entfernt werden
+public class TestCli{
 
     //initialisiere die Variablen, die den letzten Schritt Speichern, mit Minimum für Fehlersuche.
     private int stepN=Integer.MIN_VALUE;
     private int stepM=Integer.MIN_VALUE;
 
     //nurFür Ausgabentesten
-
+    char[][] testField = new char[9][9];
 
     //um später Commandline Input zu lesen
     private Scanner lineReader = new Scanner(System.in);
@@ -23,12 +19,19 @@ public class Cli{
         this.listeners.add(newListener);
     }
 
-    //Übergabe des Initialisierten Fields. Zeichnen
-    public void startGame(Field intField){
-        drawModel(intField);
+
+    public void startGame(){
+        for(int row=0; row<testField.length; row++){
+            for (int cell = 0; cell<testField[row].length; cell++ ){
+                testField[row][cell]='■'; //or what ever char is chosen for a untouched tile
+            }
+        }
+
+        drawModel(testField);
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
         System.out.println("Wähle eine Mine mit dem Schema \"m:n\" um anzufangen");
         readInput();
+        //System.out.println(getStepY()+":"+getStepX());
     }
 
 
@@ -48,7 +51,7 @@ public class Cli{
     }
 
 
-    public void drawModel(Field minefield){
+    public void drawModel(char[][] minefield){
         //erzeugt Nummerrierung für n
         String rowString="m\\n  0  1  2  3  4  5  6  7  8";
         //StringBuilder wird verwendet um Speicherplatz durch neuinitialisieren von Strings zu spaaren
@@ -62,23 +65,12 @@ public class Cli{
             rowBuilder.append(" : ");
             for (int cell = 0; cell<minefield[row].length; cell++ ){
                 rowBuilder.append("[");
-                if(minefield[row][cell]==true){
-                    rowBuilder.append(minefield[row][cell].getSurroundingMines);
-                }
-                else rowBuilder.append('■');
+                rowBuilder.append(minefield[row][cell]);
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
             rowBuilder.delete(0,rowBuilder.length());
         }
-    }
-
-    public void displayWin(){
-        System.out.println("You won! Much cool, very skill! ");
-    }
-
-    public void displayFailure(){
-        System.out.println("Disgausting! You are not a clown. You are the entire Circus!");
     }
 
     public int getStepN(){
@@ -87,4 +79,5 @@ public class Cli{
     public int getStepM(){
         return this.stepM;
     }
-}*/
+}
+
