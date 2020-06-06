@@ -47,7 +47,7 @@ public class Tile {
 
 
     // Constructor
-    public Tile(boolean isSweeped, boolean isMine, int surroundingMines, boolean isFlagged) {
+    public Tile() {
         this.isSweeped = false;
         this.isMine = false;
         this.surroundingMines = 0;
