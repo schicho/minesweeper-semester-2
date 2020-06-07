@@ -100,12 +100,39 @@ public class Field {
     }
 
     /**
-            * Sweep/Open up a covered tile
+     * Sweep/Open up a covered tile
      * @param rowIndex index of row
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
         minefield[rowIndex][colIndex].setIsSweeped(true);
+    }
+
+    /**
+     * returns true if tile at given index is sweeped.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isSweeped(int rowIndex, int colIndex){
+        return minefield[rowIndex][colIndex].getIsSweeped();
+    }
+
+    /**
+     * returns true if tile at given index contains a mine.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isMine(int rowIndex, int colIndex){
+        return minefield[rowIndex][colIndex].getIsMine();
+    }
+
+    /**
+     * returns number of mines surrounding the tile at given index. maximum of 8.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public int getSurroundingMines(int rowIndex, int colIndex){
+        return  minefield[rowIndex][colIndex].getSurroundingMines();
     }
 
     /**
