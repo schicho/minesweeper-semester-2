@@ -35,8 +35,7 @@ public class Model {
     }
 
     /**
-     * Sets the isSweeped value of the tile at [rowIndex][colIndex]
-     * to true.
+     * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * @param rowIndex index of row
      * @param colIndex index of column
      */
@@ -45,16 +44,50 @@ public class Model {
     }
 
     /**
+     * Check if tile at a certain index is sweeped or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is sweeped, false if not.
+     */
+    public boolean isSweeped(int rowIndex, int colIndex){
+        return minesweeperField.isSweeped(rowIndex, colIndex);
+    }
+
+    /**
+     * Check if tile at a certain index is a mine-tile or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is contains mine, false if not.
+     */
+    public boolean isMine(int rowIndex, int colIndex){
+        return minesweeperField.isMine(rowIndex, colIndex);
+    }
+
+    /**
+     * Returns the number of bombs surrounding one tile. Maximum of 8.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return number of bombs surrounding that tile.
+     */
+    public int getSurroundingMines(int rowIndex, int colIndex){
+        return minesweeperField.getSurroundingMines(rowIndex, colIndex);
+    }
+
+    /**
+     * Get difficulty of the minefield. This indirectly indicates the number
+     * of mines placed on the minefield and the size of the minefield.
+     * @return the difficulty setting chosen at the construction of the model
+     */
+    public Difficulty getDifficulty() {
+        return this.difficulty;
+    }
+
+    /**
+     * Try to avoid using. Use high level functions above.
      * @return the core 2D Tile Array
      */
     public Tile[][] getTileArray(){
         return minesweeperField.getTileArray();
     }
 
-    /**
-     * @return the difficulty setting chosen at the construction of the model
-     */
-    public Difficulty getDifficulty() {
-        return this.difficulty;
-    }
 }
