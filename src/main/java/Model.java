@@ -5,6 +5,7 @@ public class Model {
      * Model manipulations are forwarded to this object.
      */
     private Field minesweeperField;
+    private Difficulty difficulty;
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -17,14 +18,17 @@ public class Model {
             case EASY:
                 minesweeperField = new Field(9,9);
                 minesweeperField.placeMinesRNG(10);
+                this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
             break;
             case NORMAL:
                 minesweeperField = new Field(16, 16);
                 minesweeperField.placeMinesRNG(40);
+                this.difficulty = difficulty;
             break;
             case HARD:
                 minesweeperField = new Field(16, 30);
                 minesweeperField.placeMinesRNG(99);
+                this.difficulty = difficulty;
             break;
         }
         minesweeperField.calcSurroundingMines();
@@ -47,4 +51,10 @@ public class Model {
         return minesweeperField.getTileArray();
     }
 
+    /**
+     * @return the difficulty setting chosen at the construction of the model
+     */
+    public Difficulty getDifficulty() {
+        return this.difficulty;
+    }
 }
