@@ -1,69 +1,58 @@
-//Eigentliche Cli Klasse. Funktioniert nicht ohne Klasse Field! Entklammern, wenn es um die richtige Implementation geht.
 
-/*
-import java.lang.reflect.Field;
 import java.util.*;
 
 public class Cli{
+    //Existieren nur um in drawModel() durch die einzelnen Elemente des Arrays zu laufen.
+    int minefieldWidth;
+    int minefieldHeight;
 
-    //initialisiere die Variablen, die den letzten Schritt Speichern, mit Minimum für Fehlersuche.
-    private int stepN=Integer.MIN_VALUE;
-    private int stepM=Integer.MIN_VALUE;
-
-    //nurFür Ausgabentesten
-
-
-    //um später Commandline Input zu lesen
-    private Scanner lineReader = new Scanner(System.in);
-    //Liste der Objekte, die Cli Observen
-    private List<cliListener> listeners = new ArrayList<cliListener>();
-
-    //Fügt neuen Handler/Observer hinzu.
-    public void addListerner(cliListener newListener){
-        this.listeners.add(newListener);
-    }
 
     //Übergabe des Initialisierten Fields. Zeichnen
-    public void startGame(Field intField){
-        drawModel(intField);
+    public void startGame(Model minefield){
+        Difficulty difficulty= minefield.getDifficulty();
+        switch (difficulty) {
+            case EASY:
+                this.minefieldWidth = 9;
+                this.minefieldHeight = 9;
+                break;
+            case NORMAL:
+                this.minefieldWidth = 16;
+                this.minefieldHeight = 16;
+                break;
+            case HARD:
+                this.minefieldWidth = 16;
+                this.minefieldHeight = 30;
+                break;
+        }
+        drawModel(minefield);
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
         System.out.println("Wähle eine Mine mit dem Schema \"m:n\" um anzufangen");
-        readInput();
     }
 
 
-    public void readInput(){
-        //Nimmt Commandline Input
-        String InputString= lineReader.next();
-        StringBuilder InputBuilder= new StringBuilder(InputString);
-        //Parsed den Input und speichert ihn ab
-        String xString= InputBuilder.substring(InputBuilder.indexOf(":")+1,InputBuilder.length() );
-        String yString=InputBuilder.substring(0,InputBuilder.indexOf(":"));
-        this.stepN=Integer.parseInt(xString);
-        this.stepM=Integer.parseInt(yString);
-        //Singnale, dass der Input genommen wurde, wird an Handler verschickt
-        for(cliListener listener:listeners){
-            listener.reactToInput();
-        }
-    }
 
-
-    public void drawModel(Field minefield){
+    public void drawModel(Model minefield){
         //erzeugt Nummerrierung für n
-        String rowString="m\\n  0  1  2  3  4  5  6  7  8";
+        String rowString="m\\n";
         //StringBuilder wird verwendet um Speicherplatz durch neuinitialisieren von Strings zu spaaren
         StringBuilder rowBuilder= new StringBuilder(rowString);
+        for(int coll=0;coll<this.minefieldWidth;coll++){
+            rowBuilder.append("  "+coll);
+        }
         System.out.println(rowBuilder);
         rowBuilder.delete(0,rowBuilder.length());
 
         //Für jede Zeile von minefield wird ein Wert in [] an einen String appended, der gedruckt und gelöscht wird
-        for(int row=0; row<minefield.length; row++){
+        for(int row=0; row<this.minefieldHeight; row++){
             rowBuilder.append(row);
             rowBuilder.append(" : ");
-            for (int cell = 0; cell<minefield[row].length; cell++ ){
+            for (int coll = 0; coll<minefieldWidth; coll++ ){
                 rowBuilder.append("[");
-                if(minefield[row][cell]==true){
-                    rowBuilder.append(minefield[row][cell].getSurroundingMines);
+                if(minefield.isSweeped(row,coll)){
+                    if(minefield.isMine(row,coll)){
+                        rowBuilder.append('B');
+                    }
+                    else rowBuilder.append(minefield.getSurroundingMines(row,coll));
                 }
                 else rowBuilder.append('■');
                 rowBuilder.append("]");
@@ -81,10 +70,4 @@ public class Cli{
         System.out.println("Disgausting! You are not a clown. You are the entire Circus!");
     }
 
-    public int getStepN(){
-        return this.stepN;
-    }
-    public int getStepM(){
-        return this.stepM;
-    }
-}*/
+}
