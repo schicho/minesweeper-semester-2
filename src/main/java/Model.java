@@ -6,6 +6,7 @@ public class Model {
      */
     private Field minesweeperField;
     private Difficulty difficulty;
+    private int numberOfMines;
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -18,16 +19,19 @@ public class Model {
             case EASY:
                 minesweeperField = new Field(9,9);
                 minesweeperField.placeMinesRNG(10);
+                numberOfMines = 10;
                 this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
             break;
             case NORMAL:
                 minesweeperField = new Field(16, 16);
                 minesweeperField.placeMinesRNG(40);
+                numberOfMines = 40;
                 this.difficulty = difficulty;
             break;
             case HARD:
                 minesweeperField = new Field(16, 30);
                 minesweeperField.placeMinesRNG(99);
+                numberOfMines = 99;
                 this.difficulty = difficulty;
             break;
         }
@@ -88,6 +92,30 @@ public class Model {
      */
     public Tile[][] getTileArray(){
         return minesweeperField.getTileArray();
+    }
+
+    /**
+     * Returns the GameState of the model
+     * @return a value of GameState Enum
+     */
+    public GameState checkCurrentGameState(){
+        int countSweepedTiles = 0;
+        int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
+        Tile[][] tilearray = getTileArray();
+
+        for(int i=0; i<minesweeperField.getRows(); i++){
+            for(int j=0; j<minesweeperField.getCols(); j++){
+                if(tilearray[i][j].getIsMine() && tilearray[i][j].getIsSweeped()){
+                    return GameState.LOST;
+                }else if(!tilearray[i][j].getIsMine() && tilearray[i][j].getIsSweeped()){
+                    countSweepedTiles++;
+                }
+            }
+        }
+        if(countSweepedTiles == numberOfNotMineTiles){
+            return GameState.WON;
+        }
+        return GameState.RUNNING;
     }
 
 }
