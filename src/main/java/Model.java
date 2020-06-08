@@ -94,6 +94,10 @@ public class Model {
         return minesweeperField.getTileArray();
     }
 
+    /**
+     * Returns the GameState of the model
+     * @return a value of GameState Enum
+     */
     public GameState checkCurrentGameState(){
         int countSweepedTiles = 0;
         int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
