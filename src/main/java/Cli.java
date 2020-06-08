@@ -8,7 +8,7 @@ public class Cli{
 
 
     //Übergabe des Initialisierten Fields. Zeichnen
-    public void startGame(Model minefield){
+    public void initializeView(Model minefield){
         Difficulty difficulty= minefield.getDifficulty();
         switch (difficulty) {
             case EASY:
