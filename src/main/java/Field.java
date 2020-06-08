@@ -141,4 +141,18 @@ public class Field {
     public Tile[][] getTileArray(){
         return minefield;
     }
+
+    /**
+     * @return number of rows of the tile array
+     */
+    public int getRows() {
+        return rows;
+    }
+
+    /**
+     * @return number of columns of the tile array
+     */
+    public int getCols() {
+        return cols;
+    }
 }
