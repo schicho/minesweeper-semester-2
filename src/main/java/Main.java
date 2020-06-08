@@ -9,6 +9,7 @@ public class Main {
 
         model = new Model(Difficulty.EASY);
         controller = new Controller();
+        cli = new Cli();
         cli.initializeView(model);
 
 
