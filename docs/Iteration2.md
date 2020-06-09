@@ -33,7 +33,7 @@
 
   ## Umgesetzte User Stories/Tasks
 
-  ** Die Verteilung der Aufgaben erfolge unter Teilnahme aller Mitglieder während des Teammeetings (online) am 03.06.2020.** 
+  **Die Verteilung der Aufgaben erfolge unter Teilnahme aller Mitglieder während des Teammeetings (online) am 03.06.2020.** 
   Zunächst haben die Teammitglieder jeweils ein Klassendiagramm erstellt. Diese wurden während des Teammeetings (online) am 03.06.2020 besprochen. Die Version vom ribbec01 mit wenigen Änderungen wurde als Orientierung ausgewählt. Anhand dieses Klassendiagramms wurden die zu implementierenden Klassen aufgeteilt.
   <br>
 
