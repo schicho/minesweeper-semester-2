@@ -26,7 +26,7 @@ public class Cli{
         }
         drawModel(minefield);
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
-        System.out.println("Wähle ein Feld in dem Schema \"m:n\" um anzufangen");
+        System.out.println("Wähle ein Feld in dem Schema \"m:n\", um anzufangen.");
     }
 
 
