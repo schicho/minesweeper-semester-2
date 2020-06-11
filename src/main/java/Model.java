@@ -40,11 +40,56 @@ public class Model {
 
     /**
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
+     * Also recursively sweeps neighboring tiles, if the tile has a value of
+     * zero neighboring mines.
      * @param rowIndex index of row
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
-        minesweeperField.sweepTile(rowIndex, colIndex);
+        //also check if tile has not been sweeped before, to stop recursion.
+        boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
+        if(!isAlreadySweeped){
+            //sweep Tile which was called to do be sweeped.
+            minesweeperField.sweepTile(rowIndex, colIndex);
+            //recursively sweep surrounding tiles.
+            if (getSurroundingMines(rowIndex, colIndex) == 0) {
+                // top 3
+                try {
+                    sweepTile(rowIndex - 1, colIndex - 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                try {
+                    sweepTile(rowIndex - 1, colIndex);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                try {
+                    sweepTile(rowIndex - 1, colIndex + 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                //left and right
+                try {
+                    sweepTile(rowIndex, colIndex - 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                try {
+                    sweepTile(rowIndex, colIndex + 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                //bottom 3
+                try {
+                    sweepTile(rowIndex + 1, colIndex - 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                try {
+                    sweepTile(rowIndex + 1, colIndex);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+                try {
+                    sweepTile(rowIndex + 1, colIndex + 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                }
+            }
+        }
     }
 
     /**
