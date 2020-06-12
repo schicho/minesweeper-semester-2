@@ -6,22 +6,16 @@ import java.util.Scanner;
 public class Controller /*implements MouseListener*/ {
 
     /**
-     * static objects model, cli and controller used for the gameloop
-     */
-    private static Model model;
-    private static Cli cli;
-    private static Controller controller;
-
-    /**
      * Main game loop which runs the game and stops it at win or failure
      * @param args *no arguments*
      */
     public static void main(String[] args) {
+        Model model;
+        Cli cli = new Cli();
+        Controller controller = new Controller();
 
-        controller = new Controller();
         //only easy for now.
         model = new Model(Difficulty.EASY);
-        cli = new Cli();
 
         cli.initializeView(model);
 
