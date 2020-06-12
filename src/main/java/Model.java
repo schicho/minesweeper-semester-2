@@ -54,7 +54,9 @@ public class Model {
         boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
         //Update GameState
         if(isMine(rowIndex, colIndex)){
+            minesweeperField.sweepTile(rowIndex, colIndex);
             gameState = GameState.LOST;
+            return; //no need to further swipe any tiles
         }else if(!isAlreadySweeped){
             countSweepedTiles++;
         }
