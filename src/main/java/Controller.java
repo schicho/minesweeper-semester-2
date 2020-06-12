@@ -6,6 +6,36 @@ import java.util.Scanner;
 public class Controller /*implements MouseListener*/ {
 
     /**
+     * Main game loop which runs the game and stops it at win or failure
+     * @param args *no arguments*
+     */
+    public static void main(String[] args) {
+        Model model;
+        Cli cli = new Cli();
+        Controller controller = new Controller();
+
+        //only easy for now.
+        model = new Model(Difficulty.EASY);
+
+        cli.initializeView(model);
+
+        //gameloop
+        do {
+            controller.updateModel(model);
+            cli.drawModel(model);
+
+            if(model.checkCurrentGameState() == GameState.WON) {
+                cli.displayWin();
+                System.exit(0);
+            }
+            else if(model.checkCurrentGameState() == GameState.LOST) {
+                cli.displayFailure();
+                System.exit(0);
+            }
+        } while(model.checkCurrentGameState() == GameState.RUNNING);
+    }
+
+    /**
      * the string that will be interpreted in updateModel
      * is filled with data by handleInput
      */
