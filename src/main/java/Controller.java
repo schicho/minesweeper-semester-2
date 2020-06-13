@@ -24,15 +24,15 @@ public class Controller /*implements MouseListener*/ {
             controller.updateModel(model);
             cli.drawModel(model);
 
-            if(model.checkCurrentGameState() == GameState.WON) {
+            if(model.getGameState() == GameState.WON) {
                 cli.displayWin();
                 System.exit(0);
             }
-            else if(model.checkCurrentGameState() == GameState.LOST) {
+            else if(model.getGameState() == GameState.LOST) {
                 cli.displayFailure();
                 System.exit(0);
             }
-        } while(model.checkCurrentGameState() == GameState.RUNNING);
+        } while(model.getGameState() == GameState.RUNNING);
     }
 
     /**
