@@ -44,10 +44,10 @@ public class Field {
         while(count > 0){
             int rowIndex = rng.nextInt(rows);  //value between zero (inclusive) and
             int colIndex = rng.nextInt(cols);  // rows/cols (exclusive)
-            if(minefield[rowIndex][colIndex].getIsMine()){
+            if(minefield[rowIndex][colIndex].getState() == tileState.MINE){
                 continue;               //if Tile is a mine already skip to next loop cycle
             }else{
-                minefield[rowIndex][colIndex].setIsMine(true);
+                minefield[rowIndex][colIndex].setState(tileState.MINE);
                 count--;
             }
         }
@@ -67,30 +67,30 @@ public class Field {
                 //check all 8 surrounding tiles for mines. This is very ugly.
                 //top 3
                 try {
-                    if(minefield[i-1][j-1].getIsMine()){count++;}
+                    if(minefield[i-1][j-1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i-1][j].getIsMine()){count++;}
+                    if(minefield[i-1][j].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i-1][j+1].getIsMine()){count++;}
+                    if(minefield[i-1][j+1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 //left and right
                 try {
-                    if(minefield[i][j-1].getIsMine()){count++;}
+                    if(minefield[i][j-1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i][j+1].getIsMine()){count++;}
+                    if(minefield[i][j+1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 //bottom 3
                 try {
-                    if(minefield[i+1][j-1].getIsMine()){count++;}
+                    if(minefield[i+1][j-1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i+1][j].getIsMine()){count++;}
+                    if(minefield[i+1][j].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
                 try {
-                    if(minefield[i+1][j+1].getIsMine()){count++;}
+                    if(minefield[i+1][j+1].getState() == tileState.MINE){count++;}
                 }catch (IndexOutOfBoundsException e){}
 
                 //write to the current tile which's surrounding mines we counted
@@ -105,7 +105,7 @@ public class Field {
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
-        minefield[rowIndex][colIndex].setIsSweeped(true);
+        minefield[rowIndex][colIndex].setState(tileState.SWEEPED);
     }
 
     /**
@@ -114,7 +114,7 @@ public class Field {
      * @param colIndex index of column
      */
     public boolean isSweeped(int rowIndex, int colIndex){
-        return minefield[rowIndex][colIndex].getIsSweeped();
+        return (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED);
     }
 
     /**
@@ -123,7 +123,7 @@ public class Field {
      * @param colIndex index of column
      */
     public boolean isMine(int rowIndex, int colIndex){
-        return minefield[rowIndex][colIndex].getIsMine();
+        return (minefield[rowIndex][colIndex].getState() == tileState.MINE);
     }
 
     /**
