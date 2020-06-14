@@ -9,6 +9,11 @@ public class Tile {
      */
     public tileState getState() {return state;}
 
+    /**
+     * sets the tiles state
+     */
+    public void setState(tileState state) {this.state = state;}
+
 
     /**
      * returns the number of mines surrounding the tile
@@ -32,7 +37,7 @@ public class Tile {
      * constructs a new tile
      */
     public Tile() {
-        this.state = tileState.NOT_SET;
+        this.state = tileState.FREE;
         this.surroundingMines = 0;
     }
 }
