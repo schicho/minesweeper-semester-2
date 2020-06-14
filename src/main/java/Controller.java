@@ -78,14 +78,21 @@ public class Controller /*implements MouseListener*/ {
      * interprets the given input
      */
     private void handleInput(){
-
+        inputExceptionHandler tester= new inputExceptionHandler();
         //read the next command from user
         command = scanner.nextLine();
 
         //read out step values
-        String[] parts = command.split(":");
-        m = Integer.parseInt(parts[0]);
-        n = Integer.parseInt(parts[1]);
+        try {
+            tester.testSplittable(command);
+            String[] parts = command.split(":");
+            m = Integer.parseInt(parts[0]);
+            n = Integer.parseInt(parts[1]);
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+
     }
 
     /*
