@@ -105,6 +105,10 @@ public class Field {
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == tileState.MINE){
+            minefield[rowIndex][colIndex].setState(tileState.SWEEPED_MINE);
+            return;
+        }
         minefield[rowIndex][colIndex].setState(tileState.SWEEPED);
     }
 
@@ -114,7 +118,8 @@ public class Field {
      * @param colIndex index of column
      */
     public boolean isSweeped(int rowIndex, int colIndex){
-        return (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED);
+        return (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED) ||
+                (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED_MINE);
     }
 
     /**
@@ -123,7 +128,9 @@ public class Field {
      * @param colIndex index of column
      */
     public boolean isMine(int rowIndex, int colIndex){
-        return (minefield[rowIndex][colIndex].getState() == tileState.MINE);
+        return (minefield[rowIndex][colIndex].getState() == tileState.MINE) ||
+                (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED_MINE) ||
+                (minefield[rowIndex][colIndex].getState() == tileState.FLAGGED_MINE);
     }
 
     /**
