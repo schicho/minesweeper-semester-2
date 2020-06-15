@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
+import exceptions.*;
 
 public class Controller /*implements MouseListener*/ {
 
@@ -70,8 +71,9 @@ public class Controller /*implements MouseListener*/ {
     public void updateModel(Model model){
 
         handleInput();
-
-        model.sweepTile(m, n);
+        if(m>-1 && n>-1) {
+            model.sweepTile(m, n);
+        }
     }
 
     /**
@@ -84,14 +86,35 @@ public class Controller /*implements MouseListener*/ {
 
         //read out step values
         try {
+            //throws wrongFormatException, if command doesn't contain a ':'
             tester.testSplittable(command);
             String[] parts = command.split(":");
+            //throws wrongFormatException, if first part can't be parsed as Int
+            tester.testInt(parts[0]);
             m = Integer.parseInt(parts[0]);
+            //throws wrongFormatException, if second part can't be parsed as Int
+            tester.testInt(parts[1]);
             n = Integer.parseInt(parts[1]);
+            //throws notATileException, if m or n is to small or big for the difficulty.
+            /**
+             * MISSING: Exception for flagging!
+             * MISSING: for testInRange, variable for saving the Difficulty instead of Easy
+             */
+            tester.testInRange(Difficulty.EASY,m,n);
         }
-        catch (Exception e){
+        catch (wrongFormatException e){
             System.out.println(e.toString());
+            //set m,n to -1, which can be tested for, to avoid bugs
+            m = -1;
+            n = -1;
         }
+        catch (notATileException e){
+            System.out.println(e.toString());
+            //set m,n to -1, which can be tested for, to avoid bugs. Probably not neccesary here.
+            m = -1;
+            n = -1;
+        }
+
 
     }
 
