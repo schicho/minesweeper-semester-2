@@ -4,8 +4,8 @@ public enum tileState {
      * if one tile has SWEEPED_MINE as its state, the game is lost
      */
     FREE,
-    SWEEPED,
-    FLAGGED,
+    SWEEPED_FREE,
+    FLAGGED_FREE,
     MINE,
     SWEEPED_MINE,
     FLAGGED_MINE,
