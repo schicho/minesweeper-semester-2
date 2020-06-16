@@ -64,6 +64,7 @@ public class Cli{
             System.out.println(rowBuilder);
             rowBuilder.delete(0,rowBuilder.length());
         }
+        System.out.println(minefield.getMinesLeft() " Minen übrig");
     }
     
     public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld.");}
