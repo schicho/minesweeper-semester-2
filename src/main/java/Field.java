@@ -118,6 +118,32 @@ public class Field {
     }
 
     /**
+     * Flag a covered tile
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void flagTile(int rowIndex, int colIndex){
+        minefield[rowIndex][colIndex].setIsFlagged(true);
+    }
+
+    /**
+     * Remove Flag from a flagged tile
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void unFlagTile(int rowIndex, int colIndex){
+        minefield[rowIndex][colIndex].setIsFlagged(false);
+    }
+
+    /**
+     * returns true if tile at given index is flagged.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isFlagged(int rowIndex, int colIndex){
+        return minefield[rowIndex][colIndex].getIsFlagged();
+
+    /**
      * returns true if tile at given index contains a mine.
      * @param rowIndex index of row
      * @param colIndex index of column
