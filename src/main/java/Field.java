@@ -109,7 +109,7 @@ public class Field {
             minefield[rowIndex][colIndex].setState(tileState.SWEEPED_MINE);
             return;
         }
-        minefield[rowIndex][colIndex].setState(tileState.SWEEPED);
+        minefield[rowIndex][colIndex].setState(tileState.SWEEPED_FREE);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Field {
      * @param colIndex index of column
      */
     public boolean isSweeped(int rowIndex, int colIndex){
-        return (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED) ||
+        return (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED_FREE) ||
                 (minefield[rowIndex][colIndex].getState() == tileState.SWEEPED_MINE);
     }
 
