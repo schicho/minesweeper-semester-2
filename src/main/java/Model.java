@@ -7,6 +7,7 @@ public class Model {
     private Field minesweeperField;
     private Difficulty difficulty;
     private int numberOfMines;
+    private int numberOfFlags;
     //Initialize GameState variables with default values
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
@@ -23,18 +24,21 @@ public class Model {
                 minesweeperField = new Field(9,9);
                 minesweeperField.placeMinesRNG(10);
                 numberOfMines = 10;
+                numberOfFlags = 0;
                 this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
             break;
             case NORMAL:
                 minesweeperField = new Field(16, 16);
                 minesweeperField.placeMinesRNG(40);
                 numberOfMines = 40;
+                numberOfFlags = 0;
                 this.difficulty = difficulty;
             break;
             case HARD:
                 minesweeperField = new Field(16, 30);
                 minesweeperField.placeMinesRNG(99);
                 numberOfMines = 99;
+                numberOfFlags = 0;
                 this.difficulty = difficulty;
             break;
         }
@@ -103,6 +107,32 @@ public class Model {
                 }
             }
         }
+    }
+
+    /**
+     * Sets the isFlagged value of the tile at [rowIndex][colIndex] to true if previously unflagged,
+     * false if previously flagged.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void flagTile(int rowIndex, int colIndex) {
+        if (!isFlagged(rowIndex, colIndex)) {
+            minesweeperField.flagTile(rowIndex, colIndex);
+            numberOfFlags++;
+        } else {
+            minesweeperField.unFlagTile(rowIndex, colIndex);
+            numberOfFlags--;
+        }
+    }
+
+    /**
+     * Check if tile at a certain index is flagged or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is flagged, false if not.
+     */
+    public boolean isFlagged(int rowIndex, int colIndex){
+        return minesweeperField.isFlagged(rowIndex, colIndex);
     }
 
     /**
