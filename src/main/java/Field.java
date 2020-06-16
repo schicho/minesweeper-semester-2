@@ -4,6 +4,9 @@ public class Field {
 
     private final int rows;
     private final int cols;
+
+    private int remainingMines;
+
     /**
      * This is the core 2D tile array.
      */
@@ -51,6 +54,8 @@ public class Field {
                 count--;
             }
         }
+
+        remainingMines = numberOfMines;
     }
 
     /**
@@ -113,6 +118,38 @@ public class Field {
     }
 
     /**
+     * mark a tile with a flag, the state is set respectively
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void flagTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == tileState.MINE){
+            minefield[rowIndex][colIndex].setState(tileState.FLAGGED_MINE);
+            return;
+        }
+        minefield[rowIndex][colIndex].setState(tileState.FLAGGED_FREE);
+
+        //reduce remaining mines independent of the actual tile state,
+        //else the player would have a free hint regarding his success
+        remainingMines--;
+    }
+
+    /**
+     * takes the flag off the tile
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void unflagTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == tileState.FLAGGED_MINE){
+            minefield[rowIndex][colIndex].setState(tileState.MINE);
+            return;
+        }
+        minefield[rowIndex][colIndex].setState(tileState.FREE);
+
+        remainingMines++;
+    }
+
+    /**
      * returns true if tile at given index is sweeped.
      * @param rowIndex index of row
      * @param colIndex index of column
@@ -161,5 +198,12 @@ public class Field {
      */
     public int getCols() {
         return cols;
+    }
+
+    /**
+     * @return number of remaining mines the player has yet to find
+     */
+    public int getRemainingMines(){
+        return remainingMines;
     }
 }
