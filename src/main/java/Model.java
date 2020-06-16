@@ -175,6 +175,15 @@ public class Model {
     }
 
     /**
+     * Get number of mines left to flag. Subtracts the number of Flags from the number of Mines.
+     * @return the number of unflagged mines
+     */
+    public int getMinesLeft() {
+        return this.numberOfMines - this.numberOfFlags;
+    }
+
+
+    /**
      * Try to avoid using. Use high level functions above.
      * @return the core 2D Tile Array
      */
