@@ -76,7 +76,7 @@ public class Controller /*implements MouseListener*/ {
      * updates the given model instance dependent of the input
      * the class received earlier
      *
-     * @param model
+     * @param model the model to be updated
      */
     public void updateModel(Model model){
         cli.askForNextTile();
