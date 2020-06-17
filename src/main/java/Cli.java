@@ -58,7 +58,7 @@ public class Cli{
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
                 }
-                else rowBuilder.append('■');
+                else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
@@ -72,8 +72,12 @@ public class Cli{
         System.out.println("You won! Much cool, very skill! ");
     }
 
-    public void displayFailure(){
-        System.out.println("Disgausting! You are not a clown. You are the entire Circus!");
+    /**
+     * displays a message when the game is lost (THERE'S A MEME IN THE MESSAGE)
+     * @param remainingMines the number of mines yet to be found
+     */
+    public void displayFailure(int remainingMines){
+        System.out.println("Disgausting! You are not a clown. You are the entire Circus!\nRemaining mines: " + remainingMines);
     }
 
 }

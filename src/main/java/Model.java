@@ -163,4 +163,11 @@ public class Model {
         }
         return gameState;
     }
+
+    /**
+     * @return the number of mines the player has not found yet
+     */
+    public int getRemainingMines(){
+        return minesweeperField.getRemainingMines();
+    }
 }
