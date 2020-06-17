@@ -27,6 +27,7 @@ public class Cli{
         drawModel(minefield);
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
         System.out.println("Wähle ein Feld in dem Schema \"m:n\", um anzufangen.");
+        System.out.println("Mit \"ng\" wird jederzeit ein neues Spiel gestartet, während \"exit\" das Spiel sofort verlässt.");
     }
 
 
@@ -58,7 +59,7 @@ public class Cli{
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
                 }
-                else rowBuilder.append('■');
+                else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
@@ -66,7 +67,7 @@ public class Cli{
         }
     }
     
-    public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld.");}
+    public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");}
 
     public void displayWin(){
         System.out.println("You won! Much cool, very skill! ");
@@ -74,6 +75,14 @@ public class Cli{
 
     public void displayFailure(){
         System.out.println("Disgausting! You are not a clown. You are the entire Circus!");
+    }
+
+    /**
+     * just prints out the message
+     * @param message what you wanna read on the screen
+     */
+    public void displayMessage(String message){
+        System.out.println(message);
     }
 
 }
