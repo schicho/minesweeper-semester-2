@@ -8,12 +8,21 @@ import exceptions.*;
 public class Controller /*implements MouseListener*/ {
 
     /**
+     * holds the model instance
+     */
+    private static Model model;
+
+    /**
+     * holds the cli instance
+     */
+    private static Cli cli;
+
+    /**
      * Main game loop which runs the game and stops it at win or failure
      * @param args *no arguments*
      */
     public static void main(String[] args) {
-        Model model;
-        Cli cli = new Cli();
+        cli = new Cli();
         Controller controller = new Controller();
 
         //only easy for now.
@@ -29,11 +38,13 @@ public class Controller /*implements MouseListener*/ {
 
             if(model.getGameState() == GameState.WON) {
                 cli.displayWin();
-                System.exit(0);
+                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
+                controller.handleInput();
             }
             else if(model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
-                System.exit(0);
+                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
+                controller.handleInput();
             }
         } while(model.getGameState() == GameState.RUNNING);
 
@@ -76,6 +87,7 @@ public class Controller /*implements MouseListener*/ {
      * @param model the model to be updated
      */
     public void updateModel(Model model){
+        cli.askForNextTile();
 
         handleInput();
         if(m>-1 && n>-1) {
@@ -96,11 +108,9 @@ public class Controller /*implements MouseListener*/ {
         //read the next command from user
         command = scanner.nextLine();
 
-        //read out step values
-
-        try {
-            //throws wrongFormatException, if command doesn't contain a ':'
-            tester.testSplittable(command);
+        if(command.contains(":")){
+            //read out step values
+            try {
             String[] parts = command.split(":");
             //throws wrongFormatException, if first part can't be parsed as Int
             tester.testInt(parts[0]);
@@ -129,7 +139,29 @@ public class Controller /*implements MouseListener*/ {
             m = -1;
             n = -1;
         }
-      
+        }
+        else{
+            //its not a mine command
+            switch(command){
+                case "ng":
+                {
+                    //start a new game
+                    model = new Model(Difficulty.EASY);
+
+                    //draw the new model once, until the game loop does it again
+                    cli.drawModel(model);
+
+                    //set the gameState to running in case the game was lost or won
+                    model.setGameState(GameState.RUNNING);
+                }break;
+                case "exit":
+                {
+                    //exit
+                    model.setGameState(GameState.EXIT);
+                }break;
+            }
+        }
+
     }
 
     /*
