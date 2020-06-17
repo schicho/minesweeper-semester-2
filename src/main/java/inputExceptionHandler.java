@@ -73,4 +73,10 @@ public class inputExceptionHandler {
             throw new notATileException("n must be between "+0+ " and "+(maxN-1)+".");
         }
     }
+
+    public void testFlagChar(String flagChar) throws wrongFormatException{
+        if(true!=flagChar.equals("f")){
+            throw new wrongFormatException("Format must be \"Int:Int:f\"");
+        }
+    }
 }

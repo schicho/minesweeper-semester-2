@@ -47,7 +47,7 @@ public class Controller /*implements MouseListener*/ {
      * used to update the model
      */
     private int m, n;
-
+    private boolean placeFlag=false;
     /**
      * scans the next line (command)
      */
@@ -72,7 +72,10 @@ public class Controller /*implements MouseListener*/ {
 
         handleInput();
         if(m>-1 && n>-1) {
-            model.sweepTile(m, n);
+            if(placeFlag){
+                model.flagTile(m,n);
+            }
+            else{model.sweepTile(m, n);}
         }
     }
 
@@ -97,10 +100,12 @@ public class Controller /*implements MouseListener*/ {
             n = Integer.parseInt(parts[1]);
             //throws notATileException, if m or n is to small or big for the difficulty.
             /**
-             * MISSING: Exception for flagging!
              * MISSING: for testInRange, variable for saving the Difficulty instead of Easy
              */
             tester.testInRange(Difficulty.EASY,m,n);
+            if(parts.length==3){
+                placeFlag=true;
+            }
         }
         catch (wrongFormatException e){
             System.out.println(e.toString());
