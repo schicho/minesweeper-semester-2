@@ -39,7 +39,7 @@ public class Controller /*implements MouseListener*/ {
                 controller.handleInput();
             }
             else if(model.getGameState() == GameState.LOST) {
-                cli.displayFailure();
+                cli.displayFailure(model.getRemainingMines());
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
             }
