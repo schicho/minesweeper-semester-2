@@ -7,7 +7,7 @@ public class Model {
     private Field minesweeperField;
     private Difficulty difficulty;
     private int numberOfMines;
-    private int numberOfFlags;
+    private int numberOfFlags = 0;
     //Initialize GameState variables with default values
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
@@ -24,21 +24,18 @@ public class Model {
                 minesweeperField = new Field(9,9);
                 minesweeperField.placeMinesRNG(10);
                 numberOfMines = 10;
-                numberOfFlags = 0;
                 this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
             break;
             case NORMAL:
                 minesweeperField = new Field(16, 16);
                 minesweeperField.placeMinesRNG(40);
                 numberOfMines = 40;
-                numberOfFlags = 0;
                 this.difficulty = difficulty;
             break;
             case HARD:
                 minesweeperField = new Field(16, 30);
                 minesweeperField.placeMinesRNG(99);
                 numberOfMines = 99;
-                numberOfFlags = 0;
                 this.difficulty = difficulty;
             break;
         }
