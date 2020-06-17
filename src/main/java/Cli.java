@@ -2,11 +2,18 @@
 import java.util.*;
 
 public class Cli{
-    //Existieren nur um in drawModel() durch die einzelnen Elemente des Arrays zu laufen.
+
+
+    /**
+     * Existieren nur um in drawModel() durch die einzelnen Elemente des Arrays zu laufen.
+     */
     int minefieldWidth;
     int minefieldHeight;
 
-
+    public Cli(){
+        System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
+        System.out.println("Bitte wähle einen Schwierigkeitsgrad: Easy, Normal, Hard");
+    }
     //Übergabe des Initialisierten Fields. Zeichnen
     public void initializeView(Model minefield){
         Difficulty difficulty= minefield.getDifficulty();
@@ -25,7 +32,7 @@ public class Cli{
                 break;
         }
         drawModel(minefield);
-        System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
+
         System.out.println("Wähle ein Feld in dem Schema \"m:n\", um anzufangen.");
         System.out.println("Mit \"ng\" wird jederzeit ein neues Spiel gestartet, während \"exit\" das Spiel sofort verlässt.");
     }
@@ -58,6 +65,9 @@ public class Cli{
                         rowBuilder.append('B');
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
+                }
+                else if(minefield.isFlagged(row,coll)){
+                    rowBuilder.append('F');
                 }
                 else rowBuilder.append("■");
                 rowBuilder.append("]");
