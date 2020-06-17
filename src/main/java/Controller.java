@@ -13,9 +13,9 @@ public class Controller /*implements MouseListener*/ {
         Model model;
         Cli cli = new Cli();
         Controller controller = new Controller();
-
+        controller.difficulty=controller.readDifficulty();
         //only easy for now.
-        model = new Model(Difficulty.EASY);
+        model = new Model(controller.difficulty);
 
         cli.initializeView(model);
 
@@ -41,6 +41,7 @@ public class Controller /*implements MouseListener*/ {
      */
     private String command;
 
+
     /**
      * these are containing the evaluated step values
      * used to update the model
@@ -51,6 +52,11 @@ public class Controller /*implements MouseListener*/ {
      * scans the next line (command)
      */
     private Scanner scanner;
+
+    /**
+     * saves the difficulty given by the user
+     */
+    private Difficulty difficulty;
 
     /**
      * creates a new controller instance, which is used to handle input
@@ -86,6 +92,31 @@ public class Controller /*implements MouseListener*/ {
         String[] parts = command.split(":");
         m = Integer.parseInt(parts[0]);
         n = Integer.parseInt(parts[1]);
+    }
+
+    private Difficulty readDifficulty(){
+        Difficulty difficulty = null;
+        while (difficulty==null) {
+            String difficultyString = scanner.nextLine();
+            try {
+                switch (difficultyString.toLowerCase().trim()) {
+                    case "easy":
+                        difficulty = Difficulty.EASY;
+                        break;
+                    case "normal":
+                        difficulty = Difficulty.NORMAL;
+                        break;
+                    case "hard":
+                        difficulty = Difficulty.HARD;
+                        break;
+                    default:
+                        throw new Exception("1. implementiere das in den ExceptionHandler 2. ja nur easy normal hard eingeben.");
+                }
+            }catch (Exception e){
+                System.out.println(e.toString());
+            }
+        }
+        return difficulty;
     }
 
     /*
