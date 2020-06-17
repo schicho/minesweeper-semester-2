@@ -1,7 +1,13 @@
 import exceptions.*;
 
 public class inputExceptionHandler {
-    //returns if String could be parsed as int
+
+
+    /**
+     *
+     * @param input String
+     * @return if String could be parsed as int
+     */
     private boolean isInt(String input){
         try{
             Integer.parseInt(input);
@@ -10,19 +16,37 @@ public class inputExceptionHandler {
             return false;
         }
     }
-    
+
+    /**
+     *
+     * @param input String, pref in Format Int:Int
+     * @throws wrongFormatException if there's no :
+     */
+
     public void testSplittable(String input) throws wrongFormatException {
         if(input.indexOf(':')==-1){
             throw new wrongFormatException("Format must be \"Int:Int\"");
         }
     }
 
+    /**
+     *
+     * @param input String pref in Format Int:Int
+     * @throws wrongFormatException if cant be parsed as int
+     */
     public void testInt(String input) throws wrongFormatException{
         if(true!=isInt(input)){
             throw new wrongFormatException("Format must be \"Int:Int\"");
         }
     }
 
+    /**
+     *
+     * @param difficulty to know the size of field
+     * @param m first int
+     * @param n second int
+     * @throws notATileException if the selected Tile is not in the Minefield
+     */
     public void testInRange(Difficulty difficulty, int m, int n) throws  notATileException{
         int maxM;
         int maxN;
