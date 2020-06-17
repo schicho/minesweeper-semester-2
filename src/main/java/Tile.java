@@ -1,56 +1,43 @@
 public class Tile {
 
-    private boolean isSweeped;
-    private boolean isMine;
+    private tileState state;
     private int surroundingMines;
-    private boolean isFlagged;
+
+    /**
+     * returns the tiles state
+     * @return state
+     */
+    public tileState getState() {return state;}
+
+    /**
+     * sets the tiles state
+     */
+    public void setState(tileState state) {this.state = state;}
 
 
-    // Getter & Setter isSweeped
-    public boolean getIsSweeped() {
-        return isSweeped;
-        }
-
-    public  void setIsSweeped(boolean isSweeped) {
-        this.isSweeped = isSweeped;
-    }
-
-
-    // Getter & Setter isMine
-    public boolean getIsMine() {
-        return isMine;
-    }
-
-    public  void setIsMine(boolean isMine) {
-        this.isMine = isMine;
-    }
-
-
-    // Getter & Setter surroundingMines
+    /**
+     * returns the number of mines surrounding the tile
+     * @return surroundingMines
+     */
     public int getSurroundingMines() {
         return surroundingMines;
     }
 
+    /**
+     * sets the information how many mines surrounding the tile,
+     * not the mines themselves!
+     * @param surroundingMines
+     */
     public  void setSurroundingMines(int surroundingMines) {
         this.surroundingMines = surroundingMines;
     }
 
 
-    // Getter & Setter isFlagged
-    public boolean getIsFlagged() {
-        return isFlagged;
-    }
-
-    public  void setIsFlagged(boolean isFlagged) {
-        this.isFlagged = isFlagged;
-    }
-
-
-    // Constructor
+    /**
+     * constructs a new tile
+     */
     public Tile() {
-        this.isSweeped = false;
-        this.isMine = false;
+        this.state = tileState.FREE;
         this.surroundingMines = 0;
-        this.isFlagged = false;
     }
 }

@@ -7,6 +7,9 @@ public class Model {
     private Field minesweeperField;
     private Difficulty difficulty;
     private int numberOfMines;
+    //Initialize GameState variables with default values
+    private int countSweepedTiles = 0;
+    private GameState gameState = GameState.RUNNING;
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -42,12 +45,22 @@ public class Model {
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
      * zero neighboring mines.
+     * Also updates the gameState on each sweep.
      * @param rowIndex index of row
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
         //also check if tile has not been sweeped before, to stop recursion.
         boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
+        //Update GameState
+        if(isMine(rowIndex, colIndex)){
+            minesweeperField.sweepTile(rowIndex, colIndex);
+            gameState = GameState.LOST;
+            return; //no need to further swipe any tiles
+        }else if(!isAlreadySweeped){
+            countSweepedTiles++;
+        }
+        //recursion
         if(!isAlreadySweeped){
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
@@ -140,27 +153,21 @@ public class Model {
     }
 
     /**
-     * Returns the GameState of the model
-     * @return a value of GameState Enum
+     * returns the value of the GameState needed for the gameloop
+     * @return GameState
      */
-    public GameState checkCurrentGameState(){
-        int countSweepedTiles = 0;
-        int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
-        Tile[][] tilearray = getTileArray();
-
-        for(int i=0; i<minesweeperField.getRows(); i++){
-            for(int j=0; j<minesweeperField.getCols(); j++){
-                if(tilearray[i][j].getIsMine() && tilearray[i][j].getIsSweeped()){
-                    return GameState.LOST;
-                }else if(!tilearray[i][j].getIsMine() && tilearray[i][j].getIsSweeped()){
-                    countSweepedTiles++;
-                }
-            }
+    public GameState getGameState(){
+        final int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
+        if(numberOfNotMineTiles == countSweepedTiles && gameState != GameState.LOST){
+            gameState = GameState.WON;
         }
-        if(countSweepedTiles == numberOfNotMineTiles){
-            return GameState.WON;
-        }
-        return GameState.RUNNING;
+        return gameState;
     }
 
+    /**
+     * @return the number of mines the player has not found yet
+     */
+    public int getRemainingMines(){
+        return minesweeperField.getRemainingMines();
+    }
 }

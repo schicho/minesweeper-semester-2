@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 import java.util.Scanner;
 import exceptions.*;
 
+
 public class Controller /*implements MouseListener*/ {
 
     /**
@@ -25,15 +26,17 @@ public class Controller /*implements MouseListener*/ {
             controller.updateModel(model);
             cli.drawModel(model);
 
-            if(model.checkCurrentGameState() == GameState.WON) {
+
+            if(model.getGameState() == GameState.WON) {
                 cli.displayWin();
                 System.exit(0);
             }
-            else if(model.checkCurrentGameState() == GameState.LOST) {
-                cli.displayFailure();
+            else if(model.getGameState() == GameState.LOST) {
+                cli.displayFailure(model.getRemainingMines());
                 System.exit(0);
             }
-        } while(model.checkCurrentGameState() == GameState.RUNNING);
+        } while(model.getGameState() == GameState.RUNNING);
+
     }
 
     /**
@@ -47,7 +50,11 @@ public class Controller /*implements MouseListener*/ {
      * used to update the model
      */
     private int m, n;
+    /**
+    *true if the last command was one concerning flagplacement
+    */
     private boolean placeFlag=false;
+
     /**
      * scans the next line (command)
      */
@@ -66,7 +73,7 @@ public class Controller /*implements MouseListener*/ {
      * updates the given model instance dependent of the input
      * the class received earlier
      *
-     * @param model
+     * @param model the model to be updated
      */
     public void updateModel(Model model){
 
@@ -77,6 +84,7 @@ public class Controller /*implements MouseListener*/ {
             }
             else{model.sweepTile(m, n);}
         }
+
     }
 
     /**
@@ -84,10 +92,12 @@ public class Controller /*implements MouseListener*/ {
      */
     private void handleInput(){
         inputExceptionHandler tester= new inputExceptionHandler();
+
         //read the next command from user
         command = scanner.nextLine();
 
         //read out step values
+
         try {
             //throws wrongFormatException, if command doesn't contain a ':'
             tester.testSplittable(command);
@@ -119,8 +129,7 @@ public class Controller /*implements MouseListener*/ {
             m = -1;
             n = -1;
         }
-
-
+      
     }
 
     /*
