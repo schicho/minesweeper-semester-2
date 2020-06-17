@@ -112,7 +112,7 @@ public class Controller /*implements MouseListener*/ {
                 case "ng":
                 {
                     //start a new game
-                    model = new Model(Difficulty.EASY);
+                    model = new Model(this.difficulty);
 
                     //draw the new model once, until the game loop does it again
                     cli.drawModel(model);

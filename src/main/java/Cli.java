@@ -65,10 +65,11 @@ public class Cli{
                         rowBuilder.append('B');
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
-                }
+                }/**
+                 *entkommentieren, wenn isFlagged implementiert.
                 else if(minefield.isFlagged(row,coll)){
                     rowBuilder.append('F');
-                }
+                }*/
                 else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
