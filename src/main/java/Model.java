@@ -7,8 +7,8 @@ public class Model {
     private Field minesweeperField;
     private Difficulty difficulty;
     private int numberOfMines;
-    private int numberOfFlags = 0;
     //Initialize GameState variables with default values
+    private int numberOfFlags = 0;
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
 
@@ -117,7 +117,7 @@ public class Model {
             minesweeperField.flagTile(rowIndex, colIndex);
             numberOfFlags++;
         } else {
-            minesweeperField.unFlagTile(rowIndex, colIndex);
+            minesweeperField.unflagTile(rowIndex, colIndex);
             numberOfFlags--;
         }
     }
@@ -172,13 +172,13 @@ public class Model {
     }
 
     /**
-     * Get number of mines left to flag. Subtracts the number of Flags from the number of Mines.
-     * @return the number of unflagged mines
+     * Get number of flags left which are needed to cover all mines.
+     * Subtracts the number of Flags from the number of Mines.
+     * @return the count of all Mines - the count of set Flags.
      */
-    public int getMinesLeft() {
+    public int getFlagsToSetLeft() {
         return this.numberOfMines - this.numberOfFlags;
     }
-
 
     /**
      * Try to avoid using. Use high level functions above.

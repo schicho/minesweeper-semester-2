@@ -1,6 +1,3 @@
-
-import java.util.*;
-
 public class Cli{
 
 
@@ -62,21 +59,20 @@ public class Cli{
                 rowBuilder.append("[");
                 if(minefield.isSweeped(row,coll)){
                     if(minefield.isMine(row,coll)){
-                        rowBuilder.append('B');
+                        rowBuilder.append("B");
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
-                }/**
-                 *entkommentieren, wenn isFlagged implementiert.
+                }
                 else if(minefield.isFlagged(row,coll)){
-                    rowBuilder.append('F');
-                }*/
+                    rowBuilder.append("F");
+                }
                 else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
             rowBuilder.delete(0,rowBuilder.length());
         }
-        System.out.println(minefield.getMinesLeft() + " Minen übrig");
+        System.out.println(minefield.getFlagsToSetLeft() + " Minen sind noch zu finden.");
     }
     
     public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");}
@@ -90,7 +86,7 @@ public class Cli{
      * @param remainingMines the number of mines yet to be found
      */
     public void displayFailure(int remainingMines){
-        System.out.println("Disgausting! You are not a clown. You are the entire Circus!\nRemaining mines: " + remainingMines);
+        System.out.println("Disgausting! You are not a clown. You are the entire Circus!\nAnzahl nicht gefundener Minen: " + remainingMines);
     }
 
     /**
