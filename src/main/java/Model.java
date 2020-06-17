@@ -163,4 +163,19 @@ public class Model {
         }
         return gameState;
     }
+
+    /**
+     * used to set the gameState without, having to lose or win the game
+     * @param gs new gameState
+     */
+    public void setGameState(GameState gs){
+        gameState = gs;
+    }
+  
+    /**
+     * @return the number of mines the player has not found yet
+     */
+    public int getRemainingMines(){
+        return minesweeperField.getRemainingMines();
+    }
 }
