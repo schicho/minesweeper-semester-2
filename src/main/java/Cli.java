@@ -58,7 +58,7 @@ public class Cli{
                     }
                     else rowBuilder.append(minefield.getSurroundingMines(row,coll));
                 }
-                else rowBuilder.append('■');
+                else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);

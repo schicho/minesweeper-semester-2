@@ -125,13 +125,11 @@ public class Field {
     public void flagTile(int rowIndex, int colIndex){
         if(minefield[rowIndex][colIndex].getState() == tileState.MINE){
             minefield[rowIndex][colIndex].setState(tileState.FLAGGED_MINE);
+            //reduce remainingMines, because a mine was found
+            remainingMines--;
             return;
         }
         minefield[rowIndex][colIndex].setState(tileState.FLAGGED_FREE);
-
-        //reduce remaining mines independent of the actual tile state,
-        //else the player would have a free hint regarding his success
-        remainingMines--;
     }
 
     /**
@@ -142,11 +140,11 @@ public class Field {
     public void unflagTile(int rowIndex, int colIndex){
         if(minefield[rowIndex][colIndex].getState() == tileState.FLAGGED_MINE){
             minefield[rowIndex][colIndex].setState(tileState.MINE);
+            //a found mine was unflagged
+            remainingMines++;
             return;
         }
         minefield[rowIndex][colIndex].setState(tileState.FREE);
-
-        remainingMines++;
     }
 
     /**
