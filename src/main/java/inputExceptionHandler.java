@@ -20,12 +20,14 @@ public class inputExceptionHandler {
     /**
      *
      * @param input String, pref in Format Int:Int
-     * @throws wrongFormatException if there's no :
+     * @throws wrongFormatException if there's no :, and the string isn't a different command
      */
-
-    public void testSplittable(String input) throws wrongFormatException {
+    public void testRealCommand(String input) throws wrongFormatException {
         if(input.indexOf(':')==-1){
-            throw new wrongFormatException("Format must be \"Int:Int\"");
+            if(input.equals("ng")||input.equals("exit")){}
+            else {
+                throw new wrongFormatException("Format must be \"Int:Int\", or \"ng\", \"exit\"");
+            }
         }
     }
 
@@ -74,9 +76,28 @@ public class inputExceptionHandler {
         }
     }
 
+    /**
+     *
+     * @param flagChar taskes the String after the second :
+     * @throws wrongFormatException, if this char isn't 'f'
+     */
     public void testFlagChar(String flagChar) throws wrongFormatException{
         if(true!=flagChar.equals("f")){
             throw new wrongFormatException("Format must be \"Int:Int:f\"");
+        }
+    }
+
+    /**
+     *
+     * @param difficultyString the String given by the user, representing the difficulty
+     * @throws notADifficultyException if it isn't any known difficulty.
+     */
+    public void testForDifficulty(String difficultyString) throws notADifficultyException{
+        String trimmedString=difficultyString.toLowerCase().trim();
+        if(trimmedString.equals("easy")||trimmedString.equals("normal")||trimmedString.equals("hard")){
+
+        }else {
+            throw new notADifficultyException("Difficulty must be \"easy\" \"normal\" \"hard\".");
         }
     }
 }

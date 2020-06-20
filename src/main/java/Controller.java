@@ -107,27 +107,44 @@ public class Controller /*implements MouseListener*/ {
 
         //read the next command from user
         command = scanner.nextLine();
+        try {
+            tester.testRealCommand(command);
+            if (command.contains(":")) {
+                //read out step values
+                String[] parts = command.split(":");
+                //throws wrongFormatException, if first part can't be parsed as Int
+                tester.testInt(parts[0]);
+                m = Integer.parseInt(parts[0]);
+                //throws wrongFormatException, if second part can't be parsed as Int
+                tester.testInt(parts[1]);
+                n = Integer.parseInt(parts[1]);
+                //throws notATileException, if m or n is to small or big for the difficulty.
+                tester.testInRange(difficulty, m, n);
+                if (parts.length == 3) {
+                    placeFlag = true;
+                }
+            } else {
+                //its not a mine command
+                switch (command) {
+                    case "ng": {
+                        //start a new game
+                        model = new Model(Difficulty.EASY);
 
-        if(command.contains(":")){
-            //read out step values
-            try {
-            String[] parts = command.split(":");
-            //throws wrongFormatException, if first part can't be parsed as Int
-            tester.testInt(parts[0]);
-            m = Integer.parseInt(parts[0]);
-            //throws wrongFormatException, if second part can't be parsed as Int
-            tester.testInt(parts[1]);
-            n = Integer.parseInt(parts[1]);
-            //throws notATileException, if m or n is to small or big for the difficulty.
-            /**
-             * MISSING: for testInRange, variable for saving the Difficulty instead of Easy
-             */
-            tester.testInRange(Difficulty.EASY,m,n);
-            if(parts.length==3){
-                placeFlag=true;
+                        //draw the new model once, until the game loop does it again
+                        cli.drawModel(model);
+
+                        //set the gameState to running in case the game was lost or won
+                        model.setGameState(GameState.RUNNING);
+                    }
+                    break;
+                    case "exit": {
+                        //exit
+                        model.setGameState(GameState.EXIT);
+                    }
+                    break;
+                }
             }
-        }
-        catch (wrongFormatException e){
+        }catch (wrongFormatException e){
             System.out.println(e.toString());
             //set m,n to -1, which can be tested for, to avoid bugs
             m = -1;
@@ -138,28 +155,6 @@ public class Controller /*implements MouseListener*/ {
             //set m,n to -1, which can be tested for, to avoid bugs. Probably not neccesary here.
             m = -1;
             n = -1;
-        }
-        }
-        else{
-            //its not a mine command
-            switch(command){
-                case "ng":
-                {
-                    //start a new game
-                    model = new Model(Difficulty.EASY);
-
-                    //draw the new model once, until the game loop does it again
-                    cli.drawModel(model);
-
-                    //set the gameState to running in case the game was lost or won
-                    model.setGameState(GameState.RUNNING);
-                }break;
-                case "exit":
-                {
-                    //exit
-                    model.setGameState(GameState.EXIT);
-                }break;
-            }
         }
 
     }
