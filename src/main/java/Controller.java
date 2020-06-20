@@ -111,19 +111,15 @@ public class Controller /*implements MouseListener*/ {
             switch(command){
                 case "ng":
                 {
-                    //start a new game
-                    model = new Model(this.difficulty);
-
-                    //draw the new model once, until the game loop does it again
-                    cli.drawModel(model);
-
-                    //set the gameState to running in case the game was lost or won
-                    model.setGameState(GameState.RUNNING);
+                    String[] noargs = {""};
+                    main(noargs);
                 }break;
                 case "exit":
                 {
                     //exit
                     model.setGameState(GameState.EXIT);
+                    //Don't wait on gameloop to quit indirectly. Avoids redraw
+                    System.exit(0);
                 }break;
             }
         }
