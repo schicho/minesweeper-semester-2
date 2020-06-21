@@ -88,8 +88,6 @@ public class Controller /*implements MouseListener*/ {
         cli.askForNextTile();
 
         handleInput();
-
-        model.sweepTile(m, n);
     }
 
     /**
@@ -100,11 +98,24 @@ public class Controller /*implements MouseListener*/ {
         //read the next command from user
         command = scanner.nextLine();
 
-        if(command.contains(":")){
+        //flag a tile
+        if(command.contains(":") && command.startsWith("f")){
+            command = command.replace("f", "");
             //read out step values
             String[] parts = command.split(":");
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
+
+            model.flagTile(m, n);
+        }
+        //sweep a tile
+        else if(command.contains(":")){
+            //read out step values
+            String[] parts = command.split(":");
+            m = Integer.parseInt(parts[0]);
+            n = Integer.parseInt(parts[1]);
+
+            model.sweepTile(m, n);
         }
         else{
             //its not a mine command
