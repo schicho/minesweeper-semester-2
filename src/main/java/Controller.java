@@ -59,6 +59,8 @@ public class Controller /*implements MouseListener*/ {
      */
     private int m, n;
 
+    private boolean flag = false;
+
     /**
      * scans the next line (command)
      */
@@ -89,7 +91,13 @@ public class Controller /*implements MouseListener*/ {
 
         handleInput();
 
-        model.sweepTile(m, n);
+        if (flag) {
+            model.flagTile(m, n);
+            flag = false;
+        }
+        else {
+            model.sweepTile(m, n);
+        }
     }
 
     /**
@@ -109,6 +117,10 @@ public class Controller /*implements MouseListener*/ {
         else{
             //its not a mine command
             switch(command){
+                case "f":
+                {
+                    flag = true;
+                }break;
                 case "ng":
                 {
                     //start a new game
