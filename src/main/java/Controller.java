@@ -101,7 +101,7 @@ public class Controller /*implements MouseListener*/ {
         command = scanner.nextLine();
 
         //flag a tile
-        if(command.contains(":") && command.contains("f")){
+        if(command.contains(":") && command.startsWith("f")){
             command = command.replace("f", "");
             //read out step values
             String[] parts = command.split(":");
