@@ -51,6 +51,10 @@ public class Model {
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
+        //do not allow sweeping of flagged tiles
+        if(isFlagged(rowIndex, colIndex)){
+            return;
+        }
         //also check if tile has not been sweeped before, to stop recursion.
         boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
         //Update GameState
