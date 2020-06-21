@@ -78,6 +78,11 @@ public class Controller /*implements MouseListener*/ {
     private Difficulty difficulty;
 
     /**
+     * tests userinput for all kinds of mistakes
+     */
+    private inputExceptionHandler tester= new inputExceptionHandler();
+
+    /**
      * creates a new controller instance, which is used to handle input
      * and update the model it is given respectively
      */
@@ -103,7 +108,6 @@ public class Controller /*implements MouseListener*/ {
      * interprets the given input
      */
     private void handleInput(){
-        inputExceptionHandler tester= new inputExceptionHandler();
 
         //read the next command from user
         command = scanner.nextLine();
@@ -126,6 +130,7 @@ public class Controller /*implements MouseListener*/ {
         else if(command.contains(":")){
             //read out step values
             String[] parts = command.split(":");
+            tester.testInt(parts[0]);
             m = Integer.parseInt(parts[0]);
             tester.testInt(parts[1]);
             n = Integer.parseInt(parts[1]);
@@ -150,7 +155,8 @@ public class Controller /*implements MouseListener*/ {
                 }break;
 
             }
-        }catch (wrongFormatException e){
+        }}
+    catch (wrongFormatException e){
             System.out.println(e.toString());
             //set m,n to -1, which can be tested for, to avoid bugs
             m = -1;
@@ -170,20 +176,19 @@ public class Controller /*implements MouseListener*/ {
         while (difficulty==null) {
             String difficultyString = scanner.nextLine();
             try {
-                switch (difficultyString.toLowerCase().trim()) {
-                    case "easy":
-                        difficulty = Difficulty.EASY;
-                        break;
-                    case "normal":
-                        difficulty = Difficulty.NORMAL;
-                        break;
-                    case "hard":
-                        difficulty = Difficulty.HARD;
-                        break;
-                    default:
-                        throw new Exception("1. implementiere das in den ExceptionHandler 2. ja nur easy normal hard eingeben.");
-                }
-            }catch (Exception e){
+                tester.testForDifficulty(difficultyString);
+                    switch (difficultyString.toLowerCase().trim()) {
+                        case "easy":
+                            difficulty = Difficulty.EASY;
+                            break;
+                        case "normal":
+                            difficulty = Difficulty.NORMAL;
+                            break;
+                        case "hard":
+                            difficulty = Difficulty.HARD;
+                            break;
+                    }
+            }catch (notADifficultyException e){
                 System.out.println(e.toString());
             }
         }

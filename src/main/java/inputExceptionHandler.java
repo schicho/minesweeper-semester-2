@@ -26,7 +26,7 @@ public class inputExceptionHandler {
         if(input.indexOf(':')==-1){
             if(input.equals("ng")||input.equals("exit")){}
             else {
-                throw new wrongFormatException("Format must be \"Int:Int\", or \"ng\", \"exit\"");
+                throw new wrongFormatException("Format must be \"(f)Int:Int\", or \"ng\", \"exit\"");
             }
         }
     }
@@ -38,7 +38,7 @@ public class inputExceptionHandler {
      */
     public void testInt(String input) throws wrongFormatException{
         if(true!=isInt(input)){
-            throw new wrongFormatException("Format must be \"Int:Int\"");
+            throw new wrongFormatException("Format must be \"(f)Int:Int\"");
         }
     }
 
@@ -76,16 +76,6 @@ public class inputExceptionHandler {
         }
     }
 
-    /**
-     *
-     * @param flagChar taskes the String after the second :
-     * @throws wrongFormatException, if this char isn't 'f'
-     */
-    public void testFlagChar(String flagChar) throws wrongFormatException{
-        if(true!=flagChar.equals("f")){
-            throw new wrongFormatException("Format must be \"Int:Int:f\"");
-        }
-    }
 
     /**
      *
