@@ -113,6 +113,9 @@ public class Model {
      * @param colIndex index of column
      */
     public void flagTile(int rowIndex, int colIndex) {
+        if (isSweeped(rowIndex, colIndex)){
+            return;
+        }
         if (!isFlagged(rowIndex, colIndex)) {
             minesweeperField.flagTile(rowIndex, colIndex);
             numberOfFlags++;
