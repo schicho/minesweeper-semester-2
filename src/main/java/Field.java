@@ -123,6 +123,9 @@ public class Field {
      * @param colIndex index of column
      */
     public void flagTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == tileState.SWEEPED_FREE){
+            return; //Do not allow to flag a sweeped tile. Nothing happens.
+        }
         if(minefield[rowIndex][colIndex].getState() == tileState.MINE){
             minefield[rowIndex][colIndex].setState(tileState.FLAGGED_MINE);
             //reduce remainingMines, because a mine was found
