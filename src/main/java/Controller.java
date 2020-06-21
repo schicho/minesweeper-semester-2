@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
+import exceptions.*;
+
 
 public class Controller /*implements MouseListener*/ {
 
@@ -33,6 +35,7 @@ public class Controller /*implements MouseListener*/ {
             controller.updateModel(model);
             cli.drawModel(model);
 
+
             if(model.getGameState() == GameState.WON) {
                 cli.displayWin();
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
@@ -44,6 +47,7 @@ public class Controller /*implements MouseListener*/ {
                 controller.handleInput();
             }
         } while(model.getGameState() == GameState.RUNNING);
+
     }
 
     /**
@@ -58,6 +62,10 @@ public class Controller /*implements MouseListener*/ {
      * used to update the model
      */
     private int m, n;
+    /**
+    *true if the last command was one concerning flagplacement
+    */
+    private boolean placeFlag=false;
 
     /**
      * scans the next line (command)
@@ -68,6 +76,11 @@ public class Controller /*implements MouseListener*/ {
      * saves the difficulty given by the user
      */
     private Difficulty difficulty;
+
+    /**
+     * tests userinput for all kinds of mistakes
+     */
+    private inputExceptionHandler tester= new inputExceptionHandler();
 
     /**
      * creates a new controller instance, which is used to handle input
@@ -88,6 +101,7 @@ public class Controller /*implements MouseListener*/ {
         cli.askForNextTile();
 
         handleInput();
+
     }
 
     /**
@@ -98,22 +112,29 @@ public class Controller /*implements MouseListener*/ {
         //read the next command from user
         command = scanner.nextLine();
 
+    try {
         //flag a tile
+        tester.testRealCommand(command);
         if(command.contains(":") && command.startsWith("f")){
             command = command.replace("f", "");
             //read out step values
             String[] parts = command.split(":");
+            tester.testInt(parts[0]);
             m = Integer.parseInt(parts[0]);
+            tester.testInt(parts[1]);
             n = Integer.parseInt(parts[1]);
-
+            tester.testInRange(difficulty, m, n);
             model.flagTile(m, n);
         }
         //sweep a tile
         else if(command.contains(":")){
             //read out step values
             String[] parts = command.split(":");
+            tester.testInt(parts[0]);
             m = Integer.parseInt(parts[0]);
+            tester.testInt(parts[1]);
             n = Integer.parseInt(parts[1]);
+            tester.testInRange(difficulty, m, n);
 
             model.sweepTile(m, n);
         }
@@ -132,8 +153,22 @@ public class Controller /*implements MouseListener*/ {
                     //Don't wait on gameloop to quit indirectly. Avoids redraw
                     System.exit(0);
                 }break;
+
             }
+        }}
+    catch (wrongFormatException e){
+            System.out.println(e.toString());
+            //set m,n to -1, which can be tested for, to avoid bugs
+            m = -1;
+            n = -1;
         }
+        catch (notATileException e){
+            System.out.println(e.toString());
+            //set m,n to -1, which can be tested for, to avoid bugs. Probably not neccesary here.
+            m = -1;
+            n = -1;
+        }
+
     }
 
     private Difficulty readDifficulty(){
@@ -141,20 +176,19 @@ public class Controller /*implements MouseListener*/ {
         while (difficulty==null) {
             String difficultyString = scanner.nextLine();
             try {
-                switch (difficultyString.toLowerCase().trim()) {
-                    case "easy":
-                        difficulty = Difficulty.EASY;
-                        break;
-                    case "normal":
-                        difficulty = Difficulty.NORMAL;
-                        break;
-                    case "hard":
-                        difficulty = Difficulty.HARD;
-                        break;
-                    default:
-                        throw new Exception("1. implementiere das in den ExceptionHandler 2. ja nur easy normal hard eingeben.");
-                }
-            }catch (Exception e){
+                tester.testForDifficulty(difficultyString);
+                    switch (difficultyString.toLowerCase().trim()) {
+                        case "easy":
+                            difficulty = Difficulty.EASY;
+                            break;
+                        case "normal":
+                            difficulty = Difficulty.NORMAL;
+                            break;
+                        case "hard":
+                            difficulty = Difficulty.HARD;
+                            break;
+                    }
+            }catch (notADifficultyException e){
                 System.out.println(e.toString());
             }
         }
