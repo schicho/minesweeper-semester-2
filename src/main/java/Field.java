@@ -158,6 +158,16 @@ public class Field {
     }
 
     /**
+     * returns true if tile at given index is flagged.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isFlagged(int rowIndex, int colIndex) {
+        return minefield[rowIndex][colIndex].getState() == tileState.FLAGGED_FREE ||
+                minefield[rowIndex][colIndex].getState() == tileState.FLAGGED_MINE;
+    }
+
+    /**
      * returns true if tile at given index contains a mine.
      * @param rowIndex index of row
      * @param colIndex index of column

@@ -24,9 +24,9 @@ public class Controller /*implements MouseListener*/ {
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
-
+        controller.difficulty=controller.readDifficulty();
         //only easy for now.
-        model = new Model(Difficulty.EASY);
+        model = new Model(controller.difficulty);
 
         cli.initializeView(model);
 
@@ -56,6 +56,7 @@ public class Controller /*implements MouseListener*/ {
      */
     private String command;
 
+
     /**
      * these are containing the evaluated step values
      * used to update the model
@@ -70,6 +71,11 @@ public class Controller /*implements MouseListener*/ {
      * scans the next line (command)
      */
     private Scanner scanner;
+
+    /**
+     * saves the difficulty given by the user
+     */
+    private Difficulty difficulty;
 
     /**
      * creates a new controller instance, which is used to handle input
@@ -90,12 +96,6 @@ public class Controller /*implements MouseListener*/ {
         cli.askForNextTile();
 
         handleInput();
-        if(m>-1 && n>-1) {
-            if(placeFlag){
-                model.flagTile(m,n);
-            }
-            else{model.sweepTile(m, n);}
-        }
 
     }
 
@@ -107,42 +107,48 @@ public class Controller /*implements MouseListener*/ {
 
         //read the next command from user
         command = scanner.nextLine();
-        try {
-            tester.testRealCommand(command);
-            if (command.contains(":")) {
-                //read out step values
-                String[] parts = command.split(":");
-                //throws wrongFormatException, if first part can't be parsed as Int
-                tester.testInt(parts[0]);
-                m = Integer.parseInt(parts[0]);
-                //throws wrongFormatException, if second part can't be parsed as Int
-                tester.testInt(parts[1]);
-                n = Integer.parseInt(parts[1]);
-                //throws notATileException, if m or n is to small or big for the difficulty.
-                tester.testInRange(difficulty, m, n);
-                if (parts.length == 3) {
-                    placeFlag = true;
-                }
-            } else {
-                //its not a mine command
-                switch (command) {
-                    case "ng": {
-                        //start a new game
-                        model = new Model(Difficulty.EASY);
 
-                        //draw the new model once, until the game loop does it again
-                        cli.drawModel(model);
+    try {
+        //flag a tile
+        tester.testRealCommand(command);
+        if(command.contains(":") && command.startsWith("f")){
+            command = command.replace("f", "");
+            //read out step values
+            String[] parts = command.split(":");
+            tester.testInt(parts[0]);
+            m = Integer.parseInt(parts[0]);
+            tester.testInt(parts[1]);
+            n = Integer.parseInt(parts[1]);
+            tester.testInRange(difficulty, m, n);
+            model.flagTile(m, n);
+        }
+        //sweep a tile
+        else if(command.contains(":")){
+            //read out step values
+            String[] parts = command.split(":");
+            m = Integer.parseInt(parts[0]);
+            tester.testInt(parts[1]);
+            n = Integer.parseInt(parts[1]);
+            tester.testInRange(difficulty, m, n);
 
-                        //set the gameState to running in case the game was lost or won
-                        model.setGameState(GameState.RUNNING);
-                    }
-                    break;
-                    case "exit": {
-                        //exit
-                        model.setGameState(GameState.EXIT);
-                    }
-                    break;
-                }
+            model.sweepTile(m, n);
+        }
+        else{
+            //its not a mine command
+            switch(command){
+                case "ng":
+                {
+                    String[] noargs = {""};
+                    main(noargs);
+                }break;
+                case "exit":
+                {
+                    //exit
+                    model.setGameState(GameState.EXIT);
+                    //Don't wait on gameloop to quit indirectly. Avoids redraw
+                    System.exit(0);
+                }break;
+
             }
         }catch (wrongFormatException e){
             System.out.println(e.toString());
@@ -157,6 +163,31 @@ public class Controller /*implements MouseListener*/ {
             n = -1;
         }
 
+    }
+
+    private Difficulty readDifficulty(){
+        Difficulty difficulty = null;
+        while (difficulty==null) {
+            String difficultyString = scanner.nextLine();
+            try {
+                switch (difficultyString.toLowerCase().trim()) {
+                    case "easy":
+                        difficulty = Difficulty.EASY;
+                        break;
+                    case "normal":
+                        difficulty = Difficulty.NORMAL;
+                        break;
+                    case "hard":
+                        difficulty = Difficulty.HARD;
+                        break;
+                    default:
+                        throw new Exception("1. implementiere das in den ExceptionHandler 2. ja nur easy normal hard eingeben.");
+                }
+            }catch (Exception e){
+                System.out.println(e.toString());
+            }
+        }
+        return difficulty;
     }
 
     /*

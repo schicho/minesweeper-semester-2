@@ -8,6 +8,7 @@ public class Model {
     private Difficulty difficulty;
     private int numberOfMines;
     //Initialize GameState variables with default values
+    private int numberOfFlags = 0;
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
 
@@ -50,6 +51,10 @@ public class Model {
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
+        //do not allow sweeping of flagged tiles
+        if(isFlagged(rowIndex, colIndex)){
+            return;
+        }
         //also check if tile has not been sweeped before, to stop recursion.
         boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
         //Update GameState
@@ -106,6 +111,35 @@ public class Model {
     }
 
     /**
+     * Sets the isFlagged value of the tile at [rowIndex][colIndex] to true if previously unflagged,
+     * false if previously flagged.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void flagTile(int rowIndex, int colIndex) {
+        if (isSweeped(rowIndex, colIndex)){
+            return;
+        }
+        if (!isFlagged(rowIndex, colIndex)) {
+            minesweeperField.flagTile(rowIndex, colIndex);
+            numberOfFlags++;
+        } else {
+            minesweeperField.unflagTile(rowIndex, colIndex);
+            numberOfFlags--;
+        }
+    }
+
+    /**
+     * Check if tile at a certain index is flagged or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is flagged, false if not.
+     */
+    public boolean isFlagged(int rowIndex, int colIndex){
+        return minesweeperField.isFlagged(rowIndex, colIndex);
+    }
+
+    /**
      * Check if tile at a certain index is sweeped or not.
      * @param rowIndex index of row
      * @param colIndex index of column
@@ -142,6 +176,15 @@ public class Model {
      */
     public Difficulty getDifficulty() {
         return this.difficulty;
+    }
+
+    /**
+     * Get number of flags left which are needed to cover all mines.
+     * Subtracts the number of Flags from the number of Mines.
+     * @return the count of all Mines - the count of set Flags.
+     */
+    public int getFlagsToSetLeft() {
+        return this.numberOfMines - this.numberOfFlags;
     }
 
     /**
