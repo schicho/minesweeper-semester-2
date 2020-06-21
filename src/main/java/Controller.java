@@ -59,8 +59,6 @@ public class Controller /*implements MouseListener*/ {
      */
     private int m, n;
 
-    private boolean flag = false;
-
     /**
      * scans the next line (command)
      */
