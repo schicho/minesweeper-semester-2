@@ -107,3 +107,32 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 - Zugehörige User Story/ies: #24, #17
 - Umsetzung in PRs: #92
 
+<br>
+
+## Sprintplanning Iteration 4
+
+**Die Planung des Sprints für Iteration 4 wurde am 22.06.2020 in einem Teammeeting per Discord unter Teilnahme aller Teammitglieder durchgeführt.**
+Dabei haben wir uns größtenteils auf die bereits bestehenden User Stories zum GUI beschränkt, da wir damit rechenen, dass dafür viel Zeit aufgewendet werden muss.
+Falls wir bereits eher mit dem GUI fertig sein sollten, können wir noch weitere User Stories im Verlauf der Iteration mit in den Sprintplan aufnehemen.
+Ansonsten werden diese in der nächsten Iteration erledigt.
+
+<br>
+
+**Die Ausarbeitung und Planung der User Stories als auch der Tasks fand während des Discord Meetings in Zusammenarbeit aller Mitglieder statt.**
+Im Detail wurde folgendes gemacht:
+
+- Erstellung eines neuen Milestones für Iteration 4
+- Erstellung eines neuen Kanban Boards für Iteration 4
+- Auswahl von bereits erstellten User Stories getroffen: (einige Teilaspekte der User Stories sind bereits in der CLI erledigt worden, nun fehlt noch der GUI Teil)
+  - #39 #36 #19 #20 #21 von ribbec01
+  - #29 von abdula01
+  - #11 #26 von hoefer12
+  - #18 von zavacz02
+
+- Erstellung neuer und Übernahme alter Tasks:
+  - #73 #102 #106 #100 geschrieben von ribbec01
+  - #71 #101 #52 #72 geschrieben von hoefer12
+  - #105 geschrieben von zavacz02
+  - #103 geschrieben von abdula01
+  - #104 geschrieben von schich09
+
