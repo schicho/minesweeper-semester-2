@@ -1,3 +1,5 @@
+package entities.enums;
+
 public enum Difficulty{
     /**
      * enum of Difficulty settings. This then influences the size

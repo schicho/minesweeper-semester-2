@@ -1,3 +1,9 @@
+package view;
+
+import model.*;
+// import entities.*;
+import entities.enums.*;
+
 public class Cli{
 
 

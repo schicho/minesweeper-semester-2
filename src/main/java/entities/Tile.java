@@ -1,3 +1,7 @@
+package entities;
+
+import entities.enums.*;
+
 public class Tile {
 
     private tileState state;

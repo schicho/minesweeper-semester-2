@@ -1,3 +1,5 @@
+package entities.enums;
+
 public enum tileState {
     /**
      * enum of tile states. Each tile can have exactly one state.
