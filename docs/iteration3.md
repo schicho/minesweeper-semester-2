@@ -2,7 +2,7 @@
 
 <br>
 
-  ## Gruppenmitglieder
+## Gruppenmitglieder
 
 | Name               | StudIP   | Github   |
 | ------------------ | -------- | -------- |
@@ -14,12 +14,11 @@
 
 <br>
 
-
 ## Scrum-Master für die Iteration 3
 
 Johann Schicho => schich09
-<br>
 
+<br>
 
 ## Feedback für die Iteration 2
 
@@ -48,8 +47,8 @@ hinzugefügt.
 ## Daily-Meetings
 
 Daily Meetings wurden fast täglich vereinbart, je nachdem wie sehr alle Gruppenmitglieder durch andere Kurse bereits zeitlich eingeschränkt waren. Diese Termine sind von allem Teammitgliedern wahrgenommen worden.
-<br>
 
+<br>
 
 ## Umgesetzte User Stories/Tasks
 
@@ -67,6 +66,7 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 - Zugehörige User Story/ies: #2
 - Umsetzung in PRs: #99                                       **MISSING PRS**
 
+<br>
 
 ### Johann Schicho => schich09
 
@@ -77,6 +77,8 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 - Umsetzung in PRs: #80, #85, #86                       **MISSING KLASSENDIAGRAMM**
   - Zusätzlich PRs: #87 #98
 
+<br>
+
 ### Finn Ribbeck => ribbec01
 
 **Refactoring Tileklasse, Ausgabe Minen, Neues Spielstarten**
@@ -85,6 +87,8 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 - Zugehörige User Story/ies: #57, #30
 - Umsetzung in PRs: #88, #90, #93
 
+<br>
+
 ### Simon Höfer => hoefer12
 
 **Exceptionhandling für User-Input, Schwierigkeitsgrad wählen, Flaggendarstellung im Minenfeld**
@@ -92,6 +96,8 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 - Task/s: #70, #82, #84
 - Zugehörige User Story/ies: #8, #48
 - Umsetzung in PRs: #94, #95
+
+<br>
 
 ### Christian Zavaczki => zavacz02
 
