@@ -111,14 +111,14 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 
 ## Sprintplanning Iteration 4
 
-**Die Planung des Sprints für Iteration 4 wurde am 22.06.2020 in einem Teammeeting per Discord unter Teilnahme aller Teammitglieder durchgeführt.**
+**Die Planung des Sprints für Iteration 4 wurde am 22.06.2020 in einem Teammeeting per Discord unter Teilnahme aller Teammitglieder durchgeführt.**<br>
 Dabei haben wir uns größtenteils auf die bereits bestehenden User Stories zum GUI beschränkt, da wir damit rechenen, dass dafür viel Zeit aufgewendet werden muss.
 Falls wir bereits eher mit dem GUI fertig sein sollten, können wir noch weitere User Stories im Verlauf der Iteration mit in den Sprintplan aufnehemen.
 Ansonsten werden diese in der nächsten Iteration erledigt.
 
 <br>
 
-**Die Ausarbeitung und Planung der User Stories als auch der Tasks fand während des Discord Meetings in Zusammenarbeit aller Mitglieder statt.**
+**Die Ausarbeitung und Planung der User Stories als auch der Tasks fand während des Discord Meetings in Zusammenarbeit aller Mitglieder statt.**<br>
 Im Detail wurde folgendes gemacht:
 
 - Erstellung eines neuen Milestones für Iteration 4
