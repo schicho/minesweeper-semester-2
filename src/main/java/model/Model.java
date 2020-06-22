@@ -1,3 +1,8 @@
+package model;
+
+import entities.*;
+import entities.enums.*;
+
 public class Model {
 
     /**

@@ -1,7 +1,13 @@
+package controller;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
+import model.*;
+// import entities.*;
+import entities.enums.*;
+import view.*;
 import exceptions.*;
 
 

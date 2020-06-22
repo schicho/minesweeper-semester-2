@@ -1,3 +1,5 @@
+package entities.enums;
+
 public enum GameState{
     /**
      * enum of game states.

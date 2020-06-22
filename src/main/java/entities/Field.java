@@ -1,4 +1,7 @@
+package entities;
+
 import java.util.Random;
+import entities.enums.*;
 
 public class Field {
 
