@@ -35,26 +35,27 @@ public class Controller /*implements MouseListener*/ {
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
-        controller.difficulty=controller.readDifficulty();
-        //only easy for now.
-        model = new Model(controller.difficulty);
 
-        cli.initializeView(model);
+        controller.difficulty=controller.readDifficulty();
+        model = new Model(controller.difficulty);
 
         //Timer erstellen
         timerTask = new SecondsTimer();
         //Timer starten, fängt nach 1 Sekunde an zu zählen
         timer.schedule(timerTask, 0, 1000);
 
+        cli.initializeView(model);
+
         //gameloop
         do {
-            controller.updateModel(model);
-            cli.drawModel(model);
+            controller.updateModel();
 
+            cli.drawModel(model);
 
             if(model.getGameState() == GameState.WON) {
                 cli.displayWin();
-                //Timer beenden und Counter auf 0 setzen
+
+                //stop timer and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
@@ -63,7 +64,8 @@ public class Controller /*implements MouseListener*/ {
             }
             else if(model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
-                //Timer beenden und auf Null setzen
+
+                //stop timer and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
@@ -73,23 +75,6 @@ public class Controller /*implements MouseListener*/ {
         } while(model.getGameState() == GameState.RUNNING);
 
     }
-
-    /**
-     * the string that will be interpreted in updateModel
-     * is filled with data by handleInput
-     */
-    private String command;
-
-
-    /**
-     * these are containing the evaluated step values
-     * used to update the model
-     */
-    private int m, n;
-    /**
-     *true if the last command was one concerning flagplacement
-     */
-    private boolean placeFlag=false;
 
     /**
      * scans the next line (command)
@@ -118,14 +103,11 @@ public class Controller /*implements MouseListener*/ {
     /**
      * updates the given model instance dependent of the input
      * the class received earlier
-     *
-     * @param model the model to be updated
      */
-    public void updateModel(Model model){
+    public void updateModel(){
         cli.askForNextTile();
 
         handleInput();
-
     }
 
     /**
@@ -134,7 +116,10 @@ public class Controller /*implements MouseListener*/ {
     private void handleInput(){
 
         //read the next command from user
-        command = scanner.nextLine();
+        String command = scanner.nextLine();
+
+        //index of row and column
+        int m, n;
 
         try {
             //flag a tile
@@ -167,7 +152,7 @@ public class Controller /*implements MouseListener*/ {
                 switch(command){
                     case "ng":
                     {
-                        //Timer beenden und auf Null setzen
+                        //stop timer and reset
                         timerTask.cancel();
                         timerTask = null;
                         SecondsTimer.counter = 0;
