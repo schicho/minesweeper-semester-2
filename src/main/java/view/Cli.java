@@ -1,5 +1,6 @@
 package view;
 
+import controller.*;
 import model.*;
 // import entities.*;
 import entities.enums.*;
@@ -42,7 +43,6 @@ public class Cli{
     }
 
 
-
     public void drawModel(Model minefield){
         //erzeugt Nummerrierung für n
         String rowString="m\\n  ";
@@ -80,12 +80,14 @@ public class Cli{
             rowBuilder.delete(0,rowBuilder.length());
         }
         System.out.println(minefield.getFlagsToSetLeft() + " Minen sind noch zu finden.");
+        System.out.println("Es sind insgesamt " + controller.Controller.SecTimerTask.counter + " Sekunden seit Spielstart vergangen.");
     }
-    
+
     public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");}
 
     public void displayWin(){
         System.out.println("You won! Much cool, very skill! ");
+        System.out.println("Du hast " + controller.Controller.SecTimerTask.counter + " Sekunden für das Spiel gebraucht.");
     }
 
     /**

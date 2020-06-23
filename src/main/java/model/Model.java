@@ -30,19 +30,19 @@ public class Model {
                 minesweeperField.placeMinesRNG(10);
                 numberOfMines = 10;
                 this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
-            break;
+                break;
             case NORMAL:
                 minesweeperField = new Field(16, 16);
                 minesweeperField.placeMinesRNG(40);
                 numberOfMines = 40;
                 this.difficulty = difficulty;
-            break;
+                break;
             case HARD:
                 minesweeperField = new Field(16, 30);
                 minesweeperField.placeMinesRNG(99);
                 numberOfMines = 99;
                 this.difficulty = difficulty;
-            break;
+                break;
         }
         minesweeperField.calcSurroundingMines();
     }
@@ -219,7 +219,7 @@ public class Model {
     public void setGameState(GameState gs){
         gameState = gs;
     }
-  
+
     /**
      * @return the number of mines the player has not found yet
      */
