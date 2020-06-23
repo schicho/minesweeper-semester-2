@@ -27,7 +27,6 @@ Feedback für die Iteration 2 wurden unter Teilnahme aller Mitglieder während d
 Dabei wurden zusätzliche Tasks erstellt um im Feedback erwähnte Änderungsvorschläge um zu setzen:
 
 - Task #76 Einteilung in Packages
-
 - Task #77 Entfernung der Mainklasse
 - Task #78 Refactoring der Tileklasse
 - Task #79 Refactoring GameState
@@ -62,7 +61,7 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 
 **Sekundenzähler und Packages**
 
-- Task/s: #40, #68
+- Task/s: #40, #68, #76
 - Zugehörige User Story/ies: #2
 - Umsetzung in PRs: #99 #107
 
