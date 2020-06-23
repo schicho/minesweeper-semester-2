@@ -64,7 +64,7 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 
 - Task/s: #40, #68
 - Zugehörige User Story/ies: #2
-- Umsetzung in PRs: #99                                       **MISSING PRS**
+- Umsetzung in PRs: #99 #107
 
 <br>
 
@@ -124,15 +124,16 @@ Im Detail wurde folgendes gemacht:
 - Erstellung eines neuen Milestones für Iteration 4
 - Erstellung eines neuen Kanban Boards für Iteration 4
 - Auswahl von bereits erstellten User Stories getroffen: (einige Teilaspekte der User Stories sind bereits in der CLI erledigt worden, nun fehlt noch der GUI Teil)
-  - #39 #36 #19 #20 #21 von ribbec01
-  - #29 von abdula01
-  - #11 #26 von hoefer12
-  - #18 von zavacz02
+  - \#39 #36 #19 #20 #21 von ribbec01
+  - \#29 von abdula01
+  - \#11 #26 von hoefer12
+  - \#18 von zavacz02
+  - \#02 von schich09
 
 - Erstellung neuer und Übernahme alter Tasks:
-  - #73 #102 #106 #100 geschrieben von ribbec01
-  - #71 #101 #52 #72 geschrieben von hoefer12
-  - #105 geschrieben von zavacz02
-  - #103 geschrieben von abdula01
-  - #104 geschrieben von schich09
+  - \#73 #102 #106 #100 geschrieben von ribbec01
+  - \#71 #101 #52 #72 geschrieben von hoefer12
+  - \#105 geschrieben von zavacz02
+  - \#103 geschrieben von abdula01
+  - \#104 geschrieben von schich09
 
