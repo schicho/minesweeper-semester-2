@@ -74,8 +74,8 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 
 - Task/s: #49, #77, #79, #81
 - Zugehörige User Story/ies: #12
-- Umsetzung in PRs: #80, #85, #86                       **MISSING KLASSENDIAGRAMM**
-  - Zusätzlich PRs: #87 #98
+- Umsetzung in PRs: #80, #85, #86, #109
+  - Zusätzlich PRs: #87, #98
 
 <br>
 
