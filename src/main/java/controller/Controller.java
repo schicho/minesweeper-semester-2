@@ -30,18 +30,18 @@ public class Controller /*implements MouseListener*/ {
 
     /**
      * Main game loop which runs the game and stops it at win or failure
+     *
      * @param args *no arguments*
      */
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
 
-        controller.difficulty=controller.readDifficulty();
+        controller.difficulty = controller.readDifficulty();
         model = new Model(controller.difficulty);
 
-        //Timer erstellen
         timerTask = new SecondsTimer();
-        //Timer starten, fängt nach 1 Sekunde an zu zählen
+        //run timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
         cli.initializeView(model);
@@ -52,7 +52,7 @@ public class Controller /*implements MouseListener*/ {
 
             cli.drawModel(model);
 
-            if(model.getGameState() == GameState.WON) {
+            if (model.getGameState() == GameState.WON) {
                 cli.displayWin();
 
                 //stop timer and reset
@@ -61,8 +61,7 @@ public class Controller /*implements MouseListener*/ {
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
-            }
-            else if(model.getGameState() == GameState.LOST) {
+            } else if (model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
 
                 //stop timer and reset
@@ -72,7 +71,7 @@ public class Controller /*implements MouseListener*/ {
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
             }
-        } while(model.getGameState() == GameState.RUNNING);
+        } while (model.getGameState() == GameState.RUNNING);
 
     }
 
@@ -89,13 +88,13 @@ public class Controller /*implements MouseListener*/ {
     /**
      * tests userinput for all kinds of mistakes
      */
-    private inputExceptionHandler tester= new inputExceptionHandler();
+    private inputExceptionHandler tester = new inputExceptionHandler();
 
     /**
      * creates a new controller instance, which is used to handle input
      * and update the model it is given respectively
      */
-    public Controller(){
+    public Controller() {
 
         scanner = new Scanner(System.in);
     }
@@ -104,7 +103,7 @@ public class Controller /*implements MouseListener*/ {
      * updates the given model instance dependent of the input
      * the class received earlier
      */
-    public void updateModel(){
+    public void updateModel() {
         cli.askForNextTile();
 
         handleInput();
@@ -113,7 +112,7 @@ public class Controller /*implements MouseListener*/ {
     /**
      * interprets the given input
      */
-    private void handleInput(){
+    private void handleInput() {
 
         //read the next command from user
         String command = scanner.nextLine();
@@ -122,9 +121,10 @@ public class Controller /*implements MouseListener*/ {
         int m, n;
 
         try {
-            //flag a tile
             tester.testRealCommand(command);
-            if(command.contains(":") && command.startsWith("f")){
+
+            //flag a tile
+            if (command.contains(":") && command.startsWith("f")) {
                 command = command.replace("f", "");
                 //read out step values
                 String[] parts = command.split(":");
@@ -133,10 +133,11 @@ public class Controller /*implements MouseListener*/ {
                 tester.testInt(parts[1]);
                 n = Integer.parseInt(parts[1]);
                 tester.testInRange(difficulty, m, n);
+
                 model.flagTile(m, n);
             }
             //sweep a tile
-            else if(command.contains(":")){
+            else if (command.contains(":")) {
                 //read out step values
                 String[] parts = command.split(":");
                 tester.testInt(parts[0]);
@@ -146,12 +147,10 @@ public class Controller /*implements MouseListener*/ {
                 tester.testInRange(difficulty, m, n);
 
                 model.sweepTile(m, n);
-            }
-            else{
+            } else {
                 //its not a mine command
-                switch(command){
-                    case "ng":
-                    {
+                switch (command) {
+                    case "ng": {
                         //stop timer and reset
                         timerTask.cancel();
                         timerTask = null;
@@ -159,26 +158,26 @@ public class Controller /*implements MouseListener*/ {
 
                         String[] noargs = {""};
                         main(noargs);
-                    }break;
-                    case "exit":
-                    {
+                    }
+                    break;
+                    case "exit": {
                         //exit
                         model.setGameState(GameState.EXIT);
                         //Don't wait on gameloop to quit indirectly. Avoids redraw
                         System.exit(0);
-                    }break;
-
+                    }
+                    break;
                 }
-            }}
-        catch (wrongFormatException | notATileException e){
+            }
+        } catch (wrongFormatException | notATileException e) {
             System.out.println(e.toString());
         }
 
     }
 
-    private Difficulty readDifficulty(){
+    private Difficulty readDifficulty() {
         Difficulty difficulty = null;
-        while (difficulty==null) {
+        while (difficulty == null) {
             String difficultyString = scanner.nextLine();
             try {
                 tester.testForDifficulty(difficultyString);
@@ -193,7 +192,7 @@ public class Controller /*implements MouseListener*/ {
                         difficulty = Difficulty.HARD;
                         break;
                 }
-            }catch (notADifficultyException e){
+            } catch (notADifficultyException e) {
                 System.out.println(e.toString());
             }
         }
