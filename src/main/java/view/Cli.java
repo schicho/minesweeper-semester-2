@@ -1,12 +1,10 @@
 package view;
 
-import controller.*;
 import model.*;
-// import entities.*;
 import entities.enums.*;
+import timer.SecondsTimer;
 
 public class Cli{
-
 
     /**
      * Existieren nur um in drawModel() durch die einzelnen Elemente des Arrays zu laufen.
@@ -80,14 +78,14 @@ public class Cli{
             rowBuilder.delete(0,rowBuilder.length());
         }
         System.out.println(minefield.getFlagsToSetLeft() + " Minen sind noch zu finden.");
-        System.out.println("Es sind insgesamt " + controller.Controller.SecTimerTask.counter + " Sekunden seit Spielstart vergangen.");
+        System.out.println("Es sind insgesamt " + SecondsTimer.counter + " Sekunden seit Spielstart vergangen.");
     }
 
     public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");}
 
     public void displayWin(){
         System.out.println("You won! Much cool, very skill! ");
-        System.out.println("Du hast " + controller.Controller.SecTimerTask.counter + " Sekunden für das Spiel gebraucht.");
+        System.out.println("Du hast " + SecondsTimer.counter + " Sekunden für das Spiel gebraucht.");
     }
 
     /**

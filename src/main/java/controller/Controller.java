@@ -1,13 +1,14 @@
 package controller;
 
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import model.*;
-// import entities.*;
 import entities.enums.*;
 import view.*;
 import exceptions.*;
-import java.util.Timer;
-import java.util.TimerTask;
+import timer.*;
 
 
 public class Controller /*implements MouseListener*/ {
@@ -41,7 +42,7 @@ public class Controller /*implements MouseListener*/ {
         cli.initializeView(model);
 
         //Timer erstellen
-        timerTask = new SecTimerTask();
+        timerTask = new SecondsTimer();
         //Timer starten, fängt nach 1 Sekunde an zu zählen
         timer.schedule(timerTask, 0, 1000);
 
@@ -55,7 +56,8 @@ public class Controller /*implements MouseListener*/ {
                 cli.displayWin();
                 //Timer beenden und Counter auf 0 setzen
                 timerTask.cancel();
-                Controller.SecTimerTask.counter = 0;
+                SecondsTimer.counter = 0;
+
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
             }
@@ -63,7 +65,8 @@ public class Controller /*implements MouseListener*/ {
                 cli.displayFailure(model.getRemainingMines());
                 //Timer beenden und auf Null setzen
                 timerTask.cancel();
-                Controller.SecTimerTask.counter = 0;
+                SecondsTimer.counter = 0;
+
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
             }
@@ -167,10 +170,10 @@ public class Controller /*implements MouseListener*/ {
                         //Timer beenden und auf Null setzen
                         timerTask.cancel();
                         timerTask = null;
-                        Controller.SecTimerTask.counter = 0;
+                        SecondsTimer.counter = 0;
+
                         String[] noargs = {""};
                         main(noargs);
-
                     }break;
                     case "exit":
                     {
@@ -220,18 +223,6 @@ public class Controller /*implements MouseListener*/ {
         }
         return difficulty;
     }
-
-    // Counter zu Timer
-    public static class SecTimerTask extends TimerTask {
-
-        public static int counter = 0;
-
-        @Override
-        public void run() {
-            counter++;
-        }
-    }
-
 
     /*
     /**
