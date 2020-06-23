@@ -170,17 +170,8 @@ public class Controller /*implements MouseListener*/ {
 
                 }
             }}
-        catch (wrongFormatException e){
+        catch (wrongFormatException | notATileException e){
             System.out.println(e.toString());
-            //set m,n to -1, which can be tested for, to avoid bugs
-            m = -1;
-            n = -1;
-        }
-        catch (notATileException e){
-            System.out.println(e.toString());
-            //set m,n to -1, which can be tested for, to avoid bugs. Probably not neccesary here.
-            m = -1;
-            n = -1;
         }
 
     }
