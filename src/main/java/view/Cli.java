@@ -15,6 +15,7 @@ public class Cli{
     public Cli(){
         System.out.println("Willkommen bei einer Partie Minesweeper MVP.");
         System.out.println("Bitte wähle einen Schwierigkeitsgrad: Easy, Normal, Hard");
+        displayInputPrompt();
     }
     //Übergabe des Initialisierten Fields. Zeichnen
     public void initializeView(Model minefield){
@@ -81,7 +82,10 @@ public class Cli{
         System.out.println("Es sind insgesamt " + SecondsTimer.counter + " Sekunden seit Spielstart vergangen.");
     }
 
-    public void askForNextTile(){ System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");}
+    public void askForNextTile(){
+        System.out.println("Bitte wähle das nächste Feld, oder gib einen anderen Befehl ein.");
+        displayInputPrompt();
+    }
 
     public void displayWin(){
         System.out.println("You won! Much cool, very skill! ");
@@ -102,6 +106,13 @@ public class Cli{
      */
     public void displayMessage(String message){
         System.out.println(message);
+    }
+
+    /**
+     * prompts the user to enter a new command. Does not start a new line.
+     */
+    public void displayInputPrompt(){
+        System.out.print("ms> ");
     }
 
 }

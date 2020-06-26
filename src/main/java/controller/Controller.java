@@ -55,8 +55,15 @@ public class Controller /*implements MouseListener*/ {
 
         //gameloop
         do {
+            //check first time in case a new game was started and old
+            //thread needs to be stopped
+            if (exit) {
+                return;
+            }
+
             controller.updateModel();
 
+            //check second time to avoid redraw
             if (exit) {
                 return;
             }
@@ -71,6 +78,7 @@ public class Controller /*implements MouseListener*/ {
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
+                cli.displayInputPrompt();
                 controller.handleInput();
             } else if (model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
@@ -80,15 +88,11 @@ public class Controller /*implements MouseListener*/ {
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
+                cli.displayInputPrompt();
                 controller.handleInput();
             }
         } while (model.getGameState() == GameState.RUNNING);
     }
-
-    /**
-     * scans the next line (command)
-     */
-    private final Scanner scanner;
 
     /**
      * saves the difficulty given by the user
@@ -101,12 +105,9 @@ public class Controller /*implements MouseListener*/ {
     private final InputExceptionHandler tester = new InputExceptionHandler();
 
     /**
-     * creates a new controller instance, which is used to handle input
-     * and update the model it is given respectively
+     * creates a new controller instance
      */
     public Controller() {
-
-        scanner = new Scanner(System.in);
     }
 
     /**
@@ -124,6 +125,7 @@ public class Controller /*implements MouseListener*/ {
      */
     private void handleInput() {
 
+        Scanner scanner = new Scanner(System.in);
         //read the next command from user
         String command = scanner.nextLine();
 
@@ -172,7 +174,6 @@ public class Controller /*implements MouseListener*/ {
                     break;
                     case "exit": {
                         //exit
-                        scanner.close();
                         //timer needs to be stopped here, otherwise program wont terminate
                         timer.cancel();
                         exit = true;
@@ -192,6 +193,7 @@ public class Controller /*implements MouseListener*/ {
      * @return Difficulty (value of enum)
      */
     private Difficulty readDifficulty() {
+        Scanner scanner = new Scanner(System.in);
         Difficulty difficulty = null;
         while (difficulty == null) {
             String difficultyString = scanner.nextLine();
