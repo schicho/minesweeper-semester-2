@@ -10,6 +10,5 @@ public enum TileState {
     FLAGGED_FREE,
     MINE,
     SWEEPED_MINE,
-    FLAGGED_MINE,
-    NOT_SET
+    FLAGGED_MINE
 }

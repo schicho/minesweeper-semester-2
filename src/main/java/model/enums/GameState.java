@@ -6,6 +6,5 @@ public enum GameState{
      */
     RUNNING,
     LOST,
-    WON,
-    EXIT
+    WON
 }
