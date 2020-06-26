@@ -21,19 +21,21 @@ public class Field {
      * @param rows  rows of the minefield grid
      * @param cols  columns of the minefield grid
      */
-    public Field(int rows, int cols){
+    public Field(int rows, int cols, int numberOfMines){
         this.rows = rows;
         this.cols = cols;
         this.minefield = new Tile[rows][cols];
 
         populate();
+        placeMinesRNG(numberOfMines);
+        calcSurroundingMines();
     }
 
     /**
      * Fills initially empty minefield with tiles.
      * Does not have to be run manually. Is done in constructor.
      */
-    public void populate(){
+    private void populate(){
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
                 minefield[i][j] = new Tile();
@@ -45,7 +47,7 @@ public class Field {
      * Randomly spreads mines of the minefield.
      * @param numberOfMines number of mines to be placed on the minefield.
      */
-    public void placeMinesRNG(int numberOfMines){
+    private void placeMinesRNG(int numberOfMines){
         Random rng = new Random();
         int count = numberOfMines;
         while(count > 0){
@@ -69,7 +71,7 @@ public class Field {
      * for gameplay.
      * This method must only be run once.
      */
-    public void calcSurroundingMines(){
+    private void calcSurroundingMines(){
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
                 int count = 0;

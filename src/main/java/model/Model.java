@@ -9,7 +9,7 @@ public class Model {
      * Model manipulations are forwarded to this object.
      */
     private Field minesweeperField;
-    private Difficulty difficulty;
+    private final Difficulty difficulty;
     private int numberOfMines;
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
@@ -23,27 +23,21 @@ public class Model {
      * @param difficulty either EASY, NORMAL OR HARD
      */
     public Model(Difficulty difficulty){
+        this.difficulty = difficulty; //remember difficulty
         switch (difficulty){
             case EASY:
-                minesweeperField = new Field(9,9);
-                minesweeperField.placeMinesRNG(10);
                 numberOfMines = 10;
-                this.difficulty = difficulty; //this.difficulty = Difficulty.EASY
+                minesweeperField = new Field(9,9, numberOfMines);
                 break;
             case NORMAL:
-                minesweeperField = new Field(16, 16);
-                minesweeperField.placeMinesRNG(40);
                 numberOfMines = 40;
-                this.difficulty = difficulty;
+                minesweeperField = new Field(16, 16, numberOfMines);
                 break;
             case HARD:
-                minesweeperField = new Field(16, 30);
-                minesweeperField.placeMinesRNG(99);
                 numberOfMines = 99;
-                this.difficulty = difficulty;
+                minesweeperField = new Field(16, 30, numberOfMines);
                 break;
         }
-        minesweeperField.calcSurroundingMines();
     }
 
     /**
