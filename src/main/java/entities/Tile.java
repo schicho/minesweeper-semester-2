@@ -4,19 +4,19 @@ import entities.enums.*;
 
 public class Tile {
 
-    private tileState state;
+    private TileState state;
     private int surroundingMines;
 
     /**
      * returns the tiles state
      * @return state
      */
-    public tileState getState() {return state;}
+    public TileState getState() {return state;}
 
     /**
      * sets the tiles state
      */
-    public void setState(tileState state) {this.state = state;}
+    public void setState(TileState state) {this.state = state;}
 
 
     /**
@@ -41,7 +41,7 @@ public class Tile {
      * constructs a new tile
      */
     public Tile() {
-        this.state = tileState.FREE;
+        this.state = TileState.FREE;
         this.surroundingMines = 0;
     }
 }

@@ -1,6 +1,6 @@
 package entities.enums;
 
-public enum tileState {
+public enum TileState {
     /**
      * enum of tile states. Each tile can have exactly one state.
      * if one tile has SWEEPED_MINE as its state, the game is lost

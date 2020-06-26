@@ -88,7 +88,7 @@ public class Controller /*implements MouseListener*/ {
     /**
      * tests userinput for all kinds of mistakes
      */
-    private inputExceptionHandler tester = new inputExceptionHandler();
+    private InputExceptionHandler tester = new InputExceptionHandler();
 
     /**
      * creates a new controller instance, which is used to handle input
@@ -169,7 +169,7 @@ public class Controller /*implements MouseListener*/ {
                     break;
                 }
             }
-        } catch (wrongFormatException | notATileException e) {
+        } catch (WrongFormatException | NotATileException e) {
             System.out.println(e.toString());
         }
 
@@ -192,7 +192,7 @@ public class Controller /*implements MouseListener*/ {
                         difficulty = Difficulty.HARD;
                         break;
                 }
-            } catch (notADifficultyException e) {
+            } catch (NotADifficultyException e) {
                 System.out.println(e.toString());
             }
         }
