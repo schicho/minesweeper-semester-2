@@ -1,7 +1,6 @@
 package model;
 
-import entities.*;
-import entities.enums.*;
+import model.enums.*;
 
 public class Model {
 

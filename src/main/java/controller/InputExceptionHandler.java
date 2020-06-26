@@ -1,8 +1,8 @@
 package controller;
 
-import exceptions.*;
+import model.exceptions.*;
 // import entities.*;
-import entities.enums.*;
+import model.enums.*;
 
 
 public class InputExceptionHandler {

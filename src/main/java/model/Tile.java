@@ -1,6 +1,6 @@
-package entities;
+package model;
 
-import entities.enums.*;
+import model.enums.*;
 
 public class Tile {
 

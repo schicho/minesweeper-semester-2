@@ -1,7 +1,8 @@
-package entities;
+package model;
 
 import java.util.Random;
-import entities.enums.*;
+
+import model.enums.*;
 
 public class Field {
 

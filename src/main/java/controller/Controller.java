@@ -5,10 +5,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import model.*;
-import entities.enums.*;
+import model.enums.*;
 import view.*;
-import exceptions.*;
-import timer.*;
+import model.exceptions.*;
+import model.timer.*;
 
 
 public class Controller /*implements MouseListener*/ {
@@ -41,7 +41,7 @@ public class Controller /*implements MouseListener*/ {
         model = new Model(controller.difficulty);
 
         timerTask = new SecondsTimer();
-        //run timer ever 1000ms = 1s
+        //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
         cli.initializeView(model);
@@ -55,7 +55,7 @@ public class Controller /*implements MouseListener*/ {
             if (model.getGameState() == GameState.WON) {
                 cli.displayWin();
 
-                //stop timer and reset
+                //stop model.timer and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
@@ -64,7 +64,7 @@ public class Controller /*implements MouseListener*/ {
             } else if (model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
 
-                //stop timer and reset
+                //stop model.timer and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
@@ -151,7 +151,7 @@ public class Controller /*implements MouseListener*/ {
                 //its not a mine command
                 switch (command) {
                     case "ng": {
-                        //stop timer and reset
+                        //stop model.timer and reset
                         timerTask.cancel();
                         timerTask = null;
                         SecondsTimer.counter = 0;

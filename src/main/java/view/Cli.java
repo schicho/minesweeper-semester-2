@@ -1,8 +1,8 @@
 package view;
 
 import model.*;
-import entities.enums.*;
-import timer.SecondsTimer;
+import model.enums.*;
+import model.timer.SecondsTimer;
 
 public class Cli{
 
