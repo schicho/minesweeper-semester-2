@@ -23,15 +23,20 @@ public class Controller /*implements MouseListener*/ {
      */
     private static Cli cli;
 
-    //Initialize Timer variables
+    /**
+     * variables used for the timer.
+     */
     private static final Timer timer = new Timer();
     private static TimerTask timerTask = null;
 
+    /**
+     * exit variable, once set to true the game terminates.
+     */
     private static boolean exit = false;
 
 
     /**
-     * Main game loop which runs the game and stops it at win or failure
+     * Main game loop which runs the game and stops it at win or failure.
      *
      * @param args *no arguments*
      */
@@ -61,8 +66,8 @@ public class Controller /*implements MouseListener*/ {
             if (model.getGameState() == GameState.WON) {
                 cli.displayWin();
 
-                //stop model.timer and reset
-                timer.cancel();
+                //stop timerTask and reset
+                timerTask.cancel();
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
@@ -70,8 +75,8 @@ public class Controller /*implements MouseListener*/ {
             } else if (model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
 
-                //stop model.timer and reset
-                timer.cancel();
+                //stop timerTask and reset
+                timerTask.cancel();
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
@@ -83,7 +88,7 @@ public class Controller /*implements MouseListener*/ {
     /**
      * scans the next line (command)
      */
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * saves the difficulty given by the user
@@ -93,7 +98,7 @@ public class Controller /*implements MouseListener*/ {
     /**
      * tests userinput for all kinds of mistakes
      */
-    private InputExceptionHandler tester = new InputExceptionHandler();
+    private final InputExceptionHandler tester = new InputExceptionHandler();
 
     /**
      * creates a new controller instance, which is used to handle input
@@ -156,7 +161,7 @@ public class Controller /*implements MouseListener*/ {
                 //its not a mine command
                 switch (command) {
                     case "ng": {
-                        //stop timer, set null and reset
+                        //stop timerTask, set null and reset
                         timerTask.cancel();
                         timerTask = null;
                         SecondsTimer.counter = 0;
@@ -168,7 +173,7 @@ public class Controller /*implements MouseListener*/ {
                     case "exit": {
                         //exit
                         scanner.close();
-                        //timer needs to be stopped, otherwise program wont terminate
+                        //timer needs to be stopped here, otherwise program wont terminate
                         timer.cancel();
                         exit = true;
                     }
@@ -181,6 +186,11 @@ public class Controller /*implements MouseListener*/ {
 
     }
 
+    /**
+     * Reads the difficulty the player wants to play the game in.
+     * Is entered and read at game start.
+     * @return Difficulty (value of enum)
+     */
     private Difficulty readDifficulty() {
         Difficulty difficulty = null;
         while (difficulty == null) {
