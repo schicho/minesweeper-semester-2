@@ -190,6 +190,7 @@ public class Controller /*implements MouseListener*/ {
     /**
      * Reads the difficulty the player wants to play the game in.
      * Is entered and read at game start.
+     *
      * @return Difficulty (value of enum)
      */
     private Difficulty readDifficulty() {

@@ -1,6 +1,6 @@
 package model.enums;
 
-public enum GameState{
+public enum GameState {
     /**
      * enum of game states.
      */

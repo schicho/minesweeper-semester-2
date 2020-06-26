@@ -9,18 +9,23 @@ public class Tile {
 
     /**
      * returns the tiles state
+     *
      * @return state
      */
-    public TileState getState() {return state;}
+    public TileState getState() {
+        return state;
+    }
 
     /**
      * sets the tiles state
      */
-    public void setState(TileState state) {this.state = state;}
-
+    public void setState(TileState state) {
+        this.state = state;
+    }
 
     /**
      * returns the number of mines surrounding the tile
+     *
      * @return surroundingMines
      */
     public int getSurroundingMines() {
@@ -30,9 +35,10 @@ public class Tile {
     /**
      * sets the information how many mines surrounding the tile,
      * not the mines themselves!
+     *
      * @param surroundingMines
      */
-    public  void setSurroundingMines(int surroundingMines) {
+    public void setSurroundingMines(int surroundingMines) {
         this.surroundingMines = surroundingMines;
     }
 
