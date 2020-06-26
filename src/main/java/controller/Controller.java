@@ -27,6 +27,8 @@ public class Controller /*implements MouseListener*/ {
     private static final Timer timer = new Timer();
     private static TimerTask timerTask = null;
 
+    private static boolean exit = false;
+
 
     /**
      * Main game loop which runs the game and stops it at win or failure
@@ -50,13 +52,17 @@ public class Controller /*implements MouseListener*/ {
         do {
             controller.updateModel();
 
+            if (exit) {
+                return;
+            }
+
             cli.drawModel(model);
 
             if (model.getGameState() == GameState.WON) {
                 cli.displayWin();
 
                 //stop model.timer and reset
-                timerTask.cancel();
+                timer.cancel();
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
@@ -65,14 +71,13 @@ public class Controller /*implements MouseListener*/ {
                 cli.displayFailure(model.getRemainingMines());
 
                 //stop model.timer and reset
-                timerTask.cancel();
+                timer.cancel();
                 SecondsTimer.counter = 0;
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 controller.handleInput();
             }
         } while (model.getGameState() == GameState.RUNNING);
-
     }
 
     /**
@@ -151,7 +156,7 @@ public class Controller /*implements MouseListener*/ {
                 //its not a mine command
                 switch (command) {
                     case "ng": {
-                        //stop model.timer and reset
+                        //stop timer, set null and reset
                         timerTask.cancel();
                         timerTask = null;
                         SecondsTimer.counter = 0;
@@ -162,9 +167,10 @@ public class Controller /*implements MouseListener*/ {
                     break;
                     case "exit": {
                         //exit
-                        model.setGameState(GameState.EXIT);
-                        //Don't wait on gameloop to quit indirectly. Avoids redraw
-                        System.exit(0);
+                        scanner.close();
+                        //timer needs to be stopped, otherwise program wont terminate
+                        timer.cancel();
+                        exit = true;
                     }
                     break;
                 }
