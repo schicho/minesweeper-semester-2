@@ -1,26 +1,31 @@
-package entities;
+package model;
 
-import entities.enums.*;
+import model.enums.*;
 
 public class Tile {
 
-    private tileState state;
+    private TileState state;
     private int surroundingMines;
 
     /**
      * returns the tiles state
+     *
      * @return state
      */
-    public tileState getState() {return state;}
+    public TileState getState() {
+        return state;
+    }
 
     /**
      * sets the tiles state
      */
-    public void setState(tileState state) {this.state = state;}
-
+    public void setState(TileState state) {
+        this.state = state;
+    }
 
     /**
      * returns the number of mines surrounding the tile
+     *
      * @return surroundingMines
      */
     public int getSurroundingMines() {
@@ -30,9 +35,10 @@ public class Tile {
     /**
      * sets the information how many mines surrounding the tile,
      * not the mines themselves!
+     *
      * @param surroundingMines
      */
-    public  void setSurroundingMines(int surroundingMines) {
+    public void setSurroundingMines(int surroundingMines) {
         this.surroundingMines = surroundingMines;
     }
 
@@ -41,7 +47,7 @@ public class Tile {
      * constructs a new tile
      */
     public Tile() {
-        this.state = tileState.FREE;
+        this.state = TileState.FREE;
         this.surroundingMines = 0;
     }
 }
