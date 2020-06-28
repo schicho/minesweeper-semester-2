@@ -70,7 +70,10 @@ public class Cli {
                     } else rowBuilder.append(minefield.getSurroundingMines(row, coll));
                 } else if (minefield.isFlagged(row, coll)) {
                     rowBuilder.append("F");
-                } else rowBuilder.append("■");
+                } else if (minefield.isQmarked(row, coll)) {
+                    rowBuilder.append("?");
+                }
+                else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
