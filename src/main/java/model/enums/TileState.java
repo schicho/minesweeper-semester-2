@@ -8,7 +8,9 @@ public enum TileState {
     FREE,
     SWEEPED_FREE,
     FLAGGED_FREE,
+    QMARKED_FREE,
     MINE,
     SWEEPED_MINE,
-    FLAGGED_MINE
+    FLAGGED_MINE,
+    QMARKED_MINE
 }
