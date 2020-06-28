@@ -158,10 +158,8 @@ public class Field {
      * @param colIndex index of column
      */
     public void unflagTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE){
+        if(minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE){
             minefield[rowIndex][colIndex].setState(TileState.MINE);
-            //a found mine was unflagged
-            remainingMines++;
             return;
         }
         minefield[rowIndex][colIndex].setState(TileState.FREE);
