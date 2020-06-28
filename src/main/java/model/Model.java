@@ -125,7 +125,7 @@ public class Model {
             minesweeperField.qmarkTile(rowIndex, colIndex);
             numberOfFlags--;
         } else {
-            minesweeperField.unflagTile(rowIndex, colIndex);
+            minesweeperField.unQmarkTile(rowIndex, colIndex);
         }
     }
 

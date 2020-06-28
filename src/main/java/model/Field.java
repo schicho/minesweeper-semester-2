@@ -157,7 +157,7 @@ public class Field {
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void unflagTile(int rowIndex, int colIndex){
+    public void unQmarkTile(int rowIndex, int colIndex){
         if(minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE){
             minefield[rowIndex][colIndex].setState(TileState.MINE);
             return;
