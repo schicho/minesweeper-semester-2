@@ -186,6 +186,16 @@ public class Field {
     }
 
     /**
+     * returns true if tile at given index is question marked.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isQmarked(int rowIndex, int colIndex) {
+        return minefield[rowIndex][colIndex].getState() == TileState.QMARKED_FREE ||
+                minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE;
+    }
+
+    /**
      * returns true if tile at given index contains a mine.
      * @param rowIndex index of row
      * @param colIndex index of column
