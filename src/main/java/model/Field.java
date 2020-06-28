@@ -138,6 +138,21 @@ public class Field {
     }
 
     /**
+     * replaces a flag with a question mark
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void qmarkTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) {
+            minefield[rowIndex][colIndex].setState(TileState.QMARKED_MINE);
+            //a found mine was questionmarked
+            remainingMines++;
+            return;
+        }
+        minefield[rowIndex][colIndex].setState(TileState.QMARKED_FREE);
+    }
+
+    /**
      * takes the flag off the tile
      * @param rowIndex index of row
      * @param colIndex index of column
