@@ -118,12 +118,14 @@ public class Model {
         if (isSweeped(rowIndex, colIndex)){
             return;
         }
-        if (!isFlagged(rowIndex, colIndex)) {
+        if (!isFlagged(rowIndex, colIndex) && !isQmarked(rowIndex, colIndex)) {
             minesweeperField.flagTile(rowIndex, colIndex);
             numberOfFlags++;
+        } else if (isFlagged(rowIndex, colIndex)) {
+            minesweeperField.qmarkTile(rowIndex, colIndex);
+            numberOfFlags--;
         } else {
             minesweeperField.unflagTile(rowIndex, colIndex);
-            numberOfFlags--;
         }
     }
 
