@@ -138,6 +138,16 @@ public class Model {
     }
 
     /**
+     * Check if tile at a certain index is question marked or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is question marked, false if not.
+     */
+    public boolean isQmarked(int rowIndex, int colIndex){
+        return minesweeperField.isQmarked(rowIndex, colIndex);
+    }
+
+    /**
      * Check if tile at a certain index is sweeped or not.
      * @param rowIndex index of row
      * @param colIndex index of column
