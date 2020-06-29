@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,7 +13,7 @@ import model.exceptions.*;
 import model.timer.*;
 
 
-public class Controller /*implements MouseListener*/ {
+public class Controller implements MouseListener {
 
     /**
      * holds the model instance
@@ -22,6 +24,11 @@ public class Controller /*implements MouseListener*/ {
      * holds the cli instance
      */
     private static Cli cli;
+
+    /**
+     * holds the gui instance
+     */
+    private static Gui gui;
 
     /**
      * variables used for the timer.
@@ -41,7 +48,9 @@ public class Controller /*implements MouseListener*/ {
      * @param args *no arguments*
      */
     public static void main(String[] args) {
-        cli = new Cli();
+        gui = new Gui();
+
+        //cli = new Cli();
         Controller controller = new Controller();
 
         controller.difficulty = controller.readDifficulty();
@@ -51,9 +60,11 @@ public class Controller /*implements MouseListener*/ {
         //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
-        cli.initializeView(model);
+        //cli.initializeView(model);
 
-        //gameloop
+
+
+        /*game loop
         do {
             //check first time in case a new game was started and old
             //thread needs to be stopped
@@ -91,7 +102,7 @@ public class Controller /*implements MouseListener*/ {
                 cli.displayInputPrompt();
                 controller.handleInput();
             }
-        } while (model.getGameState() == GameState.RUNNING);
+        } while (model.getGameState() == GameState.RUNNING);*/
     }
 
     /**
@@ -218,25 +229,28 @@ public class Controller /*implements MouseListener*/ {
         return difficulty;
     }
 
-    /*
-    /**
-     * overrides keyTyped method from KeyListener
-     * @param e
-     *
     @Override
-    public void keyTyped(KeyEvent e) {
-        lastInput = e.getKeyChar();
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
+    public void mouseClicked(MouseEvent e) {
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void mousePressed(MouseEvent e) {
 
     }
-    */
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
