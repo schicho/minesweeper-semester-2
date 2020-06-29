@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
@@ -13,7 +15,7 @@ import model.exceptions.*;
 import model.timer.*;
 
 
-public class Controller implements MouseListener {
+public class Controller{
 
     /**
      * holds the model instance
@@ -29,6 +31,11 @@ public class Controller implements MouseListener {
      * holds the gui instance
      */
     private static Gui gui;
+
+    /**
+     * holds the listener instance
+     */
+    private static Listener listener;
 
     /**
      * variables used for the timer.
@@ -52,9 +59,10 @@ public class Controller implements MouseListener {
 
         //cli = new Cli();
         Controller controller = new Controller();
+        listener = new Listener();
 
-        controller.difficulty = controller.readDifficulty();
-        model = new Model(controller.difficulty);
+        //controller.difficulty = controller.readDifficulty();
+        //model = new Model(controller.difficulty);
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
@@ -62,7 +70,7 @@ public class Controller implements MouseListener {
 
         //cli.initializeView(model);
 
-
+        gui.loadScene(GameState.MAIN_MENU, null);
 
         /*game loop
         do {
@@ -119,6 +127,13 @@ public class Controller implements MouseListener {
      * creates a new controller instance
      */
     public Controller() {
+    }
+
+    /**
+     * @return listener instance
+     */
+    public static Listener getListener() {
+        return listener;
     }
 
     /**
@@ -227,30 +242,5 @@ public class Controller implements MouseListener {
             }
         }
         return difficulty;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }
