@@ -70,7 +70,7 @@ public class Controller{
 
         //cli.initializeView(model);
 
-        gui.loadScene(GameState.MAIN_MENU, null);
+        gui.loadScene(GameState.MAIN_MENU);
 
         /*game loop
         do {
@@ -242,5 +242,9 @@ public class Controller{
             }
         }
         return difficulty;
+    }
+
+    public static Model getModel(){
+        return model;
     }
 }
