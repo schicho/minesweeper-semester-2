@@ -22,6 +22,7 @@ public class Gui {
      */
     public Gui(){
         createWindow(1280, 720, "Minesweeper");
+        lastInput = new JButton[2];
     }
 
     /**
