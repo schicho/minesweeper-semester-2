@@ -32,10 +32,12 @@ public class Controller{
      */
     private static Gui gui;
 
+
     /**
-     * holds the listener instance
+     * deals with the mouseinput
      */
-    private static Listener listener;
+    private static MouseHandler mouseHandler;
+
 
     /**
      * variables used for the timer.
@@ -59,7 +61,7 @@ public class Controller{
 
         //cli = new Cli();
         Controller controller = new Controller();
-        listener = new Listener();
+        mouseHandler = new MouseHandler();
 
         //controller.difficulty = controller.readDifficulty();
         //model = new Model(controller.difficulty);
@@ -132,8 +134,10 @@ public class Controller{
     /**
      * @return listener instance
      */
-    public static Listener getListener() {
-        return listener;
+
+
+    public static MouseHandler getMouseHandler(){
+        return mouseHandler;
     }
 
     /**
