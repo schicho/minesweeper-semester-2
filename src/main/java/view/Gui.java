@@ -131,5 +131,13 @@ public class Gui {
         }
     }
 
+    public void changeButtonText(int i, int j, String newText){
+        tileButtons[i][j].setText(newText);
+    }
+
+    public void greyOutButton(int i, int j){
+        tileButtons[i][j].setEnabled(false);
+    }
+
 
 }
