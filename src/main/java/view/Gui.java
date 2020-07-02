@@ -16,6 +16,10 @@ public class Gui {
     private JPanel game;
     private JPanel endGameMessage;
 
+    //important vars for the design
+    int width, height;
+    int unifiedMenuButtonWidth, unifiedMenuButtonHeight;
+    int buffer;
 
 
     /**
@@ -36,6 +40,15 @@ public class Gui {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBounds(0, 0, width, height);
         window.setVisible(true);
+
+        //set privates
+        this.width = width;
+        this.height = height;
+
+        unifiedMenuButtonHeight = 1/10*height;
+        unifiedMenuButtonWidth = 1/10*width;
+
+        buffer = 20;
     }
 
     /**
@@ -50,25 +63,24 @@ public class Gui {
             {
                 //main menu panel
                 mainMenu = new JPanel();
+                mainMenu.setLayout(new GridLayout(0, 1));
 
                 //play button
                 JButton play = new JButton("Play");
+                play.setPreferredSize(new Dimension(unifiedMenuButtonWidth, unifiedMenuButtonHeight));
                 play.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(play);
 
                 //exit button
                 JButton exit = new JButton("Exit");
+                exit.setPreferredSize(new Dimension(unifiedMenuButtonWidth, unifiedMenuButtonHeight));
                 exit.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(exit);
 
-                TileButton thisIsATestTile = new TileButton();
+                /*TileButton thisIsATestTile = new TileButton();
                 thisIsATestTile.setCoordinates(0,0);
                 thisIsATestTile.addMouseListener(Controller.getMouseHandler());
-                mainMenu.add(thisIsATestTile);
-
-
-                //set the last input array
-
+                mainMenu.add(thisIsATestTile);*/
 
                 window.getContentPane().add(mainMenu);
 
@@ -93,5 +105,7 @@ public class Gui {
         }
     }
 
-
+    public JFrame getWindow(){
+        return window;
+    }
 }

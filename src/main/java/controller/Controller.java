@@ -1,9 +1,6 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -117,25 +114,31 @@ public class Controller implements MouseListener{
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() instanceof JButton){
-            String whatsItDo = buttonInfo((JButton) e.getSource());
-            if(whatsItDo.equals("Exit")){
-                if(SwingUtilities.isRightMouseButton(e)){
+            String whatItDoes = buttonInfo((JButton) e.getSource());
+            if(whatItDoes.equals("Exit")){
+                //exit the program
+                model.setGameState(GameState.EXIT);
+                gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
+                /*if(SwingUtilities.isRightMouseButton(e)){
                     System.out.println("tixE");
                 }
-                else {System.out.println("Exit");}
+                else {System.out.println("Exit");}*/
             }
-            else if(whatsItDo.equals("Play")){
-                if(SwingUtilities.isRightMouseButton(e)){
+            else if(whatItDoes.equals("Play")){
+                //change the gameState, load the new scene
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
+                /*if(SwingUtilities.isRightMouseButton(e)){
                     System.out.println("yalP");
                 }
-                else System.out.println("Play");
+                else System.out.println("Play");*/
             }
             else {
                 if(SwingUtilities.isRightMouseButton(e)){
-                    whatsItDo = "f"+whatsItDo;
-                    System.out.println(whatsItDo);
+                    whatItDoes = "f"+whatItDoes;
+                    System.out.println(whatItDoes);
                 }
-                System.out.println(whatsItDo);
+                System.out.println(whatItDoes);
             }
         }
 
