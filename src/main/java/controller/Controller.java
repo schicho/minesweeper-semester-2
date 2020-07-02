@@ -14,8 +14,15 @@ import view.*;
 import model.exceptions.*;
 import model.timer.*;
 
+import javax.swing.*;
 
-public class Controller{
+
+public class Controller implements MouseListener{
+
+    /**
+     * holds the controller instance
+     */
+    private static Controller controller;
 
     /**
      * holds the model instance
@@ -31,11 +38,6 @@ public class Controller{
      * holds the gui instance
      */
     private static Gui gui;
-
-    /**
-     * holds the listener instance
-     */
-    private static Listener listener;
 
     /**
      * variables used for the timer.
@@ -58,11 +60,9 @@ public class Controller{
         gui = new Gui();
 
         //cli = new Cli();
-        Controller controller = new Controller();
-        listener = new Listener();
+        controller = new Controller();
 
-        //controller.difficulty = controller.readDifficulty();
-        //model = new Model(controller.difficulty);
+        model = new Model(Difficulty.EASY);
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
@@ -113,6 +113,67 @@ public class Controller{
         } while (model.getGameState() == GameState.RUNNING);*/
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        if (e.getSource() instanceof JButton){
+            String whatsItDo = buttonInfo((JButton) e.getSource());
+            if(whatsItDo.equals("Exit")){
+                if(SwingUtilities.isRightMouseButton(e)){
+                    System.out.println("tixE");
+                }
+                else {System.out.println("Exit");}
+            }
+            else if(whatsItDo.equals("Play")){
+                if(SwingUtilities.isRightMouseButton(e)){
+                    System.out.println("yalP");
+                }
+                else System.out.println("Play");
+            }
+            else {
+                if(SwingUtilities.isRightMouseButton(e)){
+                    whatsItDo = "f"+whatsItDo;
+                    System.out.println(whatsItDo);
+                }
+                System.out.println(whatsItDo);
+            }
+        }
+
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    /**
+     *
+     * @param button JButton oder Tilebutton
+     * @return a string, identifing the button
+     */
+    private String buttonInfo(JButton button){
+        if(button instanceof TileButton){
+            return ((TileButton) button).getM()+":"+((TileButton) button).getN();
+        }
+        else {return button.getText();}
+    }
+
     /**
      * saves the difficulty given by the user
      */
@@ -132,40 +193,29 @@ public class Controller{
     /**
      * @return listener instance
      */
-    public static Listener getListener() {
-        return listener;
+
+
+    public static Controller getMouseHandler(){
+        return controller;
     }
 
-    /**
-     * updates the given model instance dependent of the input
-     * the class received earlier
-     */
-    public void updateModel() {
-        cli.askForNextTile();
-
-        handleInput();
-    }
 
     /**
      * interprets the given input
      */
-    private void handleInput() {
-
-        Scanner scanner = new Scanner(System.in);
-        //read the next command from user
-        String command = scanner.nextLine();
+    private void handleInput(String input) {
 
         //index of row and column
         int m, n;
 
         try {
-            tester.testRealCommand(command);
+            tester.testRealCommand(input);
 
             //flag a tile
-            if (command.contains(":") && command.startsWith("f")) {
-                command = command.replace("f", "");
+            if (input.contains(":") && input.startsWith("f")) {
+                input = input.replace("f", "");
                 //read out step values
-                String[] parts = command.split(":");
+                String[] parts = input.split(":");
                 tester.testInt(parts[0]);
                 m = Integer.parseInt(parts[0]);
                 tester.testInt(parts[1]);
@@ -175,9 +225,9 @@ public class Controller{
                 model.flagTile(m, n);
             }
             //sweep a tile
-            else if (command.contains(":")) {
+            else if (input.contains(":")) {
                 //read out step values
-                String[] parts = command.split(":");
+                String[] parts = input.split(":");
                 tester.testInt(parts[0]);
                 m = Integer.parseInt(parts[0]);
                 tester.testInt(parts[1]);
@@ -187,7 +237,7 @@ public class Controller{
                 model.sweepTile(m, n);
             } else {
                 //its not a mine command
-                switch (command) {
+                switch (input) {
                     case "ng": {
                         //stop timerTask, set null and reset
                         timerTask.cancel();

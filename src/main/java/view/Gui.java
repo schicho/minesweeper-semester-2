@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import model.Model;
+import model.Tile;
 import model.enums.GameState;
 
 import javax.swing.*;
@@ -15,14 +16,13 @@ public class Gui {
     private JPanel game;
     private JPanel endGameMessage;
 
-    private static JButton lastInput[];
+
 
     /**
      * creates a new Gui instance
      */
     public Gui(){
         createWindow(1280, 720, "Minesweeper");
-        lastInput = new JButton[2];
     }
 
     /**
@@ -53,17 +53,22 @@ public class Gui {
 
                 //play button
                 JButton play = new JButton("Play");
-                play.addActionListener(Controller.getListener());
+                play.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(play);
 
                 //exit button
                 JButton exit = new JButton("Exit");
-                exit.addActionListener(Controller.getListener());
+                exit.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(exit);
 
+                TileButton thisIsATestTile = new TileButton();
+                thisIsATestTile.setCoordinates(0,0);
+                thisIsATestTile.addMouseListener(Controller.getMouseHandler());
+                mainMenu.add(thisIsATestTile);
+
+
                 //set the last input array
-                lastInput[0] = play;
-                lastInput[1] = exit;
+
 
                 window.getContentPane().add(mainMenu);
 
@@ -88,7 +93,5 @@ public class Gui {
         }
     }
 
-    public static JButton[] getLastInput(){
-        return lastInput;
-    }
+
 }
