@@ -38,7 +38,7 @@ public class Cli {
         drawModel(minefield);
 
         System.out.println("Wähle ein Feld mit dem Schema \"m:n\", um es aufzudecken.");
-        System.out.println("Füge ein f vor \"m:n\" an, um eine Flagge zu setzen oder wieder zu entfernen. Bsp: \"f4:2\".");
+        System.out.println("Füge ein f vor \"m:n\" an, um eine Flagge zu setzen, ein Fragezeichen zu setzen oder wieder zu entfernen. Bsp: \"f4:2\".");
         System.out.println("Mit \"ng\" wird jederzeit ein neues Spiel gestartet, während \"exit\" das Spiel sofort verlässt.");
     }
 
@@ -70,7 +70,10 @@ public class Cli {
                     } else rowBuilder.append(minefield.getSurroundingMines(row, coll));
                 } else if (minefield.isFlagged(row, coll)) {
                     rowBuilder.append("F");
-                } else rowBuilder.append("■");
+                } else if (minefield.isQmarked(row, coll)) {
+                    rowBuilder.append("?");
+                }
+                else rowBuilder.append("■");
                 rowBuilder.append("]");
             }
             System.out.println(rowBuilder);
