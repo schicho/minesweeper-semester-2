@@ -50,7 +50,7 @@ public class Model {
      */
     public void sweepTile(int rowIndex, int colIndex){
         //do not allow sweeping of flagged tiles
-        if(isFlagged(rowIndex, colIndex)){
+        if(isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)){
             return;
         }
         //also check if tile has not been sweeped before, to stop recursion.
