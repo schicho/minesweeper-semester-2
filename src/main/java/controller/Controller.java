@@ -58,7 +58,7 @@ public class Controller implements MouseListener {
         // TODO: this needs to be set by the main menu when starting a game.
         model = new Model(Difficulty.EASY);
         gui.calculateSize(model);
-        gui.loadScene(GameState.MAIN_MENU);
+        gui.loadScene(GameState.RUNNING);
 
         do {
             //check first time in case a new game was started and old
@@ -145,8 +145,9 @@ public class Controller implements MouseListener {
     private String buttonInfo(JButton button) {
         if (button instanceof TileButton) {
             return ((TileButton) button).getM() + ":" + ((TileButton) button).getN();
+        }else {
+            return button.getText();
         }
-        return button.getText();
     }
 
     /**
