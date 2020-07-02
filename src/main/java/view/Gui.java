@@ -7,6 +7,7 @@ import model.enums.GameState;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Gui {
 
@@ -28,7 +29,7 @@ public class Gui {
      * creates a new Gui instance
      */
     public Gui() {
-        createWindow(1280, 720, "Minesweeper");
+        createWindow(1280, 720,"Minesweeper");
     }
 
     /**
