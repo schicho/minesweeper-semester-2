@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,7 +18,7 @@ import model.timer.*;
 import javax.swing.*;
 
 
-public class Controller implements MouseListener{
+public class Controller implements MouseListener {
 
     /**
      * holds the controller instance
@@ -50,44 +51,29 @@ public class Controller implements MouseListener{
      */
     private static boolean exit = false;
 
-
     /**
      * Main game loop which runs the game and stops it at win or failure.
-     *
      * @param args *no arguments*
      */
     public static void main(String[] args) {
         gui = new Gui();
 
-        //cli = new Cli();
         controller = new Controller();
-
-        model = new Model(Difficulty.EASY);
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
-        //cli.initializeView(model);
+        model = new Model(Difficulty.EASY);
+        gui.calculateSize(model);
+        gui.loadScene(GameState.RUNNING); // MAIN_MENU should actually redirect here.
 
-        gui.loadScene(GameState.MAIN_MENU);
-
-        /*game loop
         do {
             //check first time in case a new game was started and old
             //thread needs to be stopped
             if (exit) {
                 return;
             }
-
-            controller.updateModel();
-
-            //check second time to avoid redraw
-            if (exit) {
-                return;
-            }
-
-            cli.drawModel(model);
 
             if (model.getGameState() == GameState.WON) {
                 cli.displayWin();
@@ -98,7 +84,7 @@ public class Controller implements MouseListener{
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 cli.displayInputPrompt();
-                controller.handleInput();
+                controller.handleInput("exit"); //TODO: remove auto exit
             } else if (model.getGameState() == GameState.LOST) {
                 cli.displayFailure(model.getRemainingMines());
 
@@ -108,38 +94,37 @@ public class Controller implements MouseListener{
 
                 cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
                 cli.displayInputPrompt();
-                controller.handleInput();
+                controller.handleInput("exit"); //TODO: remove auto exit
             }
-        } while (model.getGameState() == GameState.RUNNING);*/
+        } while (model.getGameState() == GameState.RUNNING);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        if (e.getSource() instanceof JButton){
+        if (e.getSource() instanceof JButton) {
             String whatsItDo = buttonInfo((JButton) e.getSource());
-            if(whatsItDo.equals("Exit")){
-                if(SwingUtilities.isRightMouseButton(e)){
+            if (whatsItDo.equals("Exit")) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     System.out.println("tixE");
+                } else {
+                    System.out.println("Exit");
                 }
-                else {System.out.println("Exit");}
-            }
-            else if(whatsItDo.equals("Play")){
-                if(SwingUtilities.isRightMouseButton(e)){
+            } else if (whatsItDo.equals("Play")) {
+                if (SwingUtilities.isRightMouseButton(e)) {
                     System.out.println("yalP");
-                }
-                else System.out.println("Play");
-            }
-            else {
-                if(SwingUtilities.isRightMouseButton(e)){
-                    whatsItDo = "f"+whatsItDo;
+                } else System.out.println("Play");
+
+            // Click on Tile Button.
+            } else if (e.getSource() instanceof TileButton) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    whatsItDo = "f" + whatsItDo;
+                    System.out.println(whatsItDo);
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
                     System.out.println(whatsItDo);
                 }
-                System.out.println(whatsItDo);
             }
         }
-
-
     }
 
     @Override
@@ -163,15 +148,15 @@ public class Controller implements MouseListener{
     }
 
     /**
-     *
      * @param button JButton oder Tilebutton
      * @return a string, identifing the button
      */
-    private String buttonInfo(JButton button){
-        if(button instanceof TileButton){
-            return ((TileButton) button).getM()+":"+((TileButton) button).getN();
+    private String buttonInfo(JButton button) {
+        if (button instanceof TileButton) {
+            return ((TileButton) button).getM() + ":" + ((TileButton) button).getN();
+        } else {
+            return button.getText();
         }
-        else {return button.getText();}
     }
 
     /**
@@ -195,7 +180,7 @@ public class Controller implements MouseListener{
      */
 
 
-    public static Controller getMouseHandler(){
+    public static Controller getMouseHandler() {
         return controller;
     }
 
@@ -294,7 +279,7 @@ public class Controller implements MouseListener{
         return difficulty;
     }
 
-    public static Model getModel(){
+    public static Model getModel() {
         return model;
     }
 }
