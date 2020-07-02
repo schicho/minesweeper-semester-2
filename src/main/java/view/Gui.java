@@ -66,6 +66,7 @@ public class Gui {
 
     /**
      * builds the gamefield grid
+     *
      * @param rows number of rows
      * @param cols number of cols
      */
@@ -76,7 +77,7 @@ public class Gui {
             for (int j = 0; j < cols; j++) {
                 tileButtons[i][j] = new TileButton();
                 tileButtons[i][j].setCoordinates(i, j);
-                tileButtons[i][j].setText("hini");
+                tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(Controller.getMouseHandler());
                 game.add(tileButtons[i][j]);
             }
@@ -131,12 +132,38 @@ public class Gui {
         }
     }
 
-    public void changeButtonText(int i, int j, String newText){
+    public void changeButtonText(int i, int j, String newText) {
         tileButtons[i][j].setText(newText);
     }
 
-    public void greyOutButton(int i, int j){
+    public void greyOutButton(int i, int j) {
         tileButtons[i][j].setEnabled(false);
+    }
+
+    public void updateTileText(Model minefield) {
+        for (int i = 0; i < minefieldRows; i++) {
+            for (int j = 0; j < minefieldCols; j++) {
+
+                //text needs to be reset after unflaggingadd
+                if(!minefield.isSweeped(i,j) && !minefield.isFlagged(i,j)){
+                    changeButtonText(i,j, "");
+                }
+                if (minefield.isSweeped(i, j)) {
+                    if (minefield.isMine(i, j)) {
+                        changeButtonText(i, j, "B");
+                        greyOutButton(i, j);
+                    } else if (minefield.getSurroundingMines(i, j) == 0) {
+                        changeButtonText(i, j, "");
+                        greyOutButton(i, j);
+                    } else {
+                        changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                        greyOutButton(i, j);
+                    }
+                } else if (minefield.isFlagged(i, j)) {
+                    changeButtonText(i, j, "F");
+                }
+            }
+        }
     }
 
 

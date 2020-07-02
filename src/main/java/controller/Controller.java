@@ -119,10 +119,12 @@ public class Controller implements MouseListener {
             } else if (e.getSource() instanceof TileButton) {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     whatsItDo = "f" + whatsItDo;
-                    System.out.println(whatsItDo);
+                    handleInput(whatsItDo);
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
-                    System.out.println(whatsItDo);
+                    handleInput(whatsItDo);
                 }
+                //update Tile Text
+                gui.updateTileText(model);
             }
         }
     }
@@ -154,9 +156,8 @@ public class Controller implements MouseListener {
     private String buttonInfo(JButton button) {
         if (button instanceof TileButton) {
             return ((TileButton) button).getM() + ":" + ((TileButton) button).getN();
-        } else {
-            return button.getText();
         }
+        return "error";
     }
 
     /**
@@ -193,19 +194,13 @@ public class Controller implements MouseListener {
         //index of row and column
         int m, n;
 
-        try {
-            tester.testRealCommand(input);
-
             //flag a tile
             if (input.contains(":") && input.startsWith("f")) {
                 input = input.replace("f", "");
                 //read out step values
                 String[] parts = input.split(":");
-                tester.testInt(parts[0]);
                 m = Integer.parseInt(parts[0]);
-                tester.testInt(parts[1]);
                 n = Integer.parseInt(parts[1]);
-                tester.testInRange(difficulty, m, n);
 
                 model.flagTile(m, n);
             }
@@ -213,11 +208,8 @@ public class Controller implements MouseListener {
             else if (input.contains(":")) {
                 //read out step values
                 String[] parts = input.split(":");
-                tester.testInt(parts[0]);
                 m = Integer.parseInt(parts[0]);
-                tester.testInt(parts[1]);
                 n = Integer.parseInt(parts[1]);
-                tester.testInRange(difficulty, m, n);
 
                 model.sweepTile(m, n);
             } else {
@@ -242,11 +234,7 @@ public class Controller implements MouseListener {
                     break;
                 }
             }
-        } catch (WrongFormatException | NotATileException e) {
-            System.out.println(e.toString());
         }
-
-    }
 
     /**
      * Reads the difficulty the player wants to play the game in.
