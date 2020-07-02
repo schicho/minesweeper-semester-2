@@ -152,7 +152,11 @@ public class Gui {
      * @param j col index
      */
     public void greyOutButton(int i, int j) {
-        tileButtons[i][j].setEnabled(false);
+        tileButtons[i][j].setContentAreaFilled(true);
+        tileButtons[i][j].setFocusable( false );
+        tileButtons[i][j].setFocusPainted( false );
+        tileButtons[i][j].setRequestFocusEnabled( false );
+        tileButtons[i][j].setBackground( Color.lightGray );
     }
 
     /**
