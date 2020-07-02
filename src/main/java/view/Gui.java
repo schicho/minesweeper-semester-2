@@ -45,6 +45,10 @@ public class Gui {
         window.setVisible(true);
     }
 
+    /**
+     * Writes Vlaues for the field sizes
+     * @param minefield Model of a minefield
+     */
     public void calculateSize(Model minefield) {
         Difficulty difficulty = minefield.getDifficulty();
         switch (difficulty) {
@@ -70,7 +74,6 @@ public class Gui {
      * @param rows number of rows
      * @param cols number of cols
      */
-
     public void fieldBuilder(int rows, int cols) {
         game.setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows; i++) {
@@ -132,14 +135,29 @@ public class Gui {
         }
     }
 
+    /**
+     * Changes the Text on a button in TileButtons[][]
+     * @param i row index
+     * @param j col index
+     * @param newText new text to display
+     */
     public void changeButtonText(int i, int j, String newText) {
         tileButtons[i][j].setText(newText);
     }
 
+    /**
+     * greys out a button of TileButtons[][] and makes it no more clickable
+     * @param i row index
+     * @param j col index
+     */
     public void greyOutButton(int i, int j) {
         tileButtons[i][j].setEnabled(false);
     }
 
+    /**
+     * iterates over the minefield and updates the text after every new click
+     * @param minefield a model instance
+     */
     public void updateTileText(Model minefield) {
         for (int i = 0; i < minefieldRows; i++) {
             for (int j = 0; j < minefieldCols; j++) {
@@ -164,6 +182,22 @@ public class Gui {
                 }
             }
         }
+    }
+
+    public void displayWin(){
+        JOptionPane.showMessageDialog(
+                game,
+                "hiniheini",
+                "YOU WON!",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public void displayFailure(int remainingMines){
+        JOptionPane.showMessageDialog(
+                game,
+                "you are a failure. " + remainingMines + " remaining mines not found.",
+                "YOU LOST!",
+                JOptionPane.PLAIN_MESSAGE);
     }
 
 

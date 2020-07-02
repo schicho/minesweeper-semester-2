@@ -71,25 +71,19 @@ public class Controller implements MouseListener {
             }
 
             if (model.getGameState() == GameState.WON) {
-                cli.displayWin();
+                gui.displayWin();
 
                 //stop timerTask and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
-                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
-                cli.displayInputPrompt();
-                controller.handleInput("exit"); //TODO: remove auto exit
             } else if (model.getGameState() == GameState.LOST) {
-                cli.displayFailure(model.getRemainingMines());
+                gui.displayFailure(model.getRemainingMines());
 
                 //stop timerTask and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
-                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
-                cli.displayInputPrompt();
-                controller.handleInput("exit"); //TODO: remove auto exit
             }
         } while (model.getGameState() == GameState.RUNNING);
     }
