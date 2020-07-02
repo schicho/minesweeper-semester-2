@@ -162,8 +162,7 @@ public class Gui {
     public void updateTileText(Model minefield) {
         for (int i = 0; i < minefieldRows; i++) {
             for (int j = 0; j < minefieldCols; j++) {
-
-                //text needs to be reset after unflaggingadd
+                //text needs to be reset after unflagging
                 if(!minefield.isSweeped(i,j) && !minefield.isFlagged(i,j)){
                     changeButtonText(i,j, "");
                 }
@@ -180,6 +179,8 @@ public class Gui {
                     }
                 } else if (minefield.isFlagged(i, j)) {
                     changeButtonText(i, j, "F");
+                } else  if(minefield.isQmarked(i,j)) {
+                    changeButtonText(i, j, "?");
                 }
             }
         }
