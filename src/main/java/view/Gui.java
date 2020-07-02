@@ -16,9 +16,13 @@ public class Gui {
     private JPanel game;
     private JPanel endGameMessage;
 
-    private int minefieldWidth;
-    private int minefieldHeight;
+    private int minefieldCols;
+    private int minefieldRows;
 
+    /**
+     * stores all TileField Buttons for index-based access.
+     */
+    private TileButton[][] tileButtons;
 
     /**
      * creates a new Gui instance
@@ -45,18 +49,19 @@ public class Gui {
         Difficulty difficulty = minefield.getDifficulty();
         switch (difficulty) {
             case EASY:
-                this.minefieldWidth = 9;
-                this.minefieldHeight = 9;
+                this.minefieldRows = 9;
+                this.minefieldCols = 9;
                 break;
             case NORMAL:
-                this.minefieldWidth = 16;
-                this.minefieldHeight = 16;
+                this.minefieldRows = 16;
+                this.minefieldCols = 16;
                 break;
             case HARD:
-                this.minefieldWidth = 30;
-                this.minefieldHeight = 16;
+                this.minefieldRows = 16;
+                this.minefieldCols = 30;
                 break;
         }
+        tileButtons = new TileButton[minefieldRows][minefieldCols];
     }
 
     /**
@@ -69,10 +74,11 @@ public class Gui {
         game.setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                TileButton button = new TileButton();
-                button.setCoordinates(i, j);
-                button.addMouseListener(Controller.getMouseHandler());
-                game.add(button);
+                tileButtons[i][j] = new TileButton();
+                tileButtons[i][j].setCoordinates(i, j);
+                tileButtons[i][j].setText("hini");
+                tileButtons[i][j].addMouseListener(Controller.getMouseHandler());
+                game.add(tileButtons[i][j]);
             }
         }
     }
@@ -117,7 +123,7 @@ public class Gui {
             case RUNNING: {
                 //game panel
                 game = new JPanel();
-                fieldBuilder(minefieldHeight, minefieldWidth);
+                fieldBuilder(minefieldRows, minefieldCols);
 
                 window.getContentPane().add(game);
                 window.setVisible(true);
