@@ -118,12 +118,14 @@ public class Model {
         if (isSweeped(rowIndex, colIndex)){
             return;
         }
-        if (!isFlagged(rowIndex, colIndex)) {
+        if (!isFlagged(rowIndex, colIndex) && !isQmarked(rowIndex, colIndex)) {
             minesweeperField.flagTile(rowIndex, colIndex);
             numberOfFlags++;
-        } else {
-            minesweeperField.unflagTile(rowIndex, colIndex);
+        } else if (isFlagged(rowIndex, colIndex)) {
+            minesweeperField.qmarkTile(rowIndex, colIndex);
             numberOfFlags--;
+        } else {
+            minesweeperField.unQmarkTile(rowIndex, colIndex);
         }
     }
 
@@ -135,6 +137,16 @@ public class Model {
      */
     public boolean isFlagged(int rowIndex, int colIndex){
         return minesweeperField.isFlagged(rowIndex, colIndex);
+    }
+
+    /**
+     * Check if tile at a certain index is question marked or not.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     * @return true if tile is question marked, false if not.
+     */
+    public boolean isQmarked(int rowIndex, int colIndex){
+        return minesweeperField.isQmarked(rowIndex, colIndex);
     }
 
     /**
