@@ -94,6 +94,7 @@ public class Gui {
      * @param state the state to tell the function what to load
      */
     public void loadScene(GameState state) {
+        //clear from previous buttons
         window.getContentPane().removeAll();
         switch (state) {
             case MAIN_MENU: {
