@@ -111,11 +111,6 @@ public class Gui {
                 exit.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(exit);
 
-                TileButton thisIsATestTile = new TileButton();
-                thisIsATestTile.setCoordinates(0, 0);
-                thisIsATestTile.addMouseListener(Controller.getMouseHandler());
-                mainMenu.add(thisIsATestTile);
-
                 window.getContentPane().add(mainMenu);
 
                 window.setVisible(true);
