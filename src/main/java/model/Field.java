@@ -138,15 +138,28 @@ public class Field {
     }
 
     /**
+     * replaces a flag with a question mark
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void qmarkTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) {
+            minefield[rowIndex][colIndex].setState(TileState.QMARKED_MINE);
+            //a found mine was questionmarked
+            remainingMines++;
+            return;
+        }
+        minefield[rowIndex][colIndex].setState(TileState.QMARKED_FREE);
+    }
+
+    /**
      * takes the flag off the tile
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void unflagTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE){
+    public void unQmarkTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE){
             minefield[rowIndex][colIndex].setState(TileState.MINE);
-            //a found mine was unflagged
-            remainingMines++;
             return;
         }
         minefield[rowIndex][colIndex].setState(TileState.FREE);
@@ -170,6 +183,16 @@ public class Field {
     public boolean isFlagged(int rowIndex, int colIndex) {
         return minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_FREE ||
                 minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE;
+    }
+
+    /**
+     * returns true if tile at given index is question marked.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isQmarked(int rowIndex, int colIndex) {
+        return minefield[rowIndex][colIndex].getState() == TileState.QMARKED_FREE ||
+                minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE;
     }
 
     /**

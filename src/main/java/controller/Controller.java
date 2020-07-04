@@ -58,7 +58,7 @@ public class Controller implements MouseListener {
         // TODO: this needs to be set by the main menu when starting a game.
         model = new Model(Difficulty.EASY);
         gui.calculateSize(model);
-        gui.loadScene(GameState.RUNNING);
+        gui.loadScene(GameState.MAIN_MENU);
 
         do {
             //check first time in case a new game was started and old
@@ -102,7 +102,9 @@ public class Controller implements MouseListener {
             } else if (whatsItDo.equals("Play")) {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     System.out.println("yalP");
-                } else System.out.println("Play");
+                } else {
+                    gui.loadScene(GameState.RUNNING);
+                }
 
             // Click on Tile Button. Sweep/Flag/Unflag
             } else if (e.getSource() instanceof TileButton) {

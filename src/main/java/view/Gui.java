@@ -94,6 +94,8 @@ public class Gui {
      * @param state the state to tell the function what to load
      */
     public void loadScene(GameState state) {
+        //clear from previous buttons
+        window.getContentPane().removeAll();
         switch (state) {
             case MAIN_MENU: {
                 //main menu panel
@@ -108,11 +110,6 @@ public class Gui {
                 JButton exit = new JButton("Exit");
                 exit.addMouseListener(Controller.getMouseHandler());
                 mainMenu.add(exit);
-
-                TileButton thisIsATestTile = new TileButton();
-                thisIsATestTile.setCoordinates(0, 0);
-                thisIsATestTile.addMouseListener(Controller.getMouseHandler());
-                mainMenu.add(thisIsATestTile);
 
                 window.getContentPane().add(mainMenu);
 
@@ -152,7 +149,11 @@ public class Gui {
      * @param j col index
      */
     public void greyOutButton(int i, int j) {
-        tileButtons[i][j].setEnabled(false);
+        tileButtons[i][j].setContentAreaFilled(true);
+        tileButtons[i][j].setFocusable( false );
+        tileButtons[i][j].setFocusPainted( false );
+        tileButtons[i][j].setRequestFocusEnabled( false );
+        tileButtons[i][j].setBackground( Color.lightGray );
     }
 
     /**
@@ -162,8 +163,7 @@ public class Gui {
     public void updateTileText(Model minefield) {
         for (int i = 0; i < minefieldRows; i++) {
             for (int j = 0; j < minefieldCols; j++) {
-
-                //text needs to be reset after unflaggingadd
+                //text needs to be reset after unflagging
                 if(!minefield.isSweeped(i,j) && !minefield.isFlagged(i,j)){
                     changeButtonText(i,j, "");
                 }
@@ -180,6 +180,8 @@ public class Gui {
                     }
                 } else if (minefield.isFlagged(i, j)) {
                     changeButtonText(i, j, "F");
+                } else  if(minefield.isQmarked(i,j)) {
+                    changeButtonText(i, j, "?");
                 }
             }
         }
