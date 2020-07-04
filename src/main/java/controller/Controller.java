@@ -43,9 +43,14 @@ public class Controller /*implements MouseListener*/ {
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
-
-        controller.difficulty = controller.readDifficulty();
-        model = new Model(controller.difficulty);
+        if( (args.length>0)&&(args[0].length()>0)) {
+            model =new Model(args[0]);
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!GEEEEEEEHT!!!!!!!!!");
+        }
+        else {
+            controller.difficulty = controller.readDifficulty();
+            model = new Model(controller.difficulty);
+        }
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
@@ -120,6 +125,12 @@ public class Controller /*implements MouseListener*/ {
         handleInput();
     }
 
+    private String getSeed(){
+        Scanner scanner = new Scanner(System.in);
+        String seed = scanner.nextLine();
+        return seed;
+    }
+
     /**
      * interprets the given input
      */
@@ -179,6 +190,23 @@ public class Controller /*implements MouseListener*/ {
                         exit = true;
                     }
                     break;
+                    case "save":{
+                        String seed= model.getSeed();
+                        cli.printSeed(seed);
+                    }
+                    break;
+                    case "load":{
+                        cli.askForSeed();
+                        cli.displayInputPrompt();
+                        String Seed=getSeed();
+                        timerTask.cancel();
+                        timerTask = null;
+                        SecondsTimer.counter = 0;
+
+                        String[] noargs = {Seed};
+                        main(noargs);
+                    }
+                    break;
                 }
             }
         } catch (WrongFormatException | NotATileException e) {
@@ -210,7 +238,7 @@ public class Controller /*implements MouseListener*/ {
                     case "hard":
                         difficulty = Difficulty.HARD;
                         break;
-                }
+                    }
             } catch (NotADifficultyException e) {
                 System.out.println(e.toString());
             }

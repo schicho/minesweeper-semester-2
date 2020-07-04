@@ -27,9 +27,9 @@ public class InputExceptionHandler {
      */
     public void testRealCommand(String input) throws WrongFormatException {
         if (input.indexOf(':') == -1) {
-            if (input.equals("ng") || input.equals("exit")) {
+            if (input.equals("ng") || input.equals("exit") || input.equals("load")|| input.equals("save")) {
             } else {
-                throw new WrongFormatException("Format must be \"(f)Int:Int\", or \"ng\", \"exit\"");
+                throw new WrongFormatException("Format must be \"(f)Int:Int\", or \"ng\", \"exit\", \"save\" or \"load\"");
             }
         }
     }

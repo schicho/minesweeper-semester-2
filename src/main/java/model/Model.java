@@ -16,6 +16,7 @@ public class Model {
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
 
+
     /**
      * Constructs the model which creates a minesweeper field
      * based on difficulty.
@@ -40,6 +41,22 @@ public class Model {
         }
     }
 
+    public Model(String seed){
+        if(seed.charAt(0)=='0'){
+            this.difficulty=Difficulty.EASY;
+            numberOfMines = 10;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.difficulty=Difficulty.NORMAL;
+            numberOfMines = 40;
+        }
+        else{
+            this.difficulty=Difficulty.HARD;
+            numberOfMines = 99;
+        }
+        minesweeperField = new Field(seed);
+    }
+
     /**
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
@@ -57,7 +74,7 @@ public class Model {
         boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
         //Update GameState
         if(isMine(rowIndex, colIndex)){
-            minesweeperField.sweepTile(rowIndex, colIndex);
+            minesweeperField.sweepTile(rowIndex, colIndex,false);
             gameState = GameState.LOST;
             return; //no need to further swipe any tiles
         }else if(!isAlreadySweeped){
@@ -66,7 +83,7 @@ public class Model {
         //recursion
         if(!isAlreadySweeped){
             //sweep Tile which was called to do be sweeped.
-            minesweeperField.sweepTile(rowIndex, colIndex);
+            minesweeperField.sweepTile(rowIndex, colIndex,false);
             //recursively sweep surrounding tiles.
             if (getSurroundingMines(rowIndex, colIndex) == 0) {
                 // top 3
@@ -186,6 +203,10 @@ public class Model {
      */
     public Difficulty getDifficulty() {
         return this.difficulty;
+    }
+
+    public String getSeed(){
+        return minesweeperField.getSeed();
     }
 
     /**

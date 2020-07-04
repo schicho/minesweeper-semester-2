@@ -8,7 +8,7 @@ public class Field {
 
     private final int rows;
     private final int cols;
-
+    private SaveGame gameSaver= new SaveGame();
     private int remainingMines;
 
     /**
@@ -29,6 +29,50 @@ public class Field {
         populate();
         placeMinesRNG(numberOfMines);
         calcSurroundingMines();
+    }
+
+    public Field(String seed){
+        if(seed.charAt(0)=='0'){
+            this.rows=9;
+            this.cols=9;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.rows=16;
+            this.cols=16;
+        }
+        else{
+            this.rows=16;
+            this.cols=30;
+        }
+
+        this.minefield=new Tile[rows][cols];
+        populate();
+        boolean sweeping=false;
+        int m;
+        int n;
+        StringBuilder workSeed = new StringBuilder(seed);
+        for(int i=1; i<workSeed.length();i+=4){
+            m=Integer.parseInt(workSeed.substring(i,i+1));
+            n=Integer.parseInt(workSeed.substring(i+2,i+3));
+            if ((m!=99)&&(n!=99)){sweeping=true;}
+            else if (!sweeping){
+                if(m>=16){
+                    flagTile(m-16,n);
+                }
+                if(n>=30){
+                    qmarkTile(m,n-30);
+                }
+                if((m<32)&&(n<60)){
+                    if(m>=16){m-=16;}
+                    if(n>=30){n-=30;}
+                    minefield[m][n].setState(TileState.MINE);
+                }
+            }
+            else{
+                sweepTile(m,n,false);
+                System.out.println("!!!!DAS AUCCH!!!");
+            }
+        }
     }
 
     /**
@@ -114,10 +158,13 @@ public class Field {
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void sweepTile(int rowIndex, int colIndex){
+    public void sweepTile(int rowIndex, int colIndex, boolean recursion){
         if(minefield[rowIndex][colIndex].getState() == TileState.MINE){
             minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
             return;
+        }
+        if(!recursion) {
+            gameSaver.addSweepCoords(rowIndex, colIndex);
         }
         minefield[rowIndex][colIndex].setState(TileState.SWEEPED_FREE);
     }
@@ -241,5 +288,9 @@ public class Field {
      */
     public int getRemainingMines(){
         return remainingMines;
+    }
+
+    public String getSeed(){
+        return gameSaver.genSeed(this);
     }
 }
