@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Base64;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,14 +39,16 @@ public class Controller /*implements MouseListener*/ {
     /**
      * Main game loop which runs the game and stops it at win or failure.
      *
-     * @param args *no arguments*
+     * @param args *no arguments* or seed
      */
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
+
+        //decides to use models second constructor if game is loaded.
         if( (args.length>0)&&(args[0].length()>0)) {
             model =new Model(args[0]);
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!GEEEEEEEHT!!!!!!!!!");
+            controller.difficulty=model.getDifficulty();
         }
         else {
             controller.difficulty = controller.readDifficulty();
@@ -169,7 +172,7 @@ public class Controller /*implements MouseListener*/ {
                 n = Integer.parseInt(parts[1]);
                 tester.testInRange(difficulty, m, n);
 
-                model.sweepTile(m, n);
+                model.sweepTile(m, n,false);
             } else {
                 //its not a mine command
                 switch (command) {
@@ -198,12 +201,14 @@ public class Controller /*implements MouseListener*/ {
                     case "load":{
                         cli.askForSeed();
                         cli.displayInputPrompt();
-                        String Seed=getSeed();
                         timerTask.cancel();
                         timerTask = null;
                         SecondsTimer.counter = 0;
-
-                        String[] noargs = {Seed};
+                        String decodedSeed=getSeed();
+                        Base64.Decoder decoder= Base64.getDecoder();
+                        byte[] byteSeed = decoder.decode(decodedSeed.getBytes());
+                        String seed = new String(byteSeed);
+                        String[] noargs = {seed};
                         main(noargs);
                     }
                     break;

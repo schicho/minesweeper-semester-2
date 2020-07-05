@@ -119,8 +119,15 @@ public class Cli {
         System.out.print("ms> ");
     }
 
-    public void askForSeed(){ System.out.println("Please enter a seed");    }
+    /**
+     * asks the user for seed...duh
+     */
+    public void askForSeed(){ System.out.println("Please enter a seed");   }
 
+    /**
+     * prints the given seed
+     * @param seed seed given by model
+     */
     public void printSeed(String seed){
         System.out.println(seed);
     }

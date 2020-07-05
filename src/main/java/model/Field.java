@@ -8,7 +8,7 @@ public class Field {
 
     private final int rows;
     private final int cols;
-    private SaveGame gameSaver= new SaveGame();
+
     private int remainingMines;
 
     /**
@@ -31,7 +31,12 @@ public class Field {
         calcSurroundingMines();
     }
 
+    /**
+     * Second Constructor for decoding/loading seed, just handels mine, flag, Qmarked placement, as well as surrounding Mines
+     * @param seed given by model, representing the state of the game which is supposed to be loaded
+     */
     public Field(String seed){
+        //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
         if(seed.charAt(0)=='0'){
             this.rows=9;
             this.cols=9;
@@ -47,32 +52,38 @@ public class Field {
 
         this.minefield=new Tile[rows][cols];
         populate();
+
         boolean sweeping=false;
         int m;
         int n;
         StringBuilder workSeed = new StringBuilder(seed);
         for(int i=1; i<workSeed.length();i+=4){
-            m=Integer.parseInt(workSeed.substring(i,i+1));
-            n=Integer.parseInt(workSeed.substring(i+2,i+3));
-            if ((m!=99)&&(n!=99)){sweeping=true;}
+            m=Integer.parseInt(workSeed.substring(i,i+2));
+            n=Integer.parseInt(workSeed.substring(i+2,i+4));
+            if ((m==99)&&(n==99)){sweeping=true;
+            calcSurroundingMines();}
             else if (!sweeping){
+
                 if(m>=16){
-                    flagTile(m-16,n);
+                    if(m>=32){flagTile(m-32,n);}
+                    else{flagTile(m-16,n);}
                 }
                 if(n>=30){
-                    qmarkTile(m,n-30);
+                    if(n>=60){qmarkTile(m,n-60);}
+                    else{qmarkTile(m,n-30);}
                 }
                 if((m<32)&&(n<60)){
                     if(m>=16){m-=16;}
                     if(n>=30){n-=30;}
-                    minefield[m][n].setState(TileState.MINE);
+                    if(isFlagged(m,n)){minefield[m][n].setState(TileState.FLAGGED_MINE);}
+                    else if(isQmarked(m,n)){minefield[m][n].setState(TileState.QMARKED_MINE);}
+                    else{minefield[m][n].setState(TileState.MINE);}
                 }
             }
-            else{
-                sweepTile(m,n,false);
-                System.out.println("!!!!DAS AUCCH!!!");
-            }
+
+
         }
+
     }
 
     /**
@@ -118,33 +129,65 @@ public class Field {
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
                 int count = 0;
-                //check all 8 surrounding tiles for mines. This is very ugly.
+                //check all 8 surrounding tiles for mines. This is very ugly. VERY UGLY
                 //top 3
                 try {
-                    if(minefield[i-1][j-1].getState() == TileState.MINE){count++;}
+                    if((minefield[i-1][j-1].getState() == TileState.MINE)||
+                            (minefield[i-1][j-1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i-1][j-1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 try {
-                    if(minefield[i-1][j].getState() == TileState.MINE){count++;}
+                    if((minefield[i-1][j].getState() == TileState.MINE)||
+                            (minefield[i-1][j].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i-1][j].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 try {
-                    if(minefield[i-1][j+1].getState() == TileState.MINE){count++;}
+                    if((minefield[i-1][j+1].getState() == TileState.MINE)||
+                            (minefield[i-1][j+1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i-1][j+1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 //left and right
                 try {
-                    if(minefield[i][j-1].getState() == TileState.MINE){count++;}
+                    if((minefield[i][j-1].getState() == TileState.MINE)||
+                            (minefield[i][j-1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i][j-1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 try {
-                    if(minefield[i][j+1].getState() == TileState.MINE){count++;}
+                    if((minefield[i][j+1].getState() == TileState.MINE)||
+                            (minefield[i][j+1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i][j+1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 //bottom 3
                 try {
-                    if(minefield[i+1][j-1].getState() == TileState.MINE){count++;}
+                    if((minefield[i+1][j-1].getState() == TileState.MINE)||
+                            (minefield[i+1][j-1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i+1][j-1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 try {
-                    if(minefield[i+1][j].getState() == TileState.MINE){count++;}
+                    if((minefield[i+1][j].getState() == TileState.MINE)||
+                            (minefield[i+1][j].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i+1][j].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
                 try {
-                    if(minefield[i+1][j+1].getState() == TileState.MINE){count++;}
+                    if((minefield[i+1][j+1].getState() == TileState.MINE)||
+                            (minefield[i+1][j+1].getState() == TileState.QMARKED_MINE)||
+                            (minefield[i+1][j+1].getState() == TileState.FLAGGED_MINE)){
+                        count++;
+                    }
                 }catch (IndexOutOfBoundsException ignored){}
 
                 //write to the current tile which's surrounding mines we counted
@@ -158,13 +201,10 @@ public class Field {
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void sweepTile(int rowIndex, int colIndex, boolean recursion){
+    public void sweepTile(int rowIndex, int colIndex){
         if(minefield[rowIndex][colIndex].getState() == TileState.MINE){
             minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
             return;
-        }
-        if(!recursion) {
-            gameSaver.addSweepCoords(rowIndex, colIndex);
         }
         minefield[rowIndex][colIndex].setState(TileState.SWEEPED_FREE);
     }
@@ -290,7 +330,5 @@ public class Field {
         return remainingMines;
     }
 
-    public String getSeed(){
-        return gameSaver.genSeed(this);
-    }
+
 }
