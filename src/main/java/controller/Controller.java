@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Base64;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,14 +39,21 @@ public class Controller /*implements MouseListener*/ {
     /**
      * Main game loop which runs the game and stops it at win or failure.
      *
-     * @param args *no arguments*
+     * @param args *no arguments* or seed
      */
     public static void main(String[] args) {
         cli = new Cli();
         Controller controller = new Controller();
 
-        controller.difficulty = controller.readDifficulty();
-        model = new Model(controller.difficulty);
+        //decides to use models second constructor if game is loaded.
+        if( (args.length>0)&&(args[0].length()>0)) {
+            model =new Model(args[0]);
+            controller.difficulty=model.getDifficulty();
+        }
+        else {
+            controller.difficulty = controller.readDifficulty();
+            model = new Model(controller.difficulty);
+        }
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
@@ -120,6 +128,12 @@ public class Controller /*implements MouseListener*/ {
         handleInput();
     }
 
+    private String getSeed(){
+        Scanner scanner = new Scanner(System.in);
+        String seed = scanner.nextLine();
+        return seed;
+    }
+
     /**
      * interprets the given input
      */
@@ -158,7 +172,7 @@ public class Controller /*implements MouseListener*/ {
                 n = Integer.parseInt(parts[1]);
                 tester.testInRange(difficulty, m, n);
 
-                model.sweepTile(m, n);
+                model.sweepTile(m, n,false);
             } else {
                 //its not a mine command
                 switch (command) {
@@ -177,6 +191,25 @@ public class Controller /*implements MouseListener*/ {
                         //timer needs to be stopped here, otherwise program wont terminate
                         timer.cancel();
                         exit = true;
+                    }
+                    break;
+                    case "save":{
+                        String seed= model.getSeed();
+                        cli.printSeed(seed);
+                    }
+                    break;
+                    case "load":{
+                        cli.askForSeed();
+                        cli.displayInputPrompt();
+                        timerTask.cancel();
+                        timerTask = null;
+                        SecondsTimer.counter = 0;
+                        String decodedSeed=getSeed();
+                        Base64.Decoder decoder= Base64.getDecoder();
+                        byte[] byteSeed = decoder.decode(decodedSeed.getBytes());
+                        String seed = new String(byteSeed);
+                        String[] noargs = {seed};
+                        main(noargs);
                     }
                     break;
                 }
@@ -210,7 +243,7 @@ public class Controller /*implements MouseListener*/ {
                     case "hard":
                         difficulty = Difficulty.HARD;
                         break;
-                }
+                    }
             } catch (NotADifficultyException e) {
                 System.out.println(e.toString());
             }

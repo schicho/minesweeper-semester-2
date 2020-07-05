@@ -15,6 +15,8 @@ public class Model {
     private int numberOfFlags = 0;
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
+    private SaveGame gameSaver= new SaveGame();
+
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -41,6 +43,35 @@ public class Model {
     }
 
     /**
+     * Second constructor, to decode/load seed
+     * @param seed given by load case in Controller.handleInput
+     */
+    public Model(String seed){
+        if(seed.charAt(0)=='0'){
+            this.difficulty=Difficulty.EASY;
+            numberOfMines = 10;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.difficulty=Difficulty.NORMAL;
+            numberOfMines = 40;
+        }
+        else{
+            this.difficulty=Difficulty.HARD;
+            numberOfMines = 99;
+        }
+        minesweeperField = new Field(seed);
+        StringBuilder seedBuilder = new StringBuilder(seed);
+        int m;
+        int n;
+        //cant be done in Field, since field doesnt support recursion
+        for(int i = seedBuilder.indexOf("9999")+4; i<seedBuilder.length(); i+=4){
+            m=Integer.parseInt(seedBuilder.substring(i,i+2));
+            n=Integer.parseInt(seedBuilder.substring(i+2,i+4));
+            sweepTile(m,n,false);
+        }
+    }
+
+    /**
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
      * zero neighboring mines.
@@ -48,7 +79,7 @@ public class Model {
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void sweepTile(int rowIndex, int colIndex){
+    public void sweepTile(int rowIndex, int colIndex, boolean recursion){
         //do not allow sweeping of flagged tiles
         if(isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)){
             return;
@@ -67,41 +98,44 @@ public class Model {
         if(!isAlreadySweeped){
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
+            if(!recursion) {
+                gameSaver.addSweepCoords(rowIndex, colIndex);
+            }
             //recursively sweep surrounding tiles.
             if (getSurroundingMines(rowIndex, colIndex) == 0) {
                 // top 3
                 try {
-                    sweepTile(rowIndex - 1, colIndex - 1);
+                    sweepTile(rowIndex - 1, colIndex - 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 try {
-                    sweepTile(rowIndex - 1, colIndex);
+                    sweepTile(rowIndex - 1, colIndex,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 try {
-                    sweepTile(rowIndex - 1, colIndex + 1);
+                    sweepTile(rowIndex - 1, colIndex + 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 //left and right
                 try {
-                    sweepTile(rowIndex, colIndex - 1);
+                    sweepTile(rowIndex, colIndex - 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 try {
-                    sweepTile(rowIndex, colIndex + 1);
+                    sweepTile(rowIndex, colIndex + 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 //bottom 3
                 try {
-                    sweepTile(rowIndex + 1, colIndex - 1);
+                    sweepTile(rowIndex + 1, colIndex - 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 try {
-                    sweepTile(rowIndex + 1, colIndex);
+                    sweepTile(rowIndex + 1, colIndex,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
                 try {
-                    sweepTile(rowIndex + 1, colIndex + 1);
+                    sweepTile(rowIndex + 1, colIndex + 1,true);
                 } catch (IndexOutOfBoundsException ignored) {
                 }
             }
@@ -186,6 +220,14 @@ public class Model {
      */
     public Difficulty getDifficulty() {
         return this.difficulty;
+    }
+
+    /**
+     * Gets the seed of the current game
+     * @return 's the seed
+     */
+    public String getSeed(){
+        return gameSaver.genSeed(minesweeperField);
     }
 
     /**
