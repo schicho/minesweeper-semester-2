@@ -16,6 +16,7 @@ public class Model {
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
 
+
     /**
      * Constructs the model which creates a minesweeper field
      * based on difficulty.
