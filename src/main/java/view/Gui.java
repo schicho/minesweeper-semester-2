@@ -14,6 +14,7 @@ public class Gui {
     private JPanel pauseMenu;
     private JPanel game;
     private JPanel endGameMessage;
+    private JLabel remainingFlagsDisplay;
 
     private int minefieldCols;
     private int minefieldRows;
@@ -55,6 +56,20 @@ public class Gui {
         window.setVisible(true);
     }
 
+   // public void createFlagDisplay(int width, int height){
+     //   remainingFlagsDisplay = new JLabel();
+       // remainingFlagsDisplay.setBounds(0,0,width,height);
+      //  updateFlagDisplay();
+    //}
+
+    /**
+     * Updates the flag display with the current number of flags that are left to set.
+     */
+    public void updateFlagDisplay(){
+        String text = String.valueOf(Controller.getModel().getFlagsToSetLeft());
+        remainingFlagsDisplay.setText(text);
+    }
+
     /**
      * Writes Vlaues for the field sizes
      * @param minefield Model of a minefield
@@ -93,7 +108,7 @@ public class Gui {
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(controller.getMouseHandler());
                 tileButtons[i][j].setPreferredSize(new Dimension(50,50));
-              
+
                 game.add(tileButtons[i][j]);
             }
         }
@@ -138,8 +153,10 @@ public class Gui {
                 //game panel
                 game = new JPanel();
                 fieldBuilder(minefieldRows, minefieldCols);
+                remainingFlagsDisplay = new JLabel();
 
                 window.getContentPane().add(game);
+                window.getContentPane().add(remainingFlagsDisplay);
                 //pack is important to make each button actually use it's preferred Dimension.
                 window.pack();
                 window.setLocationRelativeTo(null);
