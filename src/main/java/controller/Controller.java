@@ -48,7 +48,6 @@ public class Controller implements MouseListener {
      */
     public static void main(String[] args) {
         gui = new Gui();
-
         controller = new Controller();
 
         timerTask = new SecondsTimer();
@@ -60,6 +59,34 @@ public class Controller implements MouseListener {
         gui.calculateSize(model);
         gui.loadScene(GameState.MAIN_MENU);
 
+        //hässlich wird gefixed!!! versprochen.
+        while (true){
+            if (exit) {
+                timerTask.cancel();
+                timerTask = null;
+                timer.cancel();
+                return;
+            }
+
+            if (model.getGameState() == GameState.WON) {
+                gui.displayWin();
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+                break;
+
+            } else if (model.getGameState() == GameState.LOST) {
+                gui.displayFailure(model.getRemainingMines());
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+                break;
+            }
+        }
+
+        /*
         do {
             //check first time in case a new game was started and old
             //thread needs to be stopped
@@ -85,7 +112,9 @@ public class Controller implements MouseListener {
                 SecondsTimer.counter = 0;
 
             }
+            //System.out.println("kek");
         } while (model.getGameState() == GameState.RUNNING);
+         */
     }
 
     @Override
