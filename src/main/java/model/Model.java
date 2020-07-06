@@ -1,10 +1,31 @@
 package model;
 
 import model.enums.*;
+import observer_subject.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class Model implements Subject {
+
+    private List<Observer> observerList = new ArrayList<>();
+
+    @Override
+    public void attach(Observer o) {
+        observerList.add(o);
+    }
+
+    @Override
+    public void detach(Observer o) {
+        observerList.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for( Observer o : observerList){
+            o.update(this);
+        }
+    }
 
     /**
      * the Field itself provides the core functionality on the 2D Tile array.
@@ -92,6 +113,7 @@ public class Model {
         if(isMine(rowIndex, colIndex)){
             minesweeperField.sweepTile(rowIndex, colIndex);
             gameState = GameState.LOST;
+            notifyObservers();
             return; //no need to further swipe any tiles
         }else if(!isAlreadySweeped){
             countSweepedTiles++;
@@ -139,6 +161,7 @@ public class Model {
                 }
             }
         }
+        notifyObservers();
     }
 
     /**

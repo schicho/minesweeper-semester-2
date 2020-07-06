@@ -7,12 +7,13 @@ import java.util.TimerTask;
 
 import model.*;
 import model.enums.*;
+import observer_subject.*;
 import view.*;
 import model.timer.*;
 
 import javax.swing.*;
 
-public class Controller implements MouseListener {
+public class Controller implements MouseListener, Observer {
 
     /**
      * holds the controller instance
@@ -52,34 +53,11 @@ public class Controller implements MouseListener {
 
         // TODO: this needs to be set by the main menu when starting a game.
         model = new Model(Difficulty.EASY);
+
+        model.attach(this);
+
         gui.calculateSize(model);
         gui.loadScene(GameState.MAIN_MENU);
-
-        while (true){
-            if (exit) {
-                timerTask.cancel();
-                timerTask = null;
-                timer.cancel();
-                return;
-            }
-
-            if (model.getGameState() == GameState.WON) {
-                gui.displayWin();
-
-                //stop timerTask and reset
-                timerTask.cancel();
-                SecondsTimer.counter = 0;
-                break;
-
-            } else if (model.getGameState() == GameState.LOST) {
-                gui.displayFailure(model.getRemainingMines());
-
-                //stop timerTask and reset
-                timerTask.cancel();
-                SecondsTimer.counter = 0;
-                break;
-            }
-        }
     }
 
     @Override
@@ -198,6 +176,29 @@ public class Controller implements MouseListener {
             n = Integer.parseInt(parts[1]);
 
             model.sweepTile(m, n);
+        }
+    }
+
+    @Override
+    public void update(Subject s) {
+        GameState current = model.getGameState();
+        switch (current){
+            case WON:
+                gui.displayWin();
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+                gui.loadScene(GameState.MAIN_MENU);
+                break;
+            case LOST:
+                gui.displayFailure(model.getRemainingMines());
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+                gui.loadScene(GameState.MAIN_MENU);
+                break;
         }
     }
 }
