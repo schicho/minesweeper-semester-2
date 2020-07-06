@@ -56,11 +56,16 @@ public class Gui {
         window.setVisible(true);
     }
 
-   // public void createFlagDisplay(int width, int height){
-     //   remainingFlagsDisplay = new JLabel();
-       // remainingFlagsDisplay.setBounds(0,0,width,height);
-      //  updateFlagDisplay();
-    //}
+    /**
+     * creates a new flag display
+     */
+    public void createFlagDisplay(){
+        remainingFlagsDisplay = new JLabel();
+        remainingFlagsDisplay.setForeground(Color.RED);
+        remainingFlagsDisplay.setVerticalAlignment(JLabel.CENTER);
+        remainingFlagsDisplay.setHorizontalAlignment(JLabel.CENTER);
+        updateFlagDisplay();
+    }
 
     /**
      * Updates the flag display with the current number of flags that are left to set.
@@ -106,9 +111,7 @@ public class Gui {
                 tileButtons[i][j] = new TileButton();
                 tileButtons[i][j].setCoordinates(i, j);
                 tileButtons[i][j].setText("");
-                tileButtons[i][j].addMouseListener(controller.getMouseHandler());
-                tileButtons[i][j].setPreferredSize(new Dimension(50,50));
-
+                tileButtons[i][j].addMouseListener(Controller.getMouseHandler());
                 game.add(tileButtons[i][j]);
             }
         }
@@ -153,10 +156,11 @@ public class Gui {
                 //game panel
                 game = new JPanel();
                 fieldBuilder(minefieldRows, minefieldCols);
-                remainingFlagsDisplay = new JLabel();
+                createFlagDisplay();
+                game.add(remainingFlagsDisplay);
 
                 window.getContentPane().add(game);
-                window.getContentPane().add(remainingFlagsDisplay);
+                //window.getContentPane().add(remainingFlagsDisplay);
                 //pack is important to make each button actually use it's preferred Dimension.
                 window.pack();
                 window.setLocationRelativeTo(null);
