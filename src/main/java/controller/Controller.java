@@ -8,7 +8,6 @@ import java.util.TimerTask;
 import model.*;
 import model.enums.*;
 import view.*;
-import model.exceptions.*;
 import model.timer.*;
 
 import javax.swing.*;
@@ -59,7 +58,6 @@ public class Controller implements MouseListener {
         gui.calculateSize(model);
         gui.loadScene(GameState.MAIN_MENU);
 
-        //hässlich wird gefixed!!! versprochen.
         while (true){
             if (exit) {
                 timerTask.cancel();
@@ -85,36 +83,6 @@ public class Controller implements MouseListener {
                 break;
             }
         }
-
-        /*
-        do {
-            //check first time in case a new game was started and old
-            //thread needs to be stopped
-            if (exit) {
-                timerTask.cancel();
-                timerTask = null;
-                timer.cancel();
-                return;
-            }
-
-            if (model.getGameState() == GameState.WON) {
-                gui.displayWin();
-
-                //stop timerTask and reset
-                timerTask.cancel();
-                SecondsTimer.counter = 0;
-
-            } else if (model.getGameState() == GameState.LOST) {
-                gui.displayFailure(model.getRemainingMines());
-
-                //stop timerTask and reset
-                timerTask.cancel();
-                SecondsTimer.counter = 0;
-
-            }
-            //System.out.println("kek");
-        } while (model.getGameState() == GameState.RUNNING);
-         */
     }
 
     @Override
