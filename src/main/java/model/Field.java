@@ -59,8 +59,7 @@ public class Field {
                 //if Tile is a mine already skip to next loop cycle
             }
         }
-
-        remainingMines = numberOfMines;
+        if(numberOfMines>1){remainingMines = numberOfMines;}//set new only if there is a new field. Not wenn recalculating mines
     }
 
     /**
