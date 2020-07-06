@@ -214,7 +214,7 @@ public class Gui {
     public void displayWin(){
         JOptionPane.showMessageDialog(
                 game,
-                "hiniheini",
+                "Congratulations!",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
@@ -222,7 +222,7 @@ public class Gui {
     public void displayFailure(int remainingMines){
         JOptionPane.showMessageDialog(
                 game,
-                "you are a failure. " + remainingMines + " remaining mines not found.",
+                "Too bad! " + remainingMines + " remaining mines not found.",
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);
     }
