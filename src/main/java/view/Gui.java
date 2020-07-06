@@ -87,6 +87,8 @@ public class Gui {
                 tileButtons[i][j].setCoordinates(i, j);
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(controller.getMouseHandler());
+                tileButtons[i][j].setPreferredSize(new Dimension(50,50));
+              
                 game.add(tileButtons[i][j]);
             }
         }
@@ -100,6 +102,7 @@ public class Gui {
     public void loadScene(GameState state) {
         //clear from previous buttons
         window.getContentPane().removeAll();
+        window.setLocationRelativeTo(null);
         switch (state) {
             case MAIN_MENU: {
                 //main menu panel
@@ -132,6 +135,9 @@ public class Gui {
                 fieldBuilder(minefieldRows, minefieldCols);
 
                 window.getContentPane().add(game);
+                //pack is important to make each button actually use it's preferred Dimension.
+                window.pack();
+                window.setLocationRelativeTo(null);
                 window.setVisible(true);
             }
         }
