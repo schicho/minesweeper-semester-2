@@ -81,6 +81,7 @@ public class Gui {
                 tileButtons[i][j].setCoordinates(i, j);
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(Controller.getMouseHandler());
+                tileButtons[i][j].setPreferredSize(new Dimension(50,50));
                 game.add(tileButtons[i][j]);
             }
         }
@@ -126,6 +127,8 @@ public class Gui {
                 fieldBuilder(minefieldRows, minefieldCols);
 
                 window.getContentPane().add(game);
+                //pack is important to make each button actually use it's preferred Dimension.
+                window.pack();
                 window.setVisible(true);
             }
         }
