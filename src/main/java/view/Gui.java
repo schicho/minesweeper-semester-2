@@ -23,11 +23,17 @@ public class Gui {
      */
     private TileButton[][] tileButtons;
 
+    private Controller controller;
+
     /**
      * creates a new Gui instance
      */
     public Gui() {
+        controller = new Controller(this);
+        controller.setController(controller);
         createWindow(1280, 720,"Minesweeper");
+
+        controller.gameloop();
     }
 
     /**
@@ -80,7 +86,7 @@ public class Gui {
                 tileButtons[i][j] = new TileButton();
                 tileButtons[i][j].setCoordinates(i, j);
                 tileButtons[i][j].setText("");
-                tileButtons[i][j].addMouseListener(Controller.getMouseHandler());
+                tileButtons[i][j].addMouseListener(controller.getMouseHandler());
                 game.add(tileButtons[i][j]);
             }
         }
@@ -101,12 +107,12 @@ public class Gui {
 
                 //play button
                 JButton play = new JButton("Play");
-                play.addMouseListener(Controller.getMouseHandler());
+                play.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(play);
 
                 //exit button
                 JButton exit = new JButton("Exit");
-                exit.addMouseListener(Controller.getMouseHandler());
+                exit.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(exit);
 
                 window.getContentPane().add(mainMenu);

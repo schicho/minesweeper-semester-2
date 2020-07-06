@@ -16,18 +16,18 @@ public class Controller implements MouseListener {
 
     /**
      * holds the controller instance
-     */
-    private static Controller controller;
+    */
+    private Controller controller;
 
     /**
      * holds the model instance
      */
-    private static Model model;
+    private Model model;
 
     /**
      * holds the gui instance
      */
-    private static Gui gui;
+    private Gui gui;
 
     /**
      * variables used for the timer.
@@ -43,11 +43,8 @@ public class Controller implements MouseListener {
     /**
      * Main game loop which runs the game and stops it at win or failure.
      *
-     * @param args *no arguments*
      */
-    public static void main(String[] args) {
-        gui = new Gui();
-        controller = new Controller();
+    public void gameloop() {
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
@@ -152,20 +149,25 @@ public class Controller implements MouseListener {
     /**
      * creates a new controller instance
      */
-    public Controller() {
+    public Controller(Gui gui) {
+        this.gui = gui;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     /**
      * @return the current Controller which is also our inputHandler
      */
-    public static Controller getMouseHandler() {
-        return controller;
+    public Controller getMouseHandler() {
+        return this;
     }
 
     /**
      * @return the current model
      */
-    public static Model getModel() {
+    public Model getModel() {
         return model;
     }
 
