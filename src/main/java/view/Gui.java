@@ -4,10 +4,8 @@ import controller.Controller;
 import model.Model;
 import model.enums.Difficulty;
 import model.enums.GameState;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class Gui {
 
@@ -171,12 +169,38 @@ public class Gui {
                     if (minefield.isMine(i, j)) {
                         changeButtonText(i, j, "B");
                         greyOutButton(i, j);
-                    } else if (minefield.getSurroundingMines(i, j) == 0) {
-                        changeButtonText(i, j, "");
-                        greyOutButton(i, j);
                     } else {
-                        changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
-                        greyOutButton(i, j);
+                        switch(minefield.getSurroundingMines(i, j)){
+                            case 0:
+                                changeButtonText(i, j, "");
+                                greyOutButton(i, j);
+                                break;
+                            case 1:
+                                tileButtons[i][j].setForeground(new java.awt.Color(51, 51, 255));
+                                changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                                greyOutButton(i, j);
+                                break;
+                            case 2:
+                                tileButtons[i][j].setForeground(new java.awt.Color(0, 153, 0));
+                                changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                                greyOutButton(i, j);
+                                break;
+                            case 3:
+                                tileButtons[i][j].setForeground(new java.awt.Color(255, 0, 0));
+                                changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                                greyOutButton(i, j);
+                                break;
+                            case 4:
+                                tileButtons[i][j].setForeground(new java.awt.Color(0, 0, 102));
+                                changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                                greyOutButton(i, j);
+                                break;
+                            case 5:
+                                tileButtons[i][j].setForeground(new java.awt.Color(102, 0, 0));
+                                changeButtonText(i, j, "" + minefield.getSurroundingMines(i, j));
+                                greyOutButton(i, j);
+                                break;
+                        }
                     }
                 } else if (minefield.isFlagged(i, j)) {
                     changeButtonText(i, j, "F");
