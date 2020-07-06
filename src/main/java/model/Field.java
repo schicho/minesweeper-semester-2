@@ -10,7 +10,6 @@ public class Field {
 
     private final int rows;
     private final int cols;
-    private boolean untouched; // shows if a Tile was sweeped
     private int remainingMines;
 
     /**
@@ -27,7 +26,6 @@ public class Field {
         this.rows = rows;
         this.cols = cols;
         this.minefield = new Tile[rows][cols];
-        this.untouched = true;
         populate();
         placeMinesRNG(numberOfMines);
         calcSurroundingMines();
@@ -127,14 +125,14 @@ public class Field {
      * values in the encoded list can be interpreted as follows:
      * -1 1 3
      * -2 2 6
-     * -4 4 14
+     * -4 4 12
      *
      * while 2 is the Tile of which the surroundings ar being checked
      * @param m row
      * @param n collumn
      * @return 's an encoded List of the mines arround and in a tile
      */
-    private List<Integer> checkAround(int m, int n){
+    public List<Integer> checkAround(int m, int n){
         List<Integer> returnList = new ArrayList<>();
         int mMax = Math.min(this.getRows()-1,m+1);
         int nMax = Math.min(this.getCols()-1,n+1);
@@ -142,7 +140,6 @@ public class Field {
             for (int nMin = Math.max(0,n-1); nMin <= nMax; nMin++){
                 if(isMine(mMin,nMin)){
                     returnList.add(((int) Math.pow(2,(1+mMin-m)))*(2*(nMin-n)+1));
-
                 }
 
             }
@@ -165,42 +162,22 @@ public class Field {
         else minefield[m][n].setState(TileState.FREE);
     }
 
-
+    /**
+     * Defuses given mine, places new random mine, recalculates the surrounding mines(sadly every time)
+     * @param rowIndex Row
+     * @param colIndex Collumn
+     */
+    public void clearTile(int rowIndex, int colIndex){
+        deMine(rowIndex,colIndex);
+        placeMinesRNG(1);
+        calcSurroundingMines();
+    }
     /**
      * Sweep/Open up a covered tile
      * @param rowIndex index of row
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
-        if (untouched){
-            List<Integer> surroundingMines = checkAround(rowIndex,colIndex);
-            int pos;
-            int m;
-            int n;
-            while (surroundingMines.size()!=0){
-                pos = surroundingMines.get(0);
-                surroundingMines.remove(0);
-                if(pos<0){
-                    n=-1;
-                }
-                else if(pos%3==0){
-                    n=1;
-                }
-                else n=0;
-                if (pos%4==0){
-                    m=1;
-                }
-                else if (pos%2==0){
-                    m=0;
-                }
-                else m=-1;
-                deMine(rowIndex+m,colIndex+n);
-                placeMinesRNG(1);
-                surroundingMines= checkAround(rowIndex,colIndex);
-            }
-            calcSurroundingMines();
-            untouched=false;
-        }
         if(minefield[rowIndex][colIndex].getState() == TileState.MINE){
             minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
             return;

@@ -2,12 +2,15 @@ package model;
 
 import model.enums.*;
 
+import java.util.List;
+
 public class Model {
 
     /**
      * the Field itself provides the core functionality on the 2D Tile array.
      * Model manipulations are forwarded to this object.
      */
+    private boolean untouched; //true until first tile is sweeped
     private Field minesweeperField;
     private final Difficulty difficulty;
     private int numberOfMines;
@@ -24,6 +27,7 @@ public class Model {
      * @param difficulty either EASY, NORMAL OR HARD
      */
     public Model(Difficulty difficulty){
+        this.untouched=true;
         this.difficulty = difficulty; //remember difficulty
         switch (difficulty){
             case EASY:
@@ -50,6 +54,34 @@ public class Model {
      * @param colIndex index of column
      */
     public void sweepTile(int rowIndex, int colIndex){
+        //if no mine was sweeped, make sure the first field has zero surrounding mines and is not a mine itself
+        if (untouched){
+            List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
+            int pos;
+            int m;
+            int n;
+            while (surroundingMines.size()!=0){
+                pos = surroundingMines.get(0);
+                surroundingMines.remove(0);
+                if(pos<0){
+                    n=-1;
+                }
+                else if(pos%3==0){
+                    n=1;
+                }
+                else n=0;
+                if (pos%4==0){
+                    m=1;
+                }
+                else if (pos%2==0){
+                    m=0;
+                }
+                else m=-1;
+                minesweeperField.clearTile(rowIndex+m,colIndex+n);
+                surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
+            }
+            this.untouched=false;
+        }
         //do not allow sweeping of flagged tiles
         if(isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)){
             return;
