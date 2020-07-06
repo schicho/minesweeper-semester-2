@@ -193,6 +193,8 @@ public class Controller implements MouseListener, Observer {
 
                 //reset model
                 model = new Model(Difficulty.EASY);
+                model.attach(this);
+
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
@@ -205,6 +207,8 @@ public class Controller implements MouseListener, Observer {
 
                 //reset model
                 model = new Model(Difficulty.EASY);
+                model.attach(this);
+
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
         }
