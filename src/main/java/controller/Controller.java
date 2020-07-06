@@ -184,19 +184,27 @@ public class Controller implements MouseListener, Observer {
         GameState current = model.getGameState();
         switch (current){
             case WON:
+                gui.updateTileText(model);
                 gui.displayWin();
 
                 //stop timerTask and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
+                gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
                 //stop timerTask and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
         }

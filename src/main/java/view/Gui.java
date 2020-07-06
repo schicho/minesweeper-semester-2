@@ -18,6 +18,11 @@ public class Gui {
     private int minefieldCols;
     private int minefieldRows;
 
+    public static void main(String[] args) {
+            SwingUtilities.invokeLater(Gui::new);
+    }
+
+
     /**
      * stores all TileField Buttons for index-based access.
      */
