@@ -64,6 +64,7 @@ public class Gui {
         remainingFlagsDisplay.setForeground(Color.RED);
         remainingFlagsDisplay.setVerticalAlignment(JLabel.CENTER);
         remainingFlagsDisplay.setHorizontalAlignment(JLabel.CENTER);
+        remainingFlagsDisplay.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         updateFlagDisplay();
     }
 
