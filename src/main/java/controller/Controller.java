@@ -98,6 +98,7 @@ public class Controller implements MouseListener, Observer {
 
                 //update timer display
                 gui.updateTimerDisplay();
+
             }
         }
     }

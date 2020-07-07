@@ -21,6 +21,7 @@ public class Gui {
     private JLabel remainingTimerDisplay;
 
 
+
     private int minefieldCols;
     private int minefieldRows;
 
@@ -64,12 +65,14 @@ public class Gui {
     /**
      * creates a new flag display
      */
+
     public void createFlagsDisplay(){
         remainingFlagsDisplay = new JLabel();
         remainingFlagsDisplay.setForeground(Color.RED);
         remainingFlagsDisplay.setVerticalAlignment(SwingConstants.CENTER);
         remainingFlagsDisplay.setHorizontalAlignment(SwingConstants.CENTER);
         remainingFlagsDisplay.setPreferredSize(new Dimension(50,50));
+
         //updateFlagDisplay();
     }
 
@@ -80,6 +83,7 @@ public class Gui {
         String text = String.valueOf(controller.getModel().getFlagsToSetLeft());
         remainingFlagsDisplay.setText(text);
     }
+
 
 
     /**
@@ -110,6 +114,7 @@ public class Gui {
         String sec = String.valueOf(model.timer.SecondsTimer.counter);
         remainingTimerDisplay.setText(sec);
     }
+
 
 
     /**
@@ -196,14 +201,21 @@ public class Gui {
 
                 JPanel gamePane = new JPanel();
                 gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
+
                 createFlagsDisplay();
                 createSeparatorDisplay();
                 createTimerDisplay();
+
+
+
                 fieldBuilder(minefieldRows, minefieldCols);
+                createFlagDisplay();
 
                 gamePane.add(remainingFlagsDisplay);
+
                 gamePane.add(separator);
                 gamePane.add(remainingTimerDisplay);
+
                 gamePane.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
                 window.add(gamePane);
@@ -297,7 +309,9 @@ public class Gui {
     public void displayWin(){
         JOptionPane.showMessageDialog(
                 minefield,
+
                 " Congratulations! Du hast " + model.timer.SecondsTimer.counter + " Sekunden fuer das Spiel gebraucht.",
+
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
