@@ -12,14 +12,20 @@ public class Gui {
     private JFrame window;
     private JPanel mainMenu;
     private JPanel pauseMenu;
-    private JPanel game;
+    private JPanel minefield;
     private JPanel endGameMessage;
+
+    private JLabel remainingFlagsDisplay;
+
+    private JSeparator separator;
+    private JLabel remainingTimerDisplay;
+
 
     private int minefieldCols;
     private int minefieldRows;
 
     public static void main(String[] args) {
-            SwingUtilities.invokeLater(Gui::new);
+        SwingUtilities.invokeLater(Gui::new);
     }
 
 
@@ -56,6 +62,57 @@ public class Gui {
     }
 
     /**
+     * creates a new flag display
+     */
+    public void createFlagsDisplay(){
+        remainingFlagsDisplay = new JLabel();
+        remainingFlagsDisplay.setForeground(Color.RED);
+        remainingFlagsDisplay.setVerticalAlignment(SwingConstants.CENTER);
+        remainingFlagsDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        remainingFlagsDisplay.setPreferredSize(new Dimension(50,50));
+        //updateFlagDisplay();
+    }
+
+    /**
+     * Updates the flag display with the current number of flags that are left to set.
+     */
+    public void updateFlagDisplay(){
+        String text = String.valueOf(controller.getModel().getFlagsToSetLeft());
+        remainingFlagsDisplay.setText(text);
+    }
+
+
+    /**
+     * creates a separator between flags display and new timer display
+     */
+    public void createSeparatorDisplay(){
+        separator = new JSeparator();
+        separator.setOrientation(SwingConstants.HORIZONTAL);
+    }
+
+
+    /**
+     * creates a new timer display
+     */
+    public void createTimerDisplay(){
+        remainingTimerDisplay = new JLabel();
+        remainingTimerDisplay.setForeground(Color.RED);
+        remainingTimerDisplay.setVerticalAlignment(SwingConstants.CENTER);
+        remainingTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        remainingTimerDisplay.setPreferredSize(new Dimension(50,50));
+        // updateTimerDisplay();
+    }
+
+    /**
+     * Updates the timer display with the current number of seconds
+     */
+    public void updateTimerDisplay(){
+        String sec = String.valueOf(model.timer.SecondsTimer.counter);
+        remainingTimerDisplay.setText(sec);
+    }
+
+
+    /**
      * Writes Vlaues for the field sizes
      * @param minefield Model of a minefield
      */
@@ -85,7 +142,7 @@ public class Gui {
      * @param cols number of cols
      */
     public void fieldBuilder(int rows, int cols) {
-        game.setLayout(new GridLayout(rows, cols));
+        minefield.setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 tileButtons[i][j] = new TileButton();
@@ -93,8 +150,7 @@ public class Gui {
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(controller.getMouseHandler());
                 tileButtons[i][j].setPreferredSize(new Dimension(50,50));
-              
-                game.add(tileButtons[i][j]);
+                minefield.add(tileButtons[i][j]);
             }
         }
     }
@@ -135,12 +191,22 @@ public class Gui {
                 //continue button
             }
             case RUNNING: {
-                //game panel
-                game = new JPanel();
+                //minefield panel
+                minefield = new JPanel();
+
+                JPanel gamePane = new JPanel();
+                gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
+                createFlagsDisplay();
+                createSeparatorDisplay();
+                createTimerDisplay();
                 fieldBuilder(minefieldRows, minefieldCols);
 
-                window.getContentPane().add(game);
+                gamePane.add(remainingFlagsDisplay);
+                gamePane.add(separator);
+                gamePane.add(remainingTimerDisplay);
+                gamePane.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
+                window.add(gamePane);
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
@@ -230,15 +296,15 @@ public class Gui {
 
     public void displayWin(){
         JOptionPane.showMessageDialog(
-                game,
-                "Congratulations!",
+                minefield,
+                " Congratulations! Du hast " + model.timer.SecondsTimer.counter + " Sekunden fuer das Spiel gebraucht.",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
 
     public void displayFailure(int remainingMines){
         JOptionPane.showMessageDialog(
-                game,
+                minefield,
                 "Too bad! " + remainingMines + " remaining mines not found.",
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);

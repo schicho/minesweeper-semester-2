@@ -17,7 +17,7 @@ public class Controller implements MouseListener, Observer {
 
     /**
      * holds the controller instance
-    */
+     */
     private Controller controller;
 
     /**
@@ -76,9 +76,14 @@ public class Controller implements MouseListener, Observer {
                     System.out.println("yalP");
                 } else {
                     gui.loadScene(GameState.RUNNING);
+                    SecondsTimer.counter = 0;
+                    timerTask = new SecondsTimer();
+                    //run model.timer ever 1000ms = 1s
+                    timer.schedule(timerTask, 0, 1000);
+
                 }
 
-            // Click on Tile Button. Sweep/Flag/Unflag
+                // Click on Tile Button. Sweep/Flag/Unflag
             } else if (e.getSource() instanceof TileButton) {
                 if (SwingUtilities.isRightMouseButton(e)) {
                     whatsItDo = "f" + whatsItDo;
@@ -88,6 +93,11 @@ public class Controller implements MouseListener, Observer {
                 }
                 //update Tile Text
                 gui.updateTileText(model);
+                //update flag display
+                gui.updateFlagDisplay();
+
+                //update timer display
+                gui.updateTimerDisplay();
             }
         }
     }
