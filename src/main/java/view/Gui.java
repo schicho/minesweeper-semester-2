@@ -206,10 +206,7 @@ public class Gui {
                 createSeparatorDisplay();
                 createTimerDisplay();
 
-
-
                 fieldBuilder(minefieldRows, minefieldCols);
-                createFlagDisplay();
 
                 gamePane.add(remainingFlagsDisplay);
 
