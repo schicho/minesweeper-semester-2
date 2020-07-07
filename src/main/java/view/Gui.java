@@ -67,9 +67,17 @@ public class Gui {
                 mainMenu = new JPanel();
 
                 //play button
-                JButton play = new JButton("Play");
-                play.addMouseListener(Controller.getMouseHandler());
-                mainMenu.add(play);
+                JButton playEasy = new JButton("Play easy");
+                playEasy.addMouseListener(Controller.getMouseHandler());
+                mainMenu.add(playEasy);
+
+                JButton playMedium = new JButton("Play medium");
+                playMedium.addMouseListener(Controller.getMouseHandler());
+                mainMenu.add(playMedium);
+
+                JButton playHard = new JButton("Play hard");
+                playHard.addMouseListener(Controller.getMouseHandler());
+                mainMenu.add(playHard);
 
                 //load game button
                 JButton load = new JButton("Load game");

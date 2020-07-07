@@ -59,8 +59,6 @@ public class Controller implements MouseListener, KeyListener{
         //cli = new Cli();
         controller = new Controller();
 
-        model = new Model(Difficulty.EASY);
-
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
@@ -124,14 +122,23 @@ public class Controller implements MouseListener, KeyListener{
                 }
                 else {System.out.println("Exit");}*/
             }
-            else if(whatItDoes.equals("Play")){
+            else if(whatItDoes.equals("Play easy")){
                 //change the gameState, load the new scene
+                model = new Model(Difficulty.EASY);
                 model.setGameState(GameState.RUNNING);
                 gui.loadScene(model.getGameState());
-                /*if(SwingUtilities.isRightMouseButton(e)){
-                    System.out.println("yalP");
-                }
-                else System.out.println("Play");*/
+            }
+            else if(whatItDoes.equals("Play medium")){
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.NORMAL);
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
+            }
+            else if(whatItDoes.equals("Play hard")){
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.HARD);
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
             }
             else if(whatItDoes.equals("Continue")){
                 model.setGameState(GameState.RUNNING);
