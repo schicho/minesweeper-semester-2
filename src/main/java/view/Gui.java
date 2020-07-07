@@ -15,6 +15,12 @@ public class Gui {
     private JPanel minefield;
     private JPanel endGameMessage;
 
+    //important vars for the design
+    int width, height;
+    int unifiedMenuButtonWidth, unifiedMenuButtonHeight;
+    int buffer;
+  
+  
     private JLabel remainingFlagsDisplay;
 
     private JSeparator separator;
@@ -60,6 +66,15 @@ public class Gui {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBounds(0, 0, width, height);
         window.setVisible(true);
+
+        //set privates
+        this.width = width;
+        this.height = height;
+
+        unifiedMenuButtonHeight = 1/10*height;
+        unifiedMenuButtonWidth = 1/10*width;
+
+        buffer = 20;
     }
 
     /**
@@ -175,9 +190,22 @@ public class Gui {
                 mainMenu = new JPanel();
 
                 //play button
-                JButton play = new JButton("Play");
-                play.addMouseListener(controller.getMouseHandler());
-                mainMenu.add(play);
+                JButton playEasy = new JButton("Play easy");
+                playEasy.addMouseListener(controller.getMouseHandler());
+                mainMenu.add(playEasy);
+
+                JButton playMedium = new JButton("Play medium");
+                playMedium.addMouseListener(controller.getMouseHandler());
+                mainMenu.add(playMedium);
+
+                JButton playHard = new JButton("Play hard");
+                playHard.addMouseListener(controller.getMouseHandler());
+                mainMenu.add(playHard);
+
+                //load game button
+                JButton load = new JButton("Load game");
+                load.addMouseListener(controller.getMouseHandler());
+                mainMenu.add(load);
 
                 //exit button
                 JButton exit = new JButton("Exit");
@@ -194,6 +222,23 @@ public class Gui {
                 pauseMenu = new JPanel();
 
                 //continue button
+                JButton resume = new JButton("Continue");
+                resume.addMouseListener(controller.getMouseHandler());
+                pauseMenu.add(resume);
+
+                //save game button
+                JButton save = new JButton("Save game");
+                save.addMouseListener(controller.getMouseHandler());
+                pauseMenu.add(save);
+
+                //load game button
+                JButton load = new JButton("Load game");
+                load.addMouseListener(controller.getMouseHandler());
+                pauseMenu.add(load);
+
+                window.getContentPane().add(pauseMenu);
+
+                window.setVisible(true);
             }
             case RUNNING: {
                 //minefield panel
@@ -223,6 +268,10 @@ public class Gui {
         }
     }
 
+    public JFrame getWindow(){
+        return window;
+    }
+  
     /**
      * Changes the Text on a button in TileButtons[][]
      * @param i row index
@@ -320,6 +369,4 @@ public class Gui {
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);
     }
-
-
 }

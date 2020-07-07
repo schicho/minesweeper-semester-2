@@ -1,7 +1,7 @@
 package controller;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,42 +64,60 @@ public class Controller implements MouseListener, Observer {
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() instanceof JButton) {
-            String whatsItDo = buttonInfo((JButton) e.getSource());
-            if (whatsItDo.equals("Exit")) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    System.out.println("tixE");
-                } else {
-                    System.out.println("Exit");
-                }
-            } else if (whatsItDo.equals("Play")) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    System.out.println("yalP");
-                } else {
-                    gui.loadScene(GameState.RUNNING);
-                    SecondsTimer.counter = 0;
-                    timerTask = new SecondsTimer();
-                    //run model.timer ever 1000ms = 1s
-                    timer.schedule(timerTask, 0, 1000);
-
-                }
-
-                // Click on Tile Button. Sweep/Flag/Unflag
-            } else if (e.getSource() instanceof TileButton) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    whatsItDo = "f" + whatsItDo;
-                    handleInput(whatsItDo);
-                } else if (SwingUtilities.isLeftMouseButton(e)) {
-                    handleInput(whatsItDo);
-                }
-                //update Tile Text
-                gui.updateTileText(model);
-                //update flag display
-                gui.updateFlagDisplay();
-
-                //update timer display
-                gui.updateTimerDisplay();
-
+            String whatItDoes = buttonInfo((JButton) e.getSource());
+            if (whatItDoes.equals("Exit")) {
+                //exit the program
+                model.setGameState(GameState.EXIT);
+                gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
+            } else if (whatItDoes.equals("Play easy")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.EASY);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Play medium")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.NORMAL);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Play hard")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.HARD);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Continue")) {
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
             }
+            else if (SwingUtilities.isRightMouseButton(e)) {
+                whatItDoes = "f" + whatItDoes;
+                handleInput(whatItDoes);
+            } else if (SwingUtilities.isLeftMouseButton(e)) {
+                handleInput(whatItDoes);
+            }
+            //update Tile Text
+            gui.updateTileText(model);
+            //update flag display
+            gui.updateFlagDisplay();
+            //update timer display
+            gui.updateTimerDisplay();
         }
     }
 
