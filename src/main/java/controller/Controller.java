@@ -1,28 +1,34 @@
 package controller;
 
-import java.util.Base64;
+import java.awt.event.*;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import model.*;
 import model.enums.*;
+import observer_subject.*;
 import view.*;
-import model.exceptions.*;
 import model.timer.*;
 
+import javax.swing.*;
 
-public class Controller /*implements MouseListener*/ {
+public class Controller implements MouseListener, Observer {
+
+    /**
+     * holds the controller instance
+     */
+    private Controller controller;
 
     /**
      * holds the model instance
      */
-    private static Model model;
+    private Model model;
 
     /**
-     * holds the cli instance
+     * holds the gui instance
      */
-    private static Cli cli;
+    private Gui gui;
 
     /**
      * variables used for the timer.
@@ -35,241 +41,211 @@ public class Controller /*implements MouseListener*/ {
      */
     private static boolean exit = false;
 
-
     /**
      * Main game loop which runs the game and stops it at win or failure.
      *
-     * @param args *no arguments* or seed
      */
-    public static void main(String[] args) {
-        cli = new Cli();
-        Controller controller = new Controller();
-
-        //decides to use models second constructor if game is loaded.
-        if( (args.length>0)&&(args[0].length()>0)) {
-            model =new Model(args[0]);
-            controller.difficulty=model.getDifficulty();
-        }
-        else {
-            controller.difficulty = controller.readDifficulty();
-            model = new Model(controller.difficulty);
-        }
+    public void gameloop() {
 
         timerTask = new SecondsTimer();
         //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
-        cli.initializeView(model);
+        // TODO: this needs to be set by the main menu when starting a game.
+        model = new Model(Difficulty.EASY);
 
-        //gameloop
-        do {
-            //check first time in case a new game was started and old
-            //thread needs to be stopped
-            if (exit) {
-                return;
-            }
+        model.attach(this);
 
-            controller.updateModel();
+        gui.calculateSize(model);
+        gui.loadScene(GameState.MAIN_MENU);
+    }
 
-            //check second time to avoid redraw
-            if (exit) {
-                return;
-            }
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
-            cli.drawModel(model);
-
-            if (model.getGameState() == GameState.WON) {
-                cli.displayWin();
-
-                //stop timerTask and reset
-                timerTask.cancel();
+        if (e.getSource() instanceof JButton) {
+            String whatItDoes = buttonInfo((JButton) e.getSource());
+            if (whatItDoes.equals("Exit")) {
+                //exit the program
+                model.setGameState(GameState.EXIT);
+                gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
+            } else if (whatItDoes.equals("Play easy")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.EASY);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
                 SecondsTimer.counter = 0;
-
-                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
-                cli.displayInputPrompt();
-                controller.handleInput();
-            } else if (model.getGameState() == GameState.LOST) {
-                cli.displayFailure(model.getRemainingMines());
-
-                //stop timerTask and reset
-                timerTask.cancel();
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Play medium")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.NORMAL);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
                 SecondsTimer.counter = 0;
-
-                cli.displayMessage("Type \"ng\" to start a new game, \"exit\" to leave.");
-                cli.displayInputPrompt();
-                controller.handleInput();
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Play hard")) {
+                //change the gameState, load the new scene
+                model = new Model(Difficulty.HARD);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
+            } else if (whatItDoes.equals("Continue")) {
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
             }
-        } while (model.getGameState() == GameState.RUNNING);
+            else if (SwingUtilities.isRightMouseButton(e)) {
+                whatItDoes = "f" + whatItDoes;
+                handleInput(whatItDoes);
+            } else if (SwingUtilities.isLeftMouseButton(e)) {
+                handleInput(whatItDoes);
+            }
+            //update Tile Text
+            gui.updateTileText(model);
+            //update flag display
+            gui.updateFlagDisplay();
+            //update timer display
+            gui.updateTimerDisplay();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     /**
-     * saves the difficulty given by the user
+     * @param button JButton oder Tilebutton
+     * @return a string, identifing the button
      */
-    private Difficulty difficulty;
-
-    /**
-     * tests userinput for all kinds of mistakes
-     */
-    private final InputExceptionHandler tester = new InputExceptionHandler();
+    private String buttonInfo(JButton button) {
+        if (button instanceof TileButton) {
+            return ((TileButton) button).getM() + ":" + ((TileButton) button).getN();
+        }else {
+            return button.getText();
+        }
+    }
 
     /**
      * creates a new controller instance
      */
-    public Controller() {
+    public Controller(Gui gui) {
+        this.gui = gui;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     /**
-     * updates the given model instance dependent of the input
-     * the class received earlier
+     * @return the current Controller which is also our inputHandler
      */
-    public void updateModel() {
-        cli.askForNextTile();
-
-        handleInput();
+    public Controller getMouseHandler() {
+        return this;
     }
 
-    private String getSeed(){
-        Scanner scanner = new Scanner(System.in);
-        String seed = scanner.nextLine();
-        return seed;
+    /**
+     * @return the current model
+     */
+    public Model getModel() {
+        return model;
     }
+
 
     /**
      * interprets the given input
      */
-    private void handleInput() {
-
-        Scanner scanner = new Scanner(System.in);
-        //read the next command from user
-        String command = scanner.nextLine();
+    private void handleInput(String input) {
 
         //index of row and column
         int m, n;
 
-        try {
-            tester.testRealCommand(command);
+        //flag a tile
+        if (input.contains(":") && input.startsWith("f")) {
+            input = input.replace("f", "");
+            //read out step values
+            String[] parts = input.split(":");
+            m = Integer.parseInt(parts[0]);
+            n = Integer.parseInt(parts[1]);
 
-            //flag a tile
-            if (command.contains(":") && command.startsWith("f")) {
-                command = command.replace("f", "");
-                //read out step values
-                String[] parts = command.split(":");
-                tester.testInt(parts[0]);
-                m = Integer.parseInt(parts[0]);
-                tester.testInt(parts[1]);
-                n = Integer.parseInt(parts[1]);
-                tester.testInRange(difficulty, m, n);
-
-                model.flagTile(m, n);
-            }
-            //sweep a tile
-            else if (command.contains(":")) {
-                //read out step values
-                String[] parts = command.split(":");
-                tester.testInt(parts[0]);
-                m = Integer.parseInt(parts[0]);
-                tester.testInt(parts[1]);
-                n = Integer.parseInt(parts[1]);
-                tester.testInRange(difficulty, m, n);
-
-                model.sweepTile(m, n,false);
-            } else {
-                //its not a mine command
-                switch (command) {
-                    case "ng": {
-                        //stop timerTask, set null and reset
-                        timerTask.cancel();
-                        timerTask = null;
-                        SecondsTimer.counter = 0;
-
-                        String[] noargs = {""};
-                        main(noargs);
-                    }
-                    break;
-                    case "exit": {
-                        //exit
-                        //timer needs to be stopped here, otherwise program wont terminate
-                        timer.cancel();
-                        exit = true;
-                    }
-                    break;
-                    case "save":{
-                        String seed= model.getSeed();
-                        cli.printSeed(seed);
-                    }
-                    break;
-                    case "load":{
-                        cli.askForSeed();
-                        cli.displayInputPrompt();
-                        timerTask.cancel();
-                        timerTask = null;
-                        SecondsTimer.counter = 0;
-                        String decodedSeed=getSeed();
-                        Base64.Decoder decoder= Base64.getDecoder();
-                        byte[] byteSeed = decoder.decode(decodedSeed.getBytes());
-                        String seed = new String(byteSeed);
-                        String[] noargs = {seed};
-                        main(noargs);
-                    }
-                    break;
-                }
-            }
-        } catch (WrongFormatException | NotATileException e) {
-            System.out.println(e.toString());
+            model.flagTile(m, n);
         }
+        //sweep a tile
+        else if (input.contains(":")) {
+            //read out step values
+            String[] parts = input.split(":");
+            m = Integer.parseInt(parts[0]);
+            n = Integer.parseInt(parts[1]);
 
-    }
-
-    /**
-     * Reads the difficulty the player wants to play the game in.
-     * Is entered and read at game start.
-     *
-     * @return Difficulty (value of enum)
-     */
-    private Difficulty readDifficulty() {
-        Scanner scanner = new Scanner(System.in);
-        Difficulty difficulty = null;
-        while (difficulty == null) {
-            String difficultyString = scanner.nextLine();
-            try {
-                tester.testForDifficulty(difficultyString);
-                switch (difficultyString.toLowerCase().trim()) {
-                    case "easy":
-                        difficulty = Difficulty.EASY;
-                        break;
-                    case "normal":
-                        difficulty = Difficulty.NORMAL;
-                        break;
-                    case "hard":
-                        difficulty = Difficulty.HARD;
-                        break;
-                    }
-            } catch (NotADifficultyException e) {
-                System.out.println(e.toString());
-            }
+            model.sweepTile(m, n);
         }
-        return difficulty;
-    }
-
-    /*
-    /**
-     * overrides keyTyped method from KeyListener
-     * @param e
-     *
-    @Override
-    public void keyTyped(KeyEvent e) {
-        lastInput = e.getKeyChar();
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void update(Subject s) {
+        GameState current = model.getGameState();
+        switch (current){
+            case WON:
+                //update timer display
+                gui.updateTimerDisplay();
 
+                gui.updateTileText(model);
+                gui.displayWin();
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
+                model.attach(this);
+
+                gui.loadScene(GameState.MAIN_MENU);
+                break;
+            case LOST:
+                //update timer display
+                gui.updateTimerDisplay();
+                
+                gui.updateTileText(model);
+                gui.displayFailure(model.getRemainingMines());
+
+                //stop timerTask and reset
+                timerTask.cancel();
+                SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
+                model.attach(this);
+
+                gui.loadScene(GameState.MAIN_MENU);
+                break;
+        }
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-    */
-
 }
