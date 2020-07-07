@@ -17,11 +17,16 @@ public class Gui {
 
     private JLabel remainingFlagsDisplay;
 
+    private JSeparator separator;
+    private JLabel remainingTimerDisplay;
+
+
+
     private int minefieldCols;
     private int minefieldRows;
 
     public static void main(String[] args) {
-            SwingUtilities.invokeLater(Gui::new);
+        SwingUtilities.invokeLater(Gui::new);
     }
 
 
@@ -60,12 +65,14 @@ public class Gui {
     /**
      * creates a new flag display
      */
-    public void createFlagDisplay(){
+
+    public void createFlagsDisplay(){
         remainingFlagsDisplay = new JLabel();
         remainingFlagsDisplay.setForeground(Color.RED);
-        remainingFlagsDisplay.setVerticalAlignment(JLabel.CENTER);
-        remainingFlagsDisplay.setHorizontalAlignment(JLabel.CENTER);
-        remainingFlagsDisplay.setPreferredSize(new Dimension(100,50));
+        remainingFlagsDisplay.setVerticalAlignment(SwingConstants.CENTER);
+        remainingFlagsDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        remainingFlagsDisplay.setPreferredSize(new Dimension(50,50));
+
         //updateFlagDisplay();
     }
 
@@ -76,6 +83,39 @@ public class Gui {
         String text = String.valueOf(controller.getModel().getFlagsToSetLeft());
         remainingFlagsDisplay.setText(text);
     }
+
+
+
+    /**
+     * creates a separator between flags display and new timer display
+     */
+    public void createSeparatorDisplay(){
+        separator = new JSeparator();
+        separator.setOrientation(SwingConstants.HORIZONTAL);
+    }
+
+
+    /**
+     * creates a new timer display
+     */
+    public void createTimerDisplay(){
+        remainingTimerDisplay = new JLabel();
+        remainingTimerDisplay.setForeground(Color.RED);
+        remainingTimerDisplay.setVerticalAlignment(SwingConstants.CENTER);
+        remainingTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+        remainingTimerDisplay.setPreferredSize(new Dimension(50,50));
+        // updateTimerDisplay();
+    }
+
+    /**
+     * Updates the timer display with the current number of seconds
+     */
+    public void updateTimerDisplay(){
+        String sec = String.valueOf(model.timer.SecondsTimer.counter);
+        remainingTimerDisplay.setText(sec);
+    }
+
+
 
     /**
      * Writes Vlaues for the field sizes
@@ -162,10 +202,20 @@ public class Gui {
                 JPanel gamePane = new JPanel();
                 gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
 
+                createFlagsDisplay();
+                createSeparatorDisplay();
+                createTimerDisplay();
+
+
+
                 fieldBuilder(minefieldRows, minefieldCols);
                 createFlagDisplay();
 
                 gamePane.add(remainingFlagsDisplay);
+
+                gamePane.add(separator);
+                gamePane.add(remainingTimerDisplay);
+
                 gamePane.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
                 window.add(gamePane);
@@ -259,7 +309,9 @@ public class Gui {
     public void displayWin(){
         JOptionPane.showMessageDialog(
                 minefield,
-                "Congratulations!",
+
+                " Congratulations! Du hast " + model.timer.SecondsTimer.counter + " Sekunden fuer das Spiel gebraucht.",
+
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
