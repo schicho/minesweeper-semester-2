@@ -62,8 +62,6 @@ public class Gui {
         window.setBounds(0, 0, width, height);
         window.setVisible(true);
 
-        window.addKeyListener(Controller.getMouseHandler());
-
         //set privates
         this.width = width;
         this.height = height;
@@ -153,20 +151,20 @@ public class Gui {
 
                 //play button
                 JButton playEasy = new JButton("Play easy");
-                playEasy.addMouseListener(Controller.getMouseHandler());
+                playEasy.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playEasy);
 
                 JButton playMedium = new JButton("Play medium");
-                playMedium.addMouseListener(Controller.getMouseHandler());
+                playMedium.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playMedium);
 
                 JButton playHard = new JButton("Play hard");
-                playHard.addMouseListener(Controller.getMouseHandler());
+                playHard.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playHard);
 
                 //load game button
                 JButton load = new JButton("Load game");
-                load.addMouseListener(Controller.getMouseHandler());
+                load.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(load);
 
                 //exit button
@@ -185,17 +183,17 @@ public class Gui {
 
                 //continue button
                 JButton resume = new JButton("Continue");
-                resume.addMouseListener(Controller.getMouseHandler());
+                resume.addMouseListener(controller.getMouseHandler());
                 pauseMenu.add(resume);
 
                 //save game button
                 JButton save = new JButton("Save game");
-                save.addMouseListener(Controller.getMouseHandler());
+                save.addMouseListener(controller.getMouseHandler());
                 pauseMenu.add(save);
 
                 //load game button
                 JButton load = new JButton("Load game");
-                load.addMouseListener(Controller.getMouseHandler());
+                load.addMouseListener(controller.getMouseHandler());
                 pauseMenu.add(load);
 
                 window.getContentPane().add(pauseMenu);

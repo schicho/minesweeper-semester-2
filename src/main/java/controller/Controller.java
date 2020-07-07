@@ -63,54 +63,47 @@ public class Controller implements MouseListener, Observer {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        if (e.getSource() instanceof JButton){
+        if (e.getSource() instanceof JButton) {
             String whatItDoes = buttonInfo((JButton) e.getSource());
-            if(whatItDoes.equals("Exit")){
+            if (whatItDoes.equals("Exit")) {
                 //exit the program
                 model.setGameState(GameState.EXIT);
                 gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
-            }
-            else if(whatItDoes.equals("Play easy")){
+            } else if (whatItDoes.equals("Play easy")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.EASY);
                 model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
-            }
-            else if(whatItDoes.equals("Play medium")){
+            } else if (whatItDoes.equals("Play medium")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.NORMAL);
                 model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
-            }
-            else if(whatItDoes.equals("Play hard")){
+            } else if (whatItDoes.equals("Play hard")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.HARD);
                 model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
-            }
-            else if(whatItDoes.equals("Continue")){
+            } else if (whatItDoes.equals("Continue")) {
                 model.setGameState(GameState.RUNNING);
                 gui.loadScene(model.getGameState());
             }
-            else {
-                if(SwingUtilities.isRightMouseButton(e)){
-                    whatItDoes = "f"+whatItDoes;
-                    System.out.println(whatItDoes);
-                }
-                System.out.println(whatItDoes);
-            // Click on Tile Button. Sweep/Flag/Unflag
-            } else if (e.getSource() instanceof TileButton) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    whatsItDo = "f" + whatsItDo;
-                    handleInput(whatsItDo);
-                } else if (SwingUtilities.isLeftMouseButton(e)) {
-                    handleInput(whatsItDo);
-                }
-                //update Tile Text
-                gui.updateTileText(model);
-                //update flag display
-                gui.updateFlagDisplay();
+            else if (SwingUtilities.isRightMouseButton(e)) {
+                whatItDoes = "f" + whatItDoes;
+                handleInput(whatItDoes);
+            } else if (SwingUtilities.isLeftMouseButton(e)) {
+                handleInput(whatItDoes);
             }
+            //update Tile Text
+            gui.updateTileText(model);
+            //update flag display
+            gui.updateFlagDisplay();
         }
     }
 
@@ -131,24 +124,6 @@ public class Controller implements MouseListener, Observer {
 
     @Override
     public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            model.setGameState(GameState.PAUSE);
-            gui.loadScene(model.getGameState());
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
 
     }
 
