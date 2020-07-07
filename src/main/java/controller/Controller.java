@@ -211,6 +211,9 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
+                //update timer display
+                gui.updateTimerDisplay();
+                
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
