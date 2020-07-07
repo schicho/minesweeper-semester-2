@@ -194,6 +194,9 @@ public class Controller implements MouseListener, Observer {
         GameState current = model.getGameState();
         switch (current){
             case WON:
+                //update timer display
+                gui.updateTimerDisplay();
+
                 gui.updateTileText(model);
                 gui.displayWin();
 
