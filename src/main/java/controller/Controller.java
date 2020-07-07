@@ -14,7 +14,7 @@ import model.timer.*;
 import javax.swing.*;
 
 
-public class Controller implements MouseListener{
+public class Controller implements MouseListener, KeyListener{
 
     /**
      * holds the controller instance
@@ -133,6 +133,10 @@ public class Controller implements MouseListener{
                 }
                 else System.out.println("Play");*/
             }
+            else if(whatItDoes.equals("Continue")){
+                model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
+            }
             else {
                 if(SwingUtilities.isRightMouseButton(e)){
                     whatItDoes = "f"+whatItDoes;
@@ -162,6 +166,24 @@ public class Controller implements MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            model.setGameState(GameState.PAUSE);
+            gui.loadScene(model.getGameState());
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 
