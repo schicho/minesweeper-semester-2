@@ -12,8 +12,10 @@ public class Gui {
     private JFrame window;
     private JPanel mainMenu;
     private JPanel pauseMenu;
-    private JPanel game;
+    private JPanel minefield;
     private JPanel endGameMessage;
+
+    private JLabel remainingFlagsDisplay;
 
     private int minefieldCols;
     private int minefieldRows;
@@ -56,6 +58,26 @@ public class Gui {
     }
 
     /**
+     * creates a new flag display
+     */
+    public void createFlagDisplay(){
+        remainingFlagsDisplay = new JLabel();
+        remainingFlagsDisplay.setForeground(Color.RED);
+        remainingFlagsDisplay.setVerticalAlignment(JLabel.CENTER);
+        remainingFlagsDisplay.setHorizontalAlignment(JLabel.CENTER);
+        remainingFlagsDisplay.setPreferredSize(new Dimension(100,50));
+        //updateFlagDisplay();
+    }
+
+    /**
+     * Updates the flag display with the current number of flags that are left to set.
+     */
+    public void updateFlagDisplay(){
+        String text = String.valueOf(controller.getModel().getFlagsToSetLeft());
+        remainingFlagsDisplay.setText(text);
+    }
+
+    /**
      * Writes Vlaues for the field sizes
      * @param minefield Model of a minefield
      */
@@ -85,7 +107,7 @@ public class Gui {
      * @param cols number of cols
      */
     public void fieldBuilder(int rows, int cols) {
-        game.setLayout(new GridLayout(rows, cols));
+        minefield.setLayout(new GridLayout(rows, cols));
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 tileButtons[i][j] = new TileButton();
@@ -93,8 +115,7 @@ public class Gui {
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(controller.getMouseHandler());
                 tileButtons[i][j].setPreferredSize(new Dimension(50,50));
-              
-                game.add(tileButtons[i][j]);
+                minefield.add(tileButtons[i][j]);
             }
         }
     }
@@ -135,12 +156,19 @@ public class Gui {
                 //continue button
             }
             case RUNNING: {
-                //game panel
-                game = new JPanel();
-                fieldBuilder(minefieldRows, minefieldCols);
+                //minefield panel
+                minefield = new JPanel();
 
-                window.getContentPane().add(game);
+                JPanel gamePane = new JPanel();
+                gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
+
+                fieldBuilder(minefieldRows, minefieldCols);
+                createFlagDisplay();
+
+                gamePane.add(remainingFlagsDisplay);
+                gamePane.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
+                window.add(gamePane);
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
@@ -230,7 +258,7 @@ public class Gui {
 
     public void displayWin(){
         JOptionPane.showMessageDialog(
-                game,
+                minefield,
                 "Congratulations!",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
@@ -238,7 +266,7 @@ public class Gui {
 
     public void displayFailure(int remainingMines){
         JOptionPane.showMessageDialog(
-                game,
+                minefield,
                 "Too bad! " + remainingMines + " remaining mines not found.",
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);

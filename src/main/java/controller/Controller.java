@@ -88,6 +88,8 @@ public class Controller implements MouseListener, Observer {
                 }
                 //update Tile Text
                 gui.updateTileText(model);
+                //update flag display
+                gui.updateFlagDisplay();
             }
         }
     }
