@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.enums.*;
@@ -8,7 +10,6 @@ public class Field {
 
     private final int rows;
     private final int cols;
-
     private int remainingMines;
 
     /**
@@ -25,7 +26,6 @@ public class Field {
         this.rows = rows;
         this.cols = cols;
         this.minefield = new Tile[rows][cols];
-
         populate();
         placeMinesRNG(numberOfMines);
         calcSurroundingMines();
@@ -59,8 +59,7 @@ public class Field {
                 //if Tile is a mine already skip to next loop cycle
             }
         }
-
-        remainingMines = numberOfMines;
+        if(numberOfMines>1){remainingMines = numberOfMines;}//set new only if there is a new field. Not wenn recalculating mines
     }
 
     /**
@@ -110,6 +109,69 @@ public class Field {
     }
 
     /**
+     *
+     * @param m rows
+     * @param n collums
+     * @return true if the is a mine, independed from its flag or qmarked status
+     */
+    private boolean likeMine(int m, int n){
+        return ((minefield[m][n].getState()==TileState.FLAGGED_MINE)||
+                (minefield[m][n].getState()==TileState.QMARKED_MINE)||
+                (minefield[m][n].getState()==TileState.MINE));
+    }
+
+    /**
+     * values in the encoded list can be interpreted as follows:
+     * -1 1 3
+     * -2 2 6
+     * -4 4 12
+     *
+     * while 2 is the Tile of which the surroundings ar being checked
+     * @param m row
+     * @param n collumn
+     * @return 's an encoded List of the mines arround and in a tile
+     */
+    public List<Integer> checkAround(int m, int n){
+        List<Integer> returnList = new ArrayList<>();
+        int mMax = Math.min(this.getRows()-1,m+1);
+        int nMax = Math.min(this.getCols()-1,n+1);
+        for (int mMin = Math.max(0,m-1); mMin<=mMax; mMin++){
+            for (int nMin = Math.max(0,n-1); nMin <= nMax; nMin++){
+                if(isMine(mMin,nMin)){
+                    returnList.add(((int) Math.pow(2,(1+mMin-m)))*(2*(nMin-n)+1));
+                }
+
+            }
+        }
+        return returnList;
+    }
+
+    /**
+     * changes the tile to the mine free equivalent of it's current status
+     * @param m row
+     * @param n collumn
+     */
+    private void deMine(int m, int n){
+        if (minefield[m][n].getState()==TileState.FLAGGED_MINE){
+            minefield[m][n].setState(TileState.FLAGGED_FREE);
+        }
+        else if (minefield[m][n].getState()==TileState.QMARKED_MINE){
+            minefield[m][n].setState(TileState.QMARKED_FREE);
+        }
+        else minefield[m][n].setState(TileState.FREE);
+    }
+
+    /**
+     * Defuses given mine, places new random mine, recalculates the surrounding mines(sadly every time)
+     * @param rowIndex Row
+     * @param colIndex Collumn
+     */
+    public void clearTile(int rowIndex, int colIndex){
+        deMine(rowIndex,colIndex);
+        placeMinesRNG(1);
+        calcSurroundingMines();
+    }
+    /**
      * Sweep/Open up a covered tile
      * @param rowIndex index of row
      * @param colIndex index of column
@@ -138,15 +200,28 @@ public class Field {
     }
 
     /**
+     * replaces a flag with a question mark
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public void qmarkTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) {
+            minefield[rowIndex][colIndex].setState(TileState.QMARKED_MINE);
+            //a found mine was questionmarked
+            remainingMines++;
+            return;
+        }
+        minefield[rowIndex][colIndex].setState(TileState.QMARKED_FREE);
+    }
+
+    /**
      * takes the flag off the tile
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void unflagTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE){
+    public void unQmarkTile(int rowIndex, int colIndex){
+        if(minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE){
             minefield[rowIndex][colIndex].setState(TileState.MINE);
-            //a found mine was unflagged
-            remainingMines++;
             return;
         }
         minefield[rowIndex][colIndex].setState(TileState.FREE);
@@ -170,6 +245,16 @@ public class Field {
     public boolean isFlagged(int rowIndex, int colIndex) {
         return minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_FREE ||
                 minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE;
+    }
+
+    /**
+     * returns true if tile at given index is question marked.
+     * @param rowIndex index of row
+     * @param colIndex index of column
+     */
+    public boolean isQmarked(int rowIndex, int colIndex) {
+        return minefield[rowIndex][colIndex].getState() == TileState.QMARKED_FREE ||
+                minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE;
     }
 
     /**
