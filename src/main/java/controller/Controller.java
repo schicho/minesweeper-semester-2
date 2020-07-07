@@ -17,7 +17,7 @@ public class Controller implements MouseListener, Observer {
 
     /**
      * holds the controller instance
-    */
+     */
     private Controller controller;
 
     /**
@@ -76,6 +76,10 @@ public class Controller implements MouseListener, Observer {
                 model.attach(this);
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
             } else if (whatItDoes.equals("Play medium")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.NORMAL);
@@ -83,6 +87,10 @@ public class Controller implements MouseListener, Observer {
                 model.attach(this);
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
             } else if (whatItDoes.equals("Play hard")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.HARD);
@@ -90,6 +98,10 @@ public class Controller implements MouseListener, Observer {
                 model.attach(this);
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
             } else if (whatItDoes.equals("Continue")) {
                 model.setGameState(GameState.RUNNING);
                 gui.loadScene(model.getGameState());
@@ -104,6 +116,8 @@ public class Controller implements MouseListener, Observer {
             gui.updateTileText(model);
             //update flag display
             gui.updateFlagDisplay();
+            //update timer display
+            gui.updateTimerDisplay();
         }
     }
 
@@ -199,6 +213,9 @@ public class Controller implements MouseListener, Observer {
         GameState current = model.getGameState();
         switch (current){
             case WON:
+                //update timer display
+                gui.updateTimerDisplay();
+
                 gui.updateTileText(model);
                 gui.displayWin();
 
@@ -213,6 +230,9 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
+                //update timer display
+                gui.updateTimerDisplay();
+                
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
