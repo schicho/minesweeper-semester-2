@@ -81,6 +81,12 @@ Die Einteilung und dazugehörigen Umsetzungen der Tasks und User Stories lautet 
 
 <br>
 
+## Verwendete Design Pattern
+
+MVC und Observer
+
+<br>
+
 ## Abschlussarbeiten für Iteration 4
 
 **Gemeinsame Ausarbeitung folgender Inhalte unter Teilnahme aller Mitglieder während des Teammeetings (online) am 07.07.2020:**
