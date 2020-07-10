@@ -186,6 +186,19 @@ public class Model implements Subject {
     }
 
     /**
+     * Sweeps all Tiles. Used when the game was lost to show mistakes to player
+     * No Observer notification needed as it would end up in a loop and we know when this
+     * method is called.
+     */
+    public void sweepAllOnLost(){
+        for(int i=0; i<minesweeperField.getRows(); i++){
+            for(int j=0; j<minesweeperField.getCols(); j++){
+                minesweeperField.sweepTileForce(i,j);
+            }
+        }
+    }
+
+    /**
      * Check if tile at a certain index is flagged or not.
      * @param rowIndex index of row
      * @param colIndex index of column

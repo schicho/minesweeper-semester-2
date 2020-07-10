@@ -220,6 +220,8 @@ public class Controller implements MouseListener, Observer {
             case LOST:
                 //update timer display
                 gui.updateTimerDisplay();
+
+                model.sweepAllOnLost();
                 
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());

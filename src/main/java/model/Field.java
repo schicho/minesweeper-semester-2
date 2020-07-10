@@ -185,6 +185,29 @@ public class Field {
     }
 
     /**
+     * Sweeps a Tile accordingly no matter what the previous state was.
+     * Used at the end of a lost game.
+     * @param rowIndex row index in the 2D Tile Array
+     * @param colIndex column index in the 2D Tile Array
+     */
+    public void sweepTileForce(int rowIndex, int colIndex){
+        switch (minefield[rowIndex][colIndex].getState()){
+            case FREE:
+            case SWEEPED_FREE:
+            case FLAGGED_FREE:
+            case QMARKED_FREE:
+                minefield[rowIndex][colIndex].setState(TileState.SWEEPED_FREE);
+            break;
+            case MINE:
+            case FLAGGED_MINE:
+            case QMARKED_MINE:
+            case SWEEPED_MINE:
+                minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
+            break;
+        }
+    }
+
+    /**
      * mark a tile with a flag, the state is set respectively
      * @param rowIndex index of row
      * @param colIndex index of column
