@@ -51,12 +51,6 @@ public class Controller implements MouseListener, Observer {
         //run model.timer ever 1000ms = 1s
         timer.schedule(timerTask, 0, 1000);
 
-        // TODO: this needs to be set by the main menu when starting a game.
-        model = new Model(Difficulty.EASY);
-
-        model.attach(this);
-
-        gui.calculateSize(model);
         gui.loadScene(GameState.MAIN_MENU);
     }
 
@@ -66,8 +60,6 @@ public class Controller implements MouseListener, Observer {
         if (e.getSource() instanceof JButton) {
             String whatItDoes = buttonInfo((JButton) e.getSource());
             if (whatItDoes.equals("Exit")) {
-                //exit the program
-                model.setGameState(GameState.EXIT);
                 gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
             } else if (whatItDoes.equals("Play easy")) {
                 //change the gameState, load the new scene
@@ -223,10 +215,6 @@ public class Controller implements MouseListener, Observer {
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
 
-                //reset model
-                model = new Model(Difficulty.EASY);
-                model.attach(this);
-
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
@@ -239,10 +227,6 @@ public class Controller implements MouseListener, Observer {
                 //stop timerTask and reset
                 timerTask.cancel();
                 SecondsTimer.counter = 0;
-
-                //reset model
-                model = new Model(Difficulty.EASY);
-                model.attach(this);
 
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
