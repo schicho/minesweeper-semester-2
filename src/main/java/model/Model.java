@@ -104,7 +104,7 @@ public class Model implements Subject {
      * @param rowIndex row index of the current tile
      * @param colIndex column index of the current tile
      */
-    public void sweepRecursively(int rowIndex, int colIndex){
+    private void sweepRecursively(int rowIndex, int colIndex){
         if (getSurroundingMines(rowIndex, colIndex) == 0) {
             // top 3
             try {
@@ -149,7 +149,7 @@ public class Model implements Subject {
      * @param rowIndex row index of the clicked tile
      * @param colIndex column index of the clicked tile
      */
-    public void sweepClearOnUntouched(int rowIndex, int colIndex){
+    private void sweepClearOnUntouched(int rowIndex, int colIndex){
         List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
         int pos;
         int m;
