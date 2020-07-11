@@ -82,7 +82,6 @@ public class ModelTests {
                     assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.MINE, tileArray[i][j].getState());
-                    break;
                 }
             }
         }
@@ -97,7 +96,10 @@ public class ModelTests {
                     assertEquals(TileState.QMARKED_FREE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.FREE, tileArray[i][j].getState());
-                    break;
+
+                    easyModel.sweepTile(i,j);
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.SWEEPED_FREE, tileArray[i][j].getState());
                 }
             }
         }
