@@ -70,98 +70,111 @@ public class Model implements Subject {
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
      * zero neighboring mines.
-     * Also updates the gameState on each sweep.
-     * @param rowIndex index of row
-     * @param colIndex index of column
+     * Updates the gameState on each sweep.
+     * @param rowIndex row index of the clicked on tile
+     * @param colIndex column index of the clicked on tile
      */
     public void sweepTile(int rowIndex, int colIndex){
-        //if no mine was sweeped, make sure the first field has zero surrounding mines and is not a mine itself
+        //make sure the first field has zero surrounding mines and is not a mine itself
         if (untouched){
-            List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
-            int pos;
-            int m;
-            int n;
-            while (surroundingMines.size()!=0){
-                pos = surroundingMines.get(0);
-                surroundingMines.remove(0);
-                if(pos<0){
-                    n=-1;
-                }
-                else if(pos%3==0){
-                    n=1;
-                }
-                else n=0;
-                if (pos%4==0){
-                    m=1;
-                }
-                else if (pos%2==0){
-                    m=0;
-                }
-                else m=-1;
-                minesweeperField.clearTile(rowIndex+m,colIndex+n);
-                surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
-            }
-            this.untouched=false;
+            sweepClearOnUntouched(rowIndex, colIndex);
         }
         //do not allow sweeping of flagged tiles
-        if(isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)){
+        if (isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)) {
             return;
-        }
-        //also check if tile has not been sweeped before, to stop recursion.
-        boolean isAlreadySweeped = isSweeped(rowIndex, colIndex);
-        //Update GameState
-        if(isMine(rowIndex, colIndex)){
+        }else if (isMine(rowIndex, colIndex)){
             minesweeperField.sweepTile(rowIndex, colIndex);
             gameState = GameState.LOST;
             notifyObservers();
             return; //no need to further swipe any tiles
-        }else if(!isAlreadySweeped){
-            countSweepedTiles++;
         }
         //recursion
-        if(!isAlreadySweeped){
+        if(!isSweeped(rowIndex, colIndex)) {
+            countSweepedTiles++;
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
-            //recursively sweep surrounding tiles.
-            if (getSurroundingMines(rowIndex, colIndex) == 0) {
-                // top 3
-                try {
-                    sweepTile(rowIndex - 1, colIndex - 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                try {
-                    sweepTile(rowIndex - 1, colIndex);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                try {
-                    sweepTile(rowIndex - 1, colIndex + 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                //left and right
-                try {
-                    sweepTile(rowIndex, colIndex - 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                try {
-                    sweepTile(rowIndex, colIndex + 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                //bottom 3
-                try {
-                    sweepTile(rowIndex + 1, colIndex - 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                try {
-                    sweepTile(rowIndex + 1, colIndex);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-                try {
-                    sweepTile(rowIndex + 1, colIndex + 1);
-                } catch (IndexOutOfBoundsException ignored) {
-                }
+            //sweep adjacent tiles
+            sweepRecursively(rowIndex, colIndex);
+            notifyObservers();
+        }
+    }
+
+    /**
+     * If the current tile has zero surrounding mines, sweep all the adjacent tiles.
+     * @param rowIndex row index of the current tile
+     * @param colIndex column index of the current tile
+     */
+    private void sweepRecursively(int rowIndex, int colIndex){
+        if (getSurroundingMines(rowIndex, colIndex) == 0) {
+            // top 3
+            try {
+                sweepTile(rowIndex - 1, colIndex - 1);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            try {
+                sweepTile(rowIndex - 1, colIndex);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            try {
+                sweepTile(rowIndex - 1, colIndex + 1);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            //left and right
+            try {
+                sweepTile(rowIndex, colIndex - 1);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            try {
+                sweepTile(rowIndex, colIndex + 1);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            //bottom 3
+            try {
+                sweepTile(rowIndex + 1, colIndex - 1);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            try {
+                sweepTile(rowIndex + 1, colIndex);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
+            try {
+                sweepTile(rowIndex + 1, colIndex + 1);
+            } catch (IndexOutOfBoundsException ignored) {
             }
         }
-        notifyObservers();
+    }
+
+    /**
+     * Called only on the first swipe. Make sure the first clicked on Tile is not a Mine.
+     * @param rowIndex row index of the clicked tile
+     * @param colIndex column index of the clicked tile
+     */
+    private void sweepClearOnUntouched(int rowIndex, int colIndex){
+        List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
+        int pos;
+        int m;
+        int n;
+        while (surroundingMines.size()!=0){
+            pos = surroundingMines.get(0);
+            surroundingMines.remove(0);
+            if(pos<0){
+                n=-1;
+            }
+            else if(pos%3==0){
+                n=1;
+            }
+            else n=0;
+            if (pos%4==0){
+                m=1;
+            }
+            else if (pos%2==0){
+                m=0;
+            }
+            else m=-1;
+            minesweeperField.clearTile(rowIndex+m,colIndex+n);
+            surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
+        }
+        this.untouched=false;
     }
 
     /**
