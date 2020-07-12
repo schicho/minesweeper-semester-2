@@ -65,4 +65,43 @@ public class ModelTests {
         }
         assertEquals(99, bombCounter);
     }
+
+    @Test
+    @DisplayName("Test multiple different scenarios when setting flags")
+    void testFlaggingScenarios() {
+        Model easyModel = new Model(Difficulty.EASY);
+        Tile[][] tileArray = easyModel.getTileArray();
+        for (int i = 0; i < tileArray.length; i++){
+            for (int j = 0; j < tileArray[0].length; j++){
+                if(tileArray[i][j].getState() == TileState.MINE){
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.FLAGGED_MINE, tileArray[i][j].getState());
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
+                    easyModel.sweepTile(i,j);
+                    assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.MINE, tileArray[i][j].getState());
+                }
+            }
+        }
+        for (int i = 0; i < tileArray.length; i++){
+            for (int j = 0; j < tileArray[0].length; j++){
+                if(tileArray[i][j].getState() == TileState.FREE){
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
+                    easyModel.sweepTile(i,j);
+                    assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.QMARKED_FREE, tileArray[i][j].getState());
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.FREE, tileArray[i][j].getState());
+
+                    easyModel.sweepTile(i,j);
+                    easyModel.flagTile(i,j);
+                    assertEquals(TileState.SWEEPED_FREE, tileArray[i][j].getState());
+                }
+            }
+        }
+    }
 }

@@ -109,18 +109,6 @@ public class Field {
     }
 
     /**
-     *
-     * @param m rows
-     * @param n collums
-     * @return true if the is a mine, independed from its flag or qmarked status
-     */
-    private boolean likeMine(int m, int n){
-        return ((minefield[m][n].getState()==TileState.FLAGGED_MINE)||
-                (minefield[m][n].getState()==TileState.QMARKED_MINE)||
-                (minefield[m][n].getState()==TileState.MINE));
-    }
-
-    /**
      * values in the encoded list can be interpreted as follows:
      * -1 1 3
      * -2 2 6
