@@ -157,20 +157,8 @@ public class Model implements Subject {
         while (surroundingMines.size()!=0){
             pos = surroundingMines.get(0);
             surroundingMines.remove(0);
-            if(pos<0){
-                n=-1;
-            }
-            else if(pos%3==0){
-                n=1;
-            }
-            else n=0;
-            if (pos%4==0){
-                m=1;
-            }
-            else if (pos%2==0){
-                m=0;
-            }
-            else m=-1;
+            m = minesweeperField.extractMOffset(pos);
+            n = minesweeperField.extractNOffest(pos);
             minesweeperField.clearTile(rowIndex+m,colIndex+n);
             surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
         }
