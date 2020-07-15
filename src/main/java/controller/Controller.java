@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.*;
+import java.util.Base64;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -94,7 +95,21 @@ public class Controller implements MouseListener, Observer {
                 timerTask = new SecondsTimer();
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(timerTask, 0, 1000);
-            } else if (whatItDoes.equals("Continue")) {
+            } else if (whatItDoes.equals("Load game")) {
+                String encodedSting = gui.loadFromSeed();
+                Base64.Decoder decoder= Base64.getDecoder();
+                byte[] byteSeed = decoder.decode(encodedSting.getBytes());
+                String seed = new String(byteSeed);
+                System.out.println(seed);
+                model = new Model(seed);
+                model.setGameState(GameState.RUNNING);
+                model.attach(this);
+                gui.calculateSize(model);
+                gui.loadScene(model.getGameState());
+                SecondsTimer.counter = 0;
+                timerTask = new SecondsTimer();
+                //run model.timer ever 1000ms = 1s
+                timer.schedule(timerTask, 0, 1000);
                 model.setGameState(GameState.RUNNING);
                 gui.loadScene(model.getGameState());
             }
@@ -196,7 +211,7 @@ public class Controller implements MouseListener, Observer {
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
 
-            model.sweepTile(m, n);
+            model.sweepTile(m, n,false);
         }
     }
 

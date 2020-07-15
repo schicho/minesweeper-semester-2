@@ -369,4 +369,9 @@ public class Gui {
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);
     }
+
+    public String loadFromSeed(){
+        String seed = JOptionPane.showInputDialog("Input Seed, please:");
+        return seed;
+    }
 }

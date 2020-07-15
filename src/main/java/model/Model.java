@@ -66,6 +66,31 @@ public class Model implements Subject {
         }
     }
 
+    public Model(String seed){
+        if(seed.charAt(0)=='0'){
+            this.difficulty=Difficulty.EASY;
+            numberOfMines = 10;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.difficulty=Difficulty.NORMAL;
+            numberOfMines = 40;
+        }
+        else{
+            this.difficulty=Difficulty.HARD;
+            numberOfMines = 99;
+        }
+        minesweeperField = new Field(seed);
+        StringBuilder seedBuilder = new StringBuilder(seed);
+        int m;
+        int n;
+        //cant be done in Field, since field doesnt support recursion
+        for(int i = seedBuilder.indexOf("9999")+4; i<seedBuilder.length(); i+=4){
+            m=Integer.parseInt(seedBuilder.substring(i,i+2));
+            n=Integer.parseInt(seedBuilder.substring(i+2,i+4));
+            sweepTile(m,n,false);
+        }
+    }
+
     /**
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
@@ -74,7 +99,7 @@ public class Model implements Subject {
      * @param rowIndex row index of the clicked on tile
      * @param colIndex column index of the clicked on tile
      */
-    public void sweepTile(int rowIndex, int colIndex){
+    public void sweepTile(int rowIndex, int colIndex,boolean recursion){
         //make sure the first field has zero surrounding mines and is not a mine itself
         if (untouched){
             sweepClearOnUntouched(rowIndex, colIndex);
@@ -94,7 +119,9 @@ public class Model implements Subject {
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
             //sweep adjacent tiles
-            sweepRecursively(rowIndex, colIndex);
+            if(!recursion) {
+                sweepRecursively(rowIndex, colIndex);
+            }
             notifyObservers();
         }
     }
@@ -108,37 +135,37 @@ public class Model implements Subject {
         if (getSurroundingMines(rowIndex, colIndex) == 0) {
             // top 3
             try {
-                sweepTile(rowIndex - 1, colIndex - 1);
+                sweepTile(rowIndex - 1, colIndex - 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex - 1, colIndex);
+                sweepTile(rowIndex - 1, colIndex,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex - 1, colIndex + 1);
+                sweepTile(rowIndex - 1, colIndex + 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             //left and right
             try {
-                sweepTile(rowIndex, colIndex - 1);
+                sweepTile(rowIndex, colIndex - 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex, colIndex + 1);
+                sweepTile(rowIndex, colIndex + 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             //bottom 3
             try {
-                sweepTile(rowIndex + 1, colIndex - 1);
+                sweepTile(rowIndex + 1, colIndex - 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex + 1, colIndex);
+                sweepTile(rowIndex + 1, colIndex,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex + 1, colIndex + 1);
+                sweepTile(rowIndex + 1, colIndex + 1,false);
             } catch (IndexOutOfBoundsException ignored) {
             }
         }
