@@ -19,6 +19,7 @@ public class Gui {
     private JPanel pauseMenu;
     private JPanel minefield;
     private JPanel endGameMessage;
+    private JPanel gamePanel;
 
     //important vars for the design
     public int width, height;
@@ -185,6 +186,27 @@ public class Gui {
     }
 
     /**
+     * continues the game after pause menu by
+     * repainting the window to its state before pause
+     */
+    public void continueAfterPause(){
+        //clear
+        window.getContentPane().removeAll();
+
+        //update the window to display the previous game panel
+        window.getContentPane().add(gamePanel);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.repaint();
+        window.revalidate();
+        window.setVisible(true);
+
+        //update the 2 information panels
+        updateFlagDisplay();
+        updateTimerDisplay();
+    }
+
+    /**
      * loads a specific scene, which is determined by the given state
      *
      * @param state the state to tell the function what to load
@@ -258,8 +280,8 @@ public class Gui {
                 //minefield panel
                 minefield = new JPanel();
 
-                JPanel gamePane = new JPanel();
-                gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
+                gamePanel = new JPanel();
+                gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.PAGE_AXIS));
 
                 createFlagsDisplay();
                 createSeparatorDisplay();
@@ -270,16 +292,16 @@ public class Gui {
                 //pause button
                 JButton pause = new JButton("Pause");
                 pause.addMouseListener(controller.getMouseHandler());
-                gamePane.add(pause);
+                gamePanel.add(pause);
 
-                gamePane.add(remainingFlagsDisplay);
+                gamePanel.add(remainingFlagsDisplay);
 
-                gamePane.add(separator);
-                gamePane.add(remainingTimerDisplay);
+                gamePanel.add(separator);
+                gamePanel.add(remainingTimerDisplay);
 
-                gamePane.add(minefield);
+                gamePanel.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
-                window.add(gamePane);
+                window.add(gamePanel);
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);

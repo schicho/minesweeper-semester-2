@@ -63,6 +63,7 @@ public class Controller implements MouseListener, Observer {
 
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.EASY);
+                model.setGameState(GameState.RUNNING);
 
                 //bind the new model to its observer
                 model.attach(this);
@@ -82,6 +83,7 @@ public class Controller implements MouseListener, Observer {
 
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.NORMAL);
+                model.setGameState(GameState.RUNNING);
 
                 //bind the new model to its observer
                 model.attach(this);
@@ -101,6 +103,7 @@ public class Controller implements MouseListener, Observer {
 
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.HARD);
+                model.setGameState(GameState.RUNNING);
 
                 //bind new model to its observer
                 model.attach(this);
@@ -120,7 +123,8 @@ public class Controller implements MouseListener, Observer {
 
                 //set the game state and load the scene accordingly
                 model.setGameState(GameState.RUNNING);
-                gui.loadScene(model.getGameState());
+
+                gui.continueAfterPause();
 
                 //resume the timer
                 SecondsTimer.unpauseTimer();
