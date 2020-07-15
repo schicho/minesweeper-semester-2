@@ -4,10 +4,19 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+/**
+ * a extended button class to represent one tile as a button,
+ * so one can click on this little mf
+ */
 public class TileButton extends JButton {
+
+    //what tile the button is 'bound' to
     private int m;
     private int n;
 
+    /**
+     * creates a new tile button
+     */
     public TileButton(){
         setContentAreaFilled(false);
         setBorderPainted(true);
@@ -15,6 +24,11 @@ public class TileButton extends JButton {
         this.setBorder(border);
     }
 
+    /**
+     * binds this button to a new position / tile
+     * @param m column index
+     * @param n row index
+     */
     public void setCoordinates(int m,int n){
         this.m=m;
         this.n=n;

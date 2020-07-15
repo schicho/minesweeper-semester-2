@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.event.*;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,16 +8,15 @@ import model.*;
 import model.enums.*;
 import observer_subject.*;
 import view.*;
-import model.timer.*;
+import model.timer.SecondsTimer;
 
 import javax.swing.*;
 
+/**
+ * controller class
+ * is the mouse listener and also observes the model
+ */
 public class Controller implements MouseListener, Observer {
-
-    /**
-     * holds the controller instance
-     */
-    private Controller controller;
 
     /**
      * holds the model instance
@@ -34,80 +32,141 @@ public class Controller implements MouseListener, Observer {
      * variables used for the timer.
      */
     private static final Timer timer = new Timer();
-    private static TimerTask timerTask = null;
+    private static TimerTask secondsTimer = null;
 
     /**
-     * exit variable, once set to true the game terminates.
+     * call to initialize the controller class
      */
-    private static boolean exit = false;
+    public void initializeController(Gui gui){
+        model = new Model(Difficulty.UNKNOWN);
 
-    /**
-     * Main game loop which runs the game and stops it at win or failure.
-     *
-     */
-    public void gameloop() {
+        model.attach(this);
 
-        timerTask = new SecondsTimer();
-        //run model.timer ever 1000ms = 1s
-        timer.schedule(timerTask, 0, 1000);
-
-        gui.loadScene(GameState.MAIN_MENU);
+        this.gui = gui;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() instanceof JButton) {
+
+            //get the button text...
             String whatItDoes = buttonInfo((JButton) e.getSource());
+
+            //...to switch between the different buttons actions
             if (whatItDoes.equals("Exit")) {
+                //exit the program
+                model.setGameState(GameState.EXIT);
                 gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
-            } else if (whatItDoes.equals("Play easy")) {
+            }
+            else if (whatItDoes.equals("Play easy")) {
+
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.EASY);
                 model.setGameState(GameState.RUNNING);
+
+                //bind the new model to its observer
                 model.attach(this);
+
+                //tell gui what to do
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+
+                //initialize timer
                 SecondsTimer.counter = 0;
-                timerTask = new SecondsTimer();
-                //run model.timer ever 1000ms = 1s
-                timer.schedule(timerTask, 0, 1000);
-            } else if (whatItDoes.equals("Play medium")) {
+                secondsTimer = new SecondsTimer();
+
+                //run model.timer every 1000ms = 1s
+                timer.schedule(secondsTimer, 0, 1000);
+            }
+            else if (whatItDoes.equals("Play medium")) {
+
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.NORMAL);
                 model.setGameState(GameState.RUNNING);
+
+                //bind the new model to its observer
                 model.attach(this);
+
+                //tell gui what to do
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+
+                //initialize timer
                 SecondsTimer.counter = 0;
-                timerTask = new SecondsTimer();
+                secondsTimer = new SecondsTimer();
+
                 //run model.timer ever 1000ms = 1s
-                timer.schedule(timerTask, 0, 1000);
-            } else if (whatItDoes.equals("Play hard")) {
+                timer.schedule(secondsTimer, 0, 1000);
+            }
+            else if (whatItDoes.equals("Play hard")) {
+
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.HARD);
                 model.setGameState(GameState.RUNNING);
+
+                //bind new model to its observer
                 model.attach(this);
+
+                //tell gui what to do
                 gui.calculateSize(model);
                 gui.loadScene(model.getGameState());
+
+                //initialize timer
                 SecondsTimer.counter = 0;
-                timerTask = new SecondsTimer();
+                secondsTimer = new SecondsTimer();
+
                 //run model.timer ever 1000ms = 1s
-                timer.schedule(timerTask, 0, 1000);
-            } else if (whatItDoes.equals("Continue")) {
+                timer.schedule(secondsTimer, 0, 1000);
+            }
+            else if (whatItDoes.equals("Continue")) {
+
+                //set the game state and load the scene accordingly
                 model.setGameState(GameState.RUNNING);
+                gui.loadScene(model.getGameState());
+
+                //resume the timer
+                SecondsTimer.unpauseTimer();
+                timer.schedule(secondsTimer, 0, 1000);
+            }
+            else if(whatItDoes.equals("Pause")){
+
+                //pause the timer
+                SecondsTimer.pauseTimer();
+                timer.cancel();
+                timer.purge();
+
+                //set new game state
+                model.setGameState(GameState.PAUSE);
+
+                //load pause menu
+                gui.loadScene(model.getGameState());
+            }
+            else if(whatItDoes.equals("Exit to main menu")){
+                //set game state
+                model.setGameState(GameState.MAIN_MENU);
+
+                //load main menu
                 gui.loadScene(model.getGameState());
             }
             else if (SwingUtilities.isRightMouseButton(e)) {
+                //add a f in front of the command to flag
                 whatItDoes = "f" + whatItDoes;
+
+                //send the command to handleInput
                 handleInput(whatItDoes);
             } else if (SwingUtilities.isLeftMouseButton(e)) {
+
+                //send the command to handleInput
                 handleInput(whatItDoes);
             }
+
             //update Tile Text
             gui.updateTileText(model);
+
             //update flag display
             gui.updateFlagDisplay();
+
             //update timer display
             gui.updateTimerDisplay();
         }
@@ -143,17 +202,6 @@ public class Controller implements MouseListener, Observer {
         }else {
             return button.getText();
         }
-    }
-
-    /**
-     * creates a new controller instance
-     */
-    public Controller(Gui gui) {
-        this.gui = gui;
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
     }
 
     /**
@@ -202,7 +250,11 @@ public class Controller implements MouseListener, Observer {
 
     @Override
     public void update(Subject s) {
+
+        //get game state
         GameState current = model.getGameState();
+
+        //switch game state
         switch (current){
             case WON:
                 //update timer display
@@ -212,8 +264,13 @@ public class Controller implements MouseListener, Observer {
                 gui.displayWin();
 
                 //stop timerTask and reset
-                timerTask.cancel();
+                timer.cancel();
+                timer.purge();
                 SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
+                model.attach(this);
 
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
@@ -222,13 +279,18 @@ public class Controller implements MouseListener, Observer {
                 gui.updateTimerDisplay();
 
                 model.sweepAllOnLost();
-                
+
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
                 //stop timerTask and reset
-                timerTask.cancel();
+                timer.cancel();
+                timer.purge();
                 SecondsTimer.counter = 0;
+
+                //reset model
+                model = new Model(Difficulty.EASY);
+                model.attach(this);
 
                 gui.loadScene(GameState.MAIN_MENU);
                 break;

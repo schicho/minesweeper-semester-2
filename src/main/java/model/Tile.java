@@ -2,9 +2,20 @@ package model;
 
 import model.enums.*;
 
+/**
+ * tile class
+ * represents a single tile of the minefield
+ */
 public class Tile {
 
+    /**
+     * tells what type of tile this tile is at the moment
+     */
     private TileState state;
+
+    /**
+     * how many mines this tile is surrounded by
+     */
     private int surroundingMines;
 
     /**
