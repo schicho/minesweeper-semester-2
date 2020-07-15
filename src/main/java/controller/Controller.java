@@ -84,7 +84,7 @@ public class Controller implements MouseListener, Observer {
                 timerTask = new SecondsTimer();
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(timerTask, 0, 1000);
-            } else if (whatItDoes.equals("Play hard")) {
+            }  else if (whatItDoes.equals("Play hard")) {
                 //change the gameState, load the new scene
                 model = new Model(Difficulty.HARD);
                 model.setGameState(GameState.RUNNING);
@@ -97,22 +97,24 @@ public class Controller implements MouseListener, Observer {
                 timer.schedule(timerTask, 0, 1000);
             } else if (whatItDoes.equals("Load game")) {
                 String encodedSting = gui.loadFromSeed();
-                Base64.Decoder decoder= Base64.getDecoder();
-                byte[] byteSeed = decoder.decode(encodedSting.getBytes());
-                String seed = new String(byteSeed);
-                model = new Model(seed);
-                model.setGameState(GameState.RUNNING);
-                model.attach(this);
-                gui.calculateSize(model);
-                gui.loadScene(model.getGameState());
-                SecondsTimer.counter = 0;
-                timerTask = new SecondsTimer();
-                //run model.timer ever 1000ms = 1s
-                timer.schedule(timerTask, 0, 1000);
-                model.setGameState(GameState.RUNNING);
-                gui.loadScene(model.getGameState());
-            }
-            else if (SwingUtilities.isRightMouseButton(e)) {
+                if(encodedSting==null){}
+                else {
+                    Base64.Decoder decoder = Base64.getDecoder();
+                    byte[] byteSeed = decoder.decode(encodedSting.getBytes());
+                    String seed = new String(byteSeed);
+                    model = new Model(seed);
+                    model.setGameState(GameState.RUNNING);
+                    model.attach(this);
+                    gui.calculateSize(model);
+                    gui.loadScene(model.getGameState());
+                    SecondsTimer.counter = 0;
+                    timerTask = new SecondsTimer();
+                    //run model.timer ever 1000ms = 1s
+                    timer.schedule(timerTask, 0, 1000);
+                    model.setGameState(GameState.RUNNING);
+                    gui.loadScene(model.getGameState());
+                }
+            } else if (SwingUtilities.isRightMouseButton(e)) {
                 whatItDoes = "f" + whatItDoes;
                 handleInput(whatItDoes);
             } else if (SwingUtilities.isLeftMouseButton(e)) {
