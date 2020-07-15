@@ -151,15 +151,12 @@ public class Model implements Subject {
      */
     private void sweepClearOnUntouched(int rowIndex, int colIndex){
         List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
-        int pos;
-        int m;
-        int n;
         while (surroundingMines.size()!=0){
-            pos = surroundingMines.get(0);
+            int encodedOffsets = surroundingMines.get(0);
             surroundingMines.remove(0);
-            m = minesweeperField.extractMOffset(pos);
-            n = minesweeperField.extractNOffest(pos);
-            minesweeperField.clearTile(rowIndex+m,colIndex+n);
+            int rowOffset = minesweeperField.decodeSurroundingMineRowOffset(encodedOffsets);
+            int colOffest = minesweeperField.decodeSurroundingMineColOffest(encodedOffsets);
+            minesweeperField.clearTile(rowIndex+rowOffset,colIndex+colOffest);
             surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
         }
         this.untouched=false;
