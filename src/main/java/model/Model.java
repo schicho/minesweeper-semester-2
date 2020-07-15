@@ -39,6 +39,7 @@ public class Model implements Subject {
     private int numberOfFlags = 0;
     private int countSweepedTiles = 0;
     private GameState gameState = GameState.RUNNING;
+    private SaveGame gameSaver= new SaveGame();
 
 
     /**
@@ -74,7 +75,7 @@ public class Model implements Subject {
      * @param rowIndex row index of the clicked on tile
      * @param colIndex column index of the clicked on tile
      */
-    public void sweepTile(int rowIndex, int colIndex){
+    public void sweepTile(int rowIndex, int colIndex, boolean inRecursion){
         //make sure the first field has zero surrounding mines and is not a mine itself
         if (untouched){
             sweepClearOnUntouched(rowIndex, colIndex);
@@ -94,6 +95,9 @@ public class Model implements Subject {
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
             //sweep adjacent tiles
+            if(!inRecursion){
+                gameSaver.addSweepCoords(rowIndex,colIndex);
+            }
             sweepRecursively(rowIndex, colIndex);
             notifyObservers();
         }
@@ -108,37 +112,37 @@ public class Model implements Subject {
         if (getSurroundingMines(rowIndex, colIndex) == 0) {
             // top 3
             try {
-                sweepTile(rowIndex - 1, colIndex - 1);
+                sweepTile(rowIndex - 1, colIndex - 1,true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex - 1, colIndex);
+                sweepTile(rowIndex - 1, colIndex,true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex - 1, colIndex + 1);
+                sweepTile(rowIndex - 1, colIndex + 1, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             //left and right
             try {
-                sweepTile(rowIndex, colIndex - 1);
+                sweepTile(rowIndex, colIndex - 1, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex, colIndex + 1);
+                sweepTile(rowIndex, colIndex + 1, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             //bottom 3
             try {
-                sweepTile(rowIndex + 1, colIndex - 1);
+                sweepTile(rowIndex + 1, colIndex - 1, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex + 1, colIndex);
+                sweepTile(rowIndex + 1, colIndex, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
             try {
-                sweepTile(rowIndex + 1, colIndex + 1);
+                sweepTile(rowIndex + 1, colIndex + 1, true);
             } catch (IndexOutOfBoundsException ignored) {
             }
         }
@@ -312,5 +316,9 @@ public class Model implements Subject {
      */
     public int getRemainingMines(){
         return minesweeperField.getRemainingMines();
+    }
+
+    public String getSeed(){
+        return gameSaver.genSeed(minesweeperField);
     }
 }

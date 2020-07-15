@@ -13,7 +13,7 @@ import model.timer.*;
 
 import javax.swing.*;
 
-public class Controller implements MouseListener, Observer {
+public class Controller implements KeyListener,MouseListener,  Observer {
 
     /**
      * holds the controller instance
@@ -40,6 +40,7 @@ public class Controller implements MouseListener, Observer {
      * exit variable, once set to true the game terminates.
      */
     private static boolean exit = false;
+
 
     /**
      * Main game loop which runs the game and stops it at win or failure.
@@ -133,6 +134,25 @@ public class Controller implements MouseListener, Observer {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyChar()=='s'){
+            String seed = model.getSeed();
+            gui.returnSeed(seed);
+
+
+
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
     /**
      * @param button JButton oder Tilebutton
      * @return a string, identifing the button
@@ -196,7 +216,7 @@ public class Controller implements MouseListener, Observer {
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
 
-            model.sweepTile(m, n);
+            model.sweepTile(m, n,false);
         }
     }
 
@@ -233,5 +253,8 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
         }
+        gui.focusOnKeyListner();
     }
+
+
 }

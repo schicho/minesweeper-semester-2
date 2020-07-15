@@ -264,6 +264,8 @@ public class Gui {
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
+                window.addKeyListener(controller.getMouseHandler());
+                focusOnKeyListner();
             }
         }
     }
@@ -271,6 +273,8 @@ public class Gui {
     public JFrame getWindow(){
         return window;
     }
+
+    public void focusOnKeyListner(){window.requestFocus();}
   
     /**
      * Changes the Text on a button in TileButtons[][]
@@ -368,5 +372,15 @@ public class Gui {
                 "Too bad! " + remainingMines + " remaining mines not found.",
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public void returnSeed(String seed){
+        JTextArea seedField = new JTextArea(15, 15);
+        seedField.setText(seed);
+        seedField.setWrapStyleWord(true);
+        seedField.setLineWrap(true);
+        seedField.setCaretPosition(0);
+        seedField.setEditable(false);
+        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Strg-C,Strg-V, Save this seed",JOptionPane.PLAIN_MESSAGE);
     }
 }
