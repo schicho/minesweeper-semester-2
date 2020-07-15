@@ -66,6 +66,10 @@ public class Model implements Subject {
         }
     }
 
+    /**
+     * Second constructor, to decode/load seed
+     * @param seed given by load case in Controller.handleInput
+     */
     public Model(String seed){
         if(seed.charAt(0)=='0'){
             this.difficulty=Difficulty.EASY;

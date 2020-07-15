@@ -31,6 +31,10 @@ public class Field {
         calcSurroundingMines();
     }
 
+    /**
+     * Second Constructor for decoding/loading seed, just handels mine, flag, Qmarked placement, as well as surrounding Mines
+     * @param seed given by model, representing the state of the game which is supposed to be loaded
+     */
     public Field(String seed){
         //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
         if(seed.charAt(0)=='0'){
