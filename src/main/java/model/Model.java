@@ -89,6 +89,7 @@ public class Model implements Subject {
             n=Integer.parseInt(seedBuilder.substring(i+2,i+4));
             sweepTile(m,n,false);
         }
+        untouched=false;
     }
 
     /**

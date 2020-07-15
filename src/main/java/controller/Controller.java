@@ -100,7 +100,6 @@ public class Controller implements MouseListener, Observer {
                 Base64.Decoder decoder= Base64.getDecoder();
                 byte[] byteSeed = decoder.decode(encodedSting.getBytes());
                 String seed = new String(byteSeed);
-                System.out.println(seed);
                 model = new Model(seed);
                 model.setGameState(GameState.RUNNING);
                 model.attach(this);
