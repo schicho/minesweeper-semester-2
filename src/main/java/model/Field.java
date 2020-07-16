@@ -127,38 +127,10 @@ public class Field {
     private void calcSurroundingMines(){
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
-                int count = 0;
-                //check all 8 surrounding tiles for mines. This is very ugly.
-                //top 3
-                try {
-                    if(minefield[i-1][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i-1][j].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i-1][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                //left and right
-                try {
-                    if(minefield[i][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                //bottom 3
-                try {
-                    if(minefield[i+1][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i+1][j].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i+1][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
+                List<Integer> surroundingMinesAmount = checkAround(i,j);
 
                 //write to the current tile which's surrounding mines we counted
-                minefield[i][j].setSurroundingMines(count);
+                minefield[i][j].setSurroundingMines(surroundingMinesAmount.size());
             }
         }
     }
