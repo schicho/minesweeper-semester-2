@@ -214,7 +214,7 @@ public class Controller implements MouseListener, Observer {
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
 
-            model.sweepTile(m, n,false);
+            model.sweepTile(m, n);
         }
     }
 
