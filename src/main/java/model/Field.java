@@ -187,6 +187,32 @@ public class Field {
     }
 
     /**
+     * Check which surrounding tiles of a specific tile actually exist and return it in a boolean array.
+     * Format of the array is:
+     * 0 1 2    | 4 is the tile we passed.
+     * 3 4 5    | save boolean value if the surrounding tile exists or not
+     * 6 7 8
+     * @param rowIndex rowIndex of the tile
+     * @param colIndex colIndex of the tile
+     * @return boolean[] true if the surrounding tile exists
+     */
+    public boolean[] whichSurroundingTilesExist(int rowIndex, int colIndex) {
+        boolean[] surroundingTileExists = new boolean[9];
+        int arrayIndex = 0;
+        for (int offsetRow = -1; offsetRow <= 1; offsetRow++) {
+            for (int offsetCol = -1; offsetCol <= 1; offsetCol++) {
+                try {
+                    surroundingTileExists[arrayIndex] = (minefield[rowIndex + offsetRow][colIndex + offsetCol] != null);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    surroundingTileExists[arrayIndex] = false;
+                }
+                arrayIndex++;
+            }
+        }
+        return surroundingTileExists;
+    }
+
+    /**
      * changes the tile to the mine free equivalent of it's current status
      * @param m row
      * @param n collumn
