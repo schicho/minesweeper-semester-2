@@ -157,6 +157,36 @@ public class Field {
     }
 
     /**
+     *
+     * @param encodedValue
+     * @return offset to determine the relativ M position of a mine
+     */
+    public int decodeSurroundingMineRowOffset(int encodedValue){
+        if (encodedValue%4==0){
+            return 1;
+        }
+        else if (encodedValue%2==0){
+            return 0;
+        }
+        else return -1;
+    }
+
+    /**
+     *
+     * @param encodedValue
+     * @return offset to determine the relativ N position of a mine
+     */
+    public int decodeSurroundingMineColOffset(int encodedValue){
+        if(encodedValue<0){
+            return -1;
+        }
+        else if(encodedValue%3==0){
+            return 1;
+        }
+        else return 0;
+    }
+
+    /**
      * changes the tile to the mine free equivalent of it's current status
      * @param m row
      * @param n collumn

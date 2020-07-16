@@ -169,35 +169,14 @@ public class Model implements Subject {
         //get all mined tiles near this one
         List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
 
-        //counters
-        int iteratorTile;
-        int m;
-        int n;
-
-        //check the whole list
         while (surroundingMines.size()!=0){
-
-            iteratorTile = surroundingMines.get(0);
+            int encodedOffsets = surroundingMines.get(0);
             surroundingMines.remove(0);
-
-            //decode the number to get the row and column index of the mined tile
-            //for the encoding pattern see the checkAround method in the Field class
-            if(iteratorTile<0){
-                n=-1;
-            }
-            else if(iteratorTile%3==0){
-                n=1;
-            }
-            else n=0;
-            if (iteratorTile%4==0){
-                m=1;
-            }
-            else if (iteratorTile%2==0){
-                m=0;
-            }
-            else m=-1;
-            minesweeperField.clearTile(rowIndex+m,colIndex+n);
-            surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
+            int rowOffset = minesweeperField.decodeSurroundingMineRowOffset(encodedOffsets);
+            int colOffest = minesweeperField.decodeSurroundingMineColOffset(encodedOffsets);
+            minesweeperField.clearTile(rowIndex+rowOffset,colIndex+colOffest);
+            // this is needed in case we move a mine/bomb
+            surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
         }
         this.untouched=false;
     }
