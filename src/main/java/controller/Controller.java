@@ -142,10 +142,8 @@ public class Controller implements KeyListener,MouseListener,  Observer {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyChar()=='s'){
             String seed = model.getSeed();
+            model.touch();
             gui.returnSeed(seed);
-
-
-
         }
     }
 

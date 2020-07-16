@@ -321,4 +321,9 @@ public class Model implements Subject {
     public String getSeed(){
         return gameSaver.genSeed(minesweeperField);
     }
+
+    public void touch(){
+        //don't disrespect my NoNoSquare!
+        untouched=false;
+    }
 }
