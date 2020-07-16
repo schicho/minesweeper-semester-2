@@ -57,7 +57,6 @@ public class Controller implements MouseListener, Observer {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (e.getSource() instanceof JButton) {
             String whatItDoes = buttonInfo((JButton) e.getSource());
             if (whatItDoes.equals("Exit")) {
@@ -97,8 +96,7 @@ public class Controller implements MouseListener, Observer {
                 timer.schedule(timerTask, 0, 1000);
             } else if (whatItDoes.equals("Load game")) {
                 String encodedSting = gui.loadFromSeed();
-                if(encodedSting==null){}
-                else {
+                if(!(encodedSting==null)&&(!(encodedSting.equals("")))) {
                     Base64.Decoder decoder = Base64.getDecoder();
                     byte[] byteSeed = decoder.decode(encodedSting.getBytes());
                     String seed = new String(byteSeed);
@@ -113,6 +111,10 @@ public class Controller implements MouseListener, Observer {
                     timer.schedule(timerTask, 0, 1000);
                     model.setGameState(GameState.RUNNING);
                     gui.loadScene(model.getGameState());
+                }
+                else{
+                    gui.loadScene(GameState.MAIN_MENU);
+                    return;
                 }
             } else if (SwingUtilities.isRightMouseButton(e)) {
                 whatItDoes = "f" + whatItDoes;

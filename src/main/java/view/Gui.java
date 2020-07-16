@@ -371,7 +371,7 @@ public class Gui {
     }
 
     public String loadFromSeed(){
-        String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","KEK",JOptionPane.PLAIN_MESSAGE);
+        String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","Load Game",JOptionPane.PLAIN_MESSAGE);
         return seed;
     }
 }
