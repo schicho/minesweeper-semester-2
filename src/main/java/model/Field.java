@@ -80,8 +80,6 @@ public class Field {
                     else{minefield[m][n].setState(TileState.MINE);}
                 }
             }
-
-
         }
 
     }
@@ -155,7 +153,6 @@ public class Field {
                 if(isMine(mMin,nMin)){
                     returnList.add(((int) Math.pow(2,(1+mMin-m)))*(2*(nMin-n)+1));
                 }
-
             }
         }
         return returnList;
@@ -303,7 +300,8 @@ public class Field {
     public boolean isMine(int rowIndex, int colIndex){
         return (minefield[rowIndex][colIndex].getState() == TileState.MINE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_MINE) ||
-                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE);
+                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) ||
+                (minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE);
     }
 
     /**
