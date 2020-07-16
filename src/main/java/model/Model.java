@@ -155,7 +155,7 @@ public class Model implements Subject {
             int encodedOffsets = surroundingMines.get(0);
             surroundingMines.remove(0);
             int rowOffset = minesweeperField.decodeSurroundingMineRowOffset(encodedOffsets);
-            int colOffest = minesweeperField.decodeSurroundingMineColOffest(encodedOffsets);
+            int colOffest = minesweeperField.decodeSurroundingMineColOffset(encodedOffsets);
             minesweeperField.clearTile(rowIndex+rowOffset,colIndex+colOffest);
             surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
         }

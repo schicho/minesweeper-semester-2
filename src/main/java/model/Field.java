@@ -154,7 +154,7 @@ public class Field {
      * @param encodedValue
      * @return offset to determine the relativ N position of a mine
      */
-    public int decodeSurroundingMineColOffest(int encodedValue){
+    public int decodeSurroundingMineColOffset(int encodedValue){
         if(encodedValue<0){
             return -1;
         }
