@@ -50,7 +50,7 @@ public class SaveGame {
                 // toAddi>=32-> Flagged Free
                 // toAddj>= 60 -> Qmarked Free
                 // 32>toAddi>=16 -> Flagged Mine
-                // 60>toAddi>=30 -> Qmarked Mine
+                // 60>toAddj>=30 -> Qmarked Mine
                 // toAddi>=32, toAddj>=60 is still available (encode sweep like this only makes this harder)
                 toAddi=i;
                 toAddj=j;

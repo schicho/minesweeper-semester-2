@@ -276,7 +276,8 @@ public class Field {
     public boolean isMine(int rowIndex, int colIndex){
         return (minefield[rowIndex][colIndex].getState() == TileState.MINE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_MINE) ||
-                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE);
+                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE)||
+                (minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE);
     }
 
     /**
