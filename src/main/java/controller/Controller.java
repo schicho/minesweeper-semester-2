@@ -38,10 +38,6 @@ public class Controller implements MouseListener, Observer {
      * call to initialize the controller class
      */
     public void initializeController(Gui gui){
-        model = new Model(Difficulty.UNKNOWN);
-
-        model.attach(this);
-
         this.gui = gui;
     }
 
@@ -269,10 +265,6 @@ public class Controller implements MouseListener, Observer {
                 timer.purge();
                 SecondsTimer.counter = 0;
 
-                //reset model
-                model = new Model(Difficulty.EASY);
-                model.attach(this);
-
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
@@ -288,10 +280,6 @@ public class Controller implements MouseListener, Observer {
                 timer.cancel();
                 timer.purge();
                 SecondsTimer.counter = 0;
-
-                //reset model
-                model = new Model(Difficulty.EASY);
-                model.attach(this);
 
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
