@@ -6,10 +6,27 @@ import java.util.Random;
 
 import model.enums.*;
 
+/**
+ * field class
+ * represents the minefield
+ * basically consists out of a tile array
+ */
 public class Field {
 
+    /**
+     * how many rows the field has
+     */
     private final int rows;
+
+    /**
+     * how many columns the field has
+     */
     private final int cols;
+
+    /**
+     * how many mines are yet to be found on this field
+     * this is the real number of mines, not the number displayed for the flags
+     */
     private int remainingMines;
 
     /**
@@ -23,11 +40,16 @@ public class Field {
      * @param cols  columns of the minefield grid
      */
     public Field(int rows, int cols, int numberOfMines){
+        //initialize members
         this.rows = rows;
         this.cols = cols;
         this.minefield = new Tile[rows][cols];
+
+        //filling in the mines
         populate();
         placeMinesRNG(numberOfMines);
+
+        //check the surrounding mines
         calcSurroundingMines();
     }
 
