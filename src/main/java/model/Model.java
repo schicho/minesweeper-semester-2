@@ -127,40 +127,15 @@ public class Model implements Subject {
      */
     private void sweepRecursively(int rowIndex, int colIndex){
         if (getSurroundingMines(rowIndex, colIndex) == 0) {
-            // top 3
-            try {
-                sweepTile(rowIndex - 1, colIndex - 1,true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            try {
-                sweepTile(rowIndex - 1, colIndex,true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            try {
-                sweepTile(rowIndex - 1, colIndex + 1, true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            //left and right
-            try {
-                sweepTile(rowIndex, colIndex - 1, true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            try {
-                sweepTile(rowIndex, colIndex + 1, true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            //bottom 3
-            try {
-                sweepTile(rowIndex + 1, colIndex - 1, true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            try {
-                sweepTile(rowIndex + 1, colIndex, true);
-            } catch (IndexOutOfBoundsException ignored) {
-            }
-            try {
-                sweepTile(rowIndex + 1, colIndex + 1, true);
-            } catch (IndexOutOfBoundsException ignored) {
+            boolean[] existingSurroundingMines = minesweeperField.whichSurroundingTilesExist(rowIndex, colIndex);
+            int arrayIndex = 0;
+            for (int offsetRow = -1; offsetRow <= 1; offsetRow++) {
+                for (int offsetCol = -1; offsetCol <= 1; offsetCol++) {
+                    if(existingSurroundingMines[arrayIndex]){
+                        sweepTile(rowIndex + offsetRow, colIndex + offsetCol,true);
+                    }
+                    arrayIndex++;
+                }
             }
         }
     }
