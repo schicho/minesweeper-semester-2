@@ -424,6 +424,6 @@ public class Gui {
         seedField.setLineWrap(true);
         seedField.setCaretPosition(0);
         seedField.setEditable(false);
-        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Strg-C,Strg-V, Save this seed",JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!",JOptionPane.PLAIN_MESSAGE);
     }
 }

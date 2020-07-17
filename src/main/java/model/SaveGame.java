@@ -45,13 +45,15 @@ public class SaveGame {
         else{seed.append("2");}
         for(int i=0; i<rows; i++){
             for(int j=0; j < cols;j++){
-                // toAddi,toAddij are the coordates which will be appended to the seed. The encode mine, Qmarked, flag and combinations
-                // toAddi<16,toAddij<30 -> mine
-                // toAddi>=32-> Flagged Free
-                // toAddj>= 60 -> Qmarked Free
-                // 32>toAddi>=16 -> Flagged Mine
-                // 60>toAddj>=30 -> Qmarked Mine
-                // toAddi>=32, toAddj>=60 is still available (encode sweep like this only makes this harder)
+                /**
+                 * toAddi,toAddij are the coordates which will be appended to the seed. The encode mine, Qmarked, flag and combinations
+                 *                  toAddi<16,toAddij<30 -> mine
+                 *                  toAddi>=32-> Flagged Free
+                 *                  toAddj>= 60 -> Qmarked Free
+                 *                  32>toAddi>=16 -> Flagged Mine
+                 *                  60>toAddj>=30 -> Qmarked Mine
+                 *                  toAddi>=32, toAddj>=60 is still available (encode sweep like this only makes this harder)
+                 */
                 toAddi=i;
                 toAddj=j;
                 if(mineField.isFlagged(i,j)){

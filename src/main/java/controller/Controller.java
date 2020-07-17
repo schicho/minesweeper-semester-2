@@ -15,7 +15,7 @@ import javax.swing.*;
  * controller class
  * is the mouse listener and also observes the model
  */
-public class Controller implements KeyListener,MouseListener,  Observer {
+public class Controller implements KeyListener, MouseListener, Observer {
 
 
     /**
