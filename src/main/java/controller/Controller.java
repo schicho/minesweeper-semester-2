@@ -16,7 +16,7 @@ import javax.swing.*;
  * controller class
  * is the mouse listener and also observes the model
  */
-public class Controller implements KeyListener, MouseListener, Observer {
+public class Controller implements MouseListener, Observer {
 
 
     /**
@@ -142,6 +142,11 @@ public class Controller implements KeyListener, MouseListener, Observer {
                     return;
                 }
             }
+            else if (whatItDoes.equals("Save game")){
+                String seed = model.getSeed();
+                model.touch();
+                gui.returnSeed(seed);
+            }
             else if (whatItDoes.equals("Continue")) {
 
                 //set the game state and load the scene accordingly
@@ -216,22 +221,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyChar()=='s'){
-            String seed = model.getSeed();
-            model.touch();
-            gui.returnSeed(seed);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
 
     /**
      * @param button JButton oder Tilebutton
@@ -328,7 +317,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
         }
-        gui.focusOnKeyListner();
+
     }
 
 

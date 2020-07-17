@@ -305,8 +305,6 @@ public class Gui {
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
-                window.addKeyListener(controller.getMouseHandler());
-                focusOnKeyListner();
                 updateFlagDisplay();
                 updateTimerDisplay();
             }
@@ -317,7 +315,6 @@ public class Gui {
         return window;
     }
 
-    public void focusOnKeyListner(){window.requestFocus();}
   
     /**
      * Changes the Text on a button in TileButtons[][]
