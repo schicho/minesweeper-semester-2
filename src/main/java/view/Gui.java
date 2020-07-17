@@ -6,7 +6,6 @@ import model.enums.Difficulty;
 import model.enums.GameState;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 
 /**
