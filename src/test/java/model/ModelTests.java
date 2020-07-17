@@ -19,9 +19,9 @@ public class ModelTests {
 
         int bombCounter = 0;
         Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray: twoDarray) {
-            for (Tile t: oneDarray){
-                if (t.getState() == TileState.MINE){
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                if (t.getState() == TileState.MINE) {
                     bombCounter++;
                 }
             }
@@ -37,9 +37,9 @@ public class ModelTests {
 
         int bombCounter = 0;
         Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray: twoDarray) {
-            for (Tile t: oneDarray){
-                if (t.getState() == TileState.MINE){
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                if (t.getState() == TileState.MINE) {
                     bombCounter++;
                 }
             }
@@ -55,9 +55,9 @@ public class ModelTests {
 
         int bombCounter = 0;
         Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray: twoDarray) {
-            for (Tile t: oneDarray){
-                if (t.getState() == TileState.MINE){
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                if (t.getState() == TileState.MINE) {
                     bombCounter++;
                 }
             }
@@ -72,34 +72,34 @@ public class ModelTests {
         Model easyModel = new Model(Difficulty.EASY);
         easyModel.touch();
         Tile[][] tileArray = easyModel.getTileArray();
-        for (int i = 0; i < tileArray.length; i++){
-            for (int j = 0; j < tileArray[0].length; j++){
-                if(tileArray[i][j].getState() == TileState.MINE){
-                    easyModel.flagTile(i,j);
+        for (int i = 0; i < tileArray.length; i++) {
+            for (int j = 0; j < tileArray[0].length; j++) {
+                if (tileArray[i][j].getState() == TileState.MINE) {
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.FLAGGED_MINE, tileArray[i][j].getState());
-                    easyModel.flagTile(i,j);
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i,j,false);
+                    easyModel.sweepTile(i, j, false);
                     assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
-                    easyModel.flagTile(i,j);
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.MINE, tileArray[i][j].getState());
                 }
             }
         }
-        for (int i = 0; i < tileArray.length; i++){
-            for (int j = 0; j < tileArray[0].length; j++){
-                if(tileArray[i][j].getState() == TileState.FREE){
-                    easyModel.flagTile(i,j);
+        for (int i = 0; i < tileArray.length; i++) {
+            for (int j = 0; j < tileArray[0].length; j++) {
+                if (tileArray[i][j].getState() == TileState.FREE) {
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i,j,false);
+                    easyModel.sweepTile(i, j, false);
                     assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
-                    easyModel.flagTile(i,j);
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.QMARKED_FREE, tileArray[i][j].getState());
-                    easyModel.flagTile(i,j);
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.FREE, tileArray[i][j].getState());
 
-                    easyModel.sweepTile(i,j,false);
-                    easyModel.flagTile(i,j);
+                    easyModel.sweepTile(i, j, false);
+                    easyModel.flagTile(i, j);
                     assertEquals(TileState.SWEEPED_FREE, tileArray[i][j].getState());
                 }
             }

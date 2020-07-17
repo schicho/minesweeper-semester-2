@@ -4,6 +4,7 @@ import controller.Controller;
 import model.Model;
 import model.enums.Difficulty;
 import model.enums.GameState;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -38,6 +39,7 @@ public class Gui {
 
     /**
      * main method
+     *
      * @param args startup commands
      */
     public static void main(String[] args) {
@@ -64,7 +66,7 @@ public class Gui {
         controller.initializeController(this);
 
         //create window
-        createWindow(menuWidth, menuHeight,"Minesweeper");
+        createWindow(menuWidth, menuHeight, "Minesweeper");
 
         //load main menu
         loadScene(GameState.MAIN_MENU);
@@ -91,12 +93,12 @@ public class Gui {
     /**
      * creates a new flag display
      */
-    public void createFlagsDisplay(){
+    public void createFlagsDisplay() {
         remainingFlagsDisplay = new JLabel();
         remainingFlagsDisplay.setForeground(Color.RED);
         remainingFlagsDisplay.setVerticalAlignment(SwingConstants.CENTER);
         remainingFlagsDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-        remainingFlagsDisplay.setPreferredSize(new Dimension(50,50));
+        remainingFlagsDisplay.setPreferredSize(new Dimension(50, 50));
 
         //updateFlagDisplay();
     }
@@ -104,17 +106,16 @@ public class Gui {
     /**
      * Updates the flag display with the current number of flags that are left to set.
      */
-    public void updateFlagDisplay(){
+    public void updateFlagDisplay() {
         String text = String.valueOf(controller.getModel().getFlagsToSetLeft());
         remainingFlagsDisplay.setText(text);
     }
 
 
-
     /**
      * creates a separator between flags display and new timer display
      */
-    public void createSeparatorDisplay(){
+    public void createSeparatorDisplay() {
         separator = new JSeparator();
         separator.setOrientation(SwingConstants.HORIZONTAL);
     }
@@ -123,27 +124,27 @@ public class Gui {
     /**
      * creates a new timer display
      */
-    public void createTimerDisplay(){
+    public void createTimerDisplay() {
         remainingTimerDisplay = new JLabel();
         remainingTimerDisplay.setForeground(Color.RED);
         remainingTimerDisplay.setVerticalAlignment(SwingConstants.CENTER);
         remainingTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-        remainingTimerDisplay.setPreferredSize(new Dimension(50,50));
+        remainingTimerDisplay.setPreferredSize(new Dimension(50, 50));
         // updateTimerDisplay();
     }
 
     /**
      * Updates the timer display with the current number of seconds
      */
-    public void updateTimerDisplay(){
+    public void updateTimerDisplay() {
         String sec = String.valueOf(model.timer.SecondsTimer.counter);
         remainingTimerDisplay.setText(sec);
     }
 
 
-
     /**
      * Writes Vlaues for the field sizes
+     *
      * @param minefield Model of a minefield
      */
     public void calculateSize(Model minefield) {
@@ -179,7 +180,7 @@ public class Gui {
                 tileButtons[i][j].setCoordinates(i, j);
                 tileButtons[i][j].setText("");
                 tileButtons[i][j].addMouseListener(controller.getMouseHandler());
-                tileButtons[i][j].setPreferredSize(new Dimension(50,50));
+                tileButtons[i][j].setPreferredSize(new Dimension(50, 50));
                 minefield.add(tileButtons[i][j]);
             }
         }
@@ -189,7 +190,7 @@ public class Gui {
      * continues the game after pause menu by
      * repainting the window to its state before pause
      */
-    public void continueAfterPause(){
+    public void continueAfterPause() {
         //clear
         window.getContentPane().removeAll();
 
@@ -275,7 +276,8 @@ public class Gui {
                 window.getContentPane().add(pauseMenu);
 
                 window.setVisible(true);
-            }break;
+            }
+            break;
             case RUNNING: {
                 //minefield panel
                 minefield = new JPanel();
@@ -311,15 +313,16 @@ public class Gui {
         }
     }
 
-    public JFrame getWindow(){
+    public JFrame getWindow() {
         return window;
     }
 
-  
+
     /**
      * Changes the Text on a button in TileButtons[][]
-     * @param i row index
-     * @param j col index
+     *
+     * @param i       row index
+     * @param j       col index
      * @param newText new text to display
      */
     public void changeButtonText(int i, int j, String newText) {
@@ -328,34 +331,37 @@ public class Gui {
 
     /**
      * greys out a button of TileButtons[][] and makes it no more clickable
+     *
      * @param i row index
      * @param j col index
      */
     public void greyOutButton(int i, int j) {
         tileButtons[i][j].setContentAreaFilled(true);
-        tileButtons[i][j].setFocusable( false );
-        tileButtons[i][j].setFocusPainted( false );
-        tileButtons[i][j].setRequestFocusEnabled( false );
-        tileButtons[i][j].setBackground( Color.lightGray );
+        tileButtons[i][j].setFocusable(false);
+        tileButtons[i][j].setFocusPainted(false);
+        tileButtons[i][j].setRequestFocusEnabled(false);
+        tileButtons[i][j].setBackground(Color.lightGray);
     }
 
     /**
      * iterates over the minefield and updates the text after every new click
+     *
      * @param minefield a model instance
      */
     public void updateTileText(Model minefield) {
         for (int i = 0; i < minefieldRows; i++) {
             for (int j = 0; j < minefieldCols; j++) {
                 //text needs to be reset after unflagging
-                if(!minefield.isSweeped(i,j) && !minefield.isFlagged(i,j)){
-                    changeButtonText(i,j, "");
+                if (!minefield.isSweeped(i, j) && !minefield.isFlagged(i, j)) {
+                    changeButtonText(i, j, "");
                 }
                 if (minefield.isSweeped(i, j)) {
                     if (minefield.isMine(i, j)) {
                         changeButtonText(i, j, "B");
                         greyOutButton(i, j);
-                    } else {
-                        switch(minefield.getSurroundingMines(i, j)){
+                    }
+                    else {
+                        switch (minefield.getSurroundingMines(i, j)) {
                             case 0:
                                 changeButtonText(i, j, "");
                                 greyOutButton(i, j);
@@ -387,16 +393,18 @@ public class Gui {
                                 break;
                         }
                     }
-                } else if (minefield.isFlagged(i, j)) {
+                }
+                else if (minefield.isFlagged(i, j)) {
                     changeButtonText(i, j, "F");
-                } else  if(minefield.isQmarked(i,j)) {
+                }
+                else if (minefield.isQmarked(i, j)) {
                     changeButtonText(i, j, "?");
                 }
             }
         }
     }
 
-    public void displayWin(){
+    public void displayWin() {
         JOptionPane.showMessageDialog(
                 minefield,
 
@@ -406,7 +414,7 @@ public class Gui {
                 JOptionPane.PLAIN_MESSAGE);
     }
 
-    public void displayFailure(int remainingMines){
+    public void displayFailure(int remainingMines) {
         JOptionPane.showMessageDialog(
                 minefield,
                 "Too bad! " + remainingMines + " remaining mines not found.",
@@ -415,19 +423,18 @@ public class Gui {
     }
 
 
-    public void returnSeed(String seed){
+    public void returnSeed(String seed) {
         JTextArea seedField = new JTextArea(15, 15);
         seedField.setText(seed);
         seedField.setWrapStyleWord(true);
         seedField.setLineWrap(true);
         seedField.setCaretPosition(0);
         seedField.setEditable(false);
-        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!",JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!", JOptionPane.PLAIN_MESSAGE);
     }
-      
-    public String loadFromSeed(){
-        String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","Load Game",JOptionPane.PLAIN_MESSAGE);
-        return seed;
+
+    public String loadFromSeed() {
+        return  JOptionPane.showInputDialog(minefield, "Input Seed, please:", "Load Game", JOptionPane.PLAIN_MESSAGE);
     }
 
     public void invalidSeed(){

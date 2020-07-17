@@ -8,12 +8,12 @@ public class SecondsTimer extends TimerTask {
 
     private static boolean paused = false;
 
-    public static void pauseTimer(){
+    public static void pauseTimer() {
         paused = true;
         pausedAt = counter;
     }
 
-    public static void unpauseTimer(){
+    public static void unpauseTimer() {
         paused = false;
         counter = pausedAt;
         pausedAt = 0;
@@ -21,7 +21,7 @@ public class SecondsTimer extends TimerTask {
 
     @Override
     public void run() {
-        if(!paused){
+        if (!paused) {
             counter++;
         }
     }
