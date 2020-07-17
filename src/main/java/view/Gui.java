@@ -429,4 +429,12 @@ public class Gui {
         String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","Load Game",JOptionPane.PLAIN_MESSAGE);
         return seed;
     }
+
+    public void invalidSeed(){
+        JOptionPane.showMessageDialog(
+                minefield,
+                "I'm sorry, this seed contains an Error",
+                "Invalid Seed!",
+                JOptionPane.PLAIN_MESSAGE);
+    }
 }

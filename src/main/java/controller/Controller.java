@@ -119,41 +119,46 @@ public class Controller implements MouseListener, Observer {
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Load game")) {
-
                 //load the seed string
                 String encodedSting = gui.loadFromSeed();
 
                 //check on empty
                 if (!(encodedSting == null) && (!(encodedSting.equals("")))) {
 
-                    //decode seed string
-                    Base64.Decoder decoder = Base64.getDecoder();
-                    byte[] byteSeed = decoder.decode(encodedSting.getBytes());
-                    String seed = new String(byteSeed);
+                    try {
+                        //decode seed string
+                        Base64.Decoder decoder = Base64.getDecoder();
+                        byte[] byteSeed = decoder.decode(encodedSting.getBytes());
+                        String seed = new String(byteSeed);
 
-                    //create new model by seed
-                    model = new Model(seed);
-                    model.setGameState(GameState.RUNNING);
-                    model.attach(this);
-                    gui.calculateSize(model);
-                    gui.loadScene(model.getGameState());
+                        //create new model by seed
+                        model = new Model(seed);
+                        model.setGameState(GameState.RUNNING);
+                        model.attach(this);
+                        gui.calculateSize(model);
+                        gui.loadScene(model.getGameState());
 
-                    //initialize timer
-                    SecondsTimer.counter = 0;
-                    secondsTimer = new SecondsTimer();
-                    //run model.timer ever 1000ms = 1s
-                    timer.schedule(secondsTimer, 0, 1000);
+                        //initialize timer
+                        SecondsTimer.counter = 0;
+                        secondsTimer = new SecondsTimer();
+                        //run model.timer ever 1000ms = 1s
+                        timer.schedule(secondsTimer, 0, 1000);
 
-                    //load the scene and update the window
-                    gui.loadScene(model.getGameState());
-                    gui.getWindow().repaint();
-                    gui.getWindow().revalidate();
+                        //load the scene and update the window
+                        gui.loadScene(model.getGameState());
+                        gui.getWindow().repaint();
+                        gui.getWindow().revalidate();
+                    }
+                    catch (Exception ex){
+                        gui.invalidSeed();
+                    }
                 }
-                else {
+                if (model==null) {
                     //if string is empty, return to main menu
                     gui.loadScene(GameState.MAIN_MENU);
                     return;
                 }
+                gui.loadScene(model.getGameState());
             }
             else if (whatItDoes.equals("Save game")){
                 String seed = model.getSeed();
