@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.*;
+import java.util.Base64;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,7 +46,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (e.getSource() instanceof JButton) {
 
             //get the button text...
@@ -54,7 +54,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
             //...to switch between the different buttons actions
             if (whatItDoes.equals("Exit")) {
                 //exit the program
-                model.setGameState(GameState.EXIT);
                 gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
             }
             else if (whatItDoes.equals("Play easy")) {
@@ -95,6 +94,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 secondsTimer = new SecondsTimer();
 
                 //run model.timer ever 1000ms = 1s
+
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Play hard")) {
@@ -116,6 +116,28 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
+            } else if (whatItDoes.equals("Load game")) {
+                String encodedSting = gui.loadFromSeed();
+                if(!(encodedSting==null)&&(!(encodedSting.equals("")))) {
+                    Base64.Decoder decoder = Base64.getDecoder();
+                    byte[] byteSeed = decoder.decode(encodedSting.getBytes());
+                    String seed = new String(byteSeed);
+                    model = new Model(seed);
+                    model.setGameState(GameState.RUNNING);
+                    model.attach(this);
+                    gui.calculateSize(model);
+                    gui.loadScene(model.getGameState());
+                    SecondsTimer.counter = 0;
+                    secondsTimer = new SecondsTimer();
+                    //run model.timer ever 1000ms = 1s
+                    timer.schedule(secondsTimer, 0, 1000);
+                    model.setGameState(GameState.RUNNING);
+                    gui.loadScene(model.getGameState());
+                }
+                else{
+                    gui.loadScene(GameState.MAIN_MENU);
+                    return;
+                }
             }
             else if (whatItDoes.equals("Continue")) {
 
