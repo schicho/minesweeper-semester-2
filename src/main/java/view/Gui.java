@@ -413,4 +413,9 @@ public class Gui {
                 "YOU LOST!",
                 JOptionPane.PLAIN_MESSAGE);
     }
+
+    public String loadFromSeed(){
+        String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","Load Game",JOptionPane.PLAIN_MESSAGE);
+        return seed;
+    }
 }

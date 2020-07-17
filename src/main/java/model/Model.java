@@ -80,6 +80,36 @@ public class Model implements Subject {
     }
 
     /**
+     * Second constructor, to decode/load seed
+     * @param seed given by load case in Controller.handleInput
+     */
+    public Model(String seed){
+        if(seed.charAt(0)=='0'){
+            this.difficulty=Difficulty.EASY;
+            numberOfMines = 10;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.difficulty=Difficulty.NORMAL;
+            numberOfMines = 40;
+        }
+        else{
+            this.difficulty=Difficulty.HARD;
+            numberOfMines = 99;
+        }
+        minesweeperField = new Field(seed);
+        StringBuilder seedBuilder = new StringBuilder(seed);
+        int m;
+        int n;
+        //cant be done in Field, since field doesnt support recursion
+        for(int i = seedBuilder.indexOf("9999")+4; i<seedBuilder.length(); i+=4){
+            m=Integer.parseInt(seedBuilder.substring(i,i+2));
+            n=Integer.parseInt(seedBuilder.substring(i+2,i+4));
+            sweepTile(m,n);
+        }
+        untouched=false;
+    }
+
+    /**
      * Sets the isSweeped value of the tile at [rowIndex][colIndex] to true.
      * Also recursively sweeps neighboring tiles, if the tile has a value of
      * zero neighboring mines.

@@ -54,6 +54,59 @@ public class Field {
     }
 
     /**
+     * Second Constructor for decoding/loading seed, just handels mine, flag, Qmarked placement, as well as surrounding Mines
+     * @param seed given by model, representing the state of the game which is supposed to be loaded
+     */
+    public Field(String seed){
+        //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
+        if(seed.charAt(0)=='0'){
+            this.rows=9;
+            this.cols=9;
+        }
+        else if(seed.charAt(0)=='1'){
+            this.rows=16;
+            this.cols=16;
+        }
+        else{
+            this.rows=16;
+            this.cols=30;
+        }
+
+        this.minefield=new Tile[rows][cols];
+        populate();
+
+        boolean sweeping=false;
+        int m;
+        int n;
+        StringBuilder workSeed = new StringBuilder(seed);
+        for(int i=1; i<workSeed.length();i+=4){
+            m=Integer.parseInt(workSeed.substring(i,i+2));
+            n=Integer.parseInt(workSeed.substring(i+2,i+4));
+            if ((m==99)&&(n==99)){sweeping=true;
+                calcSurroundingMines();}
+            else if (!sweeping){
+
+                if(m>=16){
+                    if(m>=32){flagTile(m-32,n);}
+                    else{flagTile(m-16,n);}
+                }
+                if(n>=30){
+                    if(n>=60){qmarkTile(m,n-60);}
+                    else{qmarkTile(m,n-30);}
+                }
+                if((m<32)&&(n<60)){
+                    if(m>=16){m-=16;}
+                    if(n>=30){n-=30;}
+                    if(isFlagged(m,n)){minefield[m][n].setState(TileState.FLAGGED_MINE);}
+                    else if(isQmarked(m,n)){minefield[m][n].setState(TileState.QMARKED_MINE);}
+                    else{minefield[m][n].setState(TileState.MINE);}
+                }
+            }
+        }
+
+    }
+
+    /**
      * Fills initially empty minefield with tiles.
      * Does not have to be run manually. Is done in constructor.
      */
@@ -94,38 +147,10 @@ public class Field {
     private void calcSurroundingMines(){
         for(int i=0; i < rows; i++){
             for(int j=0; j < cols; j++){
-                int count = 0;
-                //check all 8 surrounding tiles for mines. This is very ugly.
-                //top 3
-                try {
-                    if(minefield[i-1][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i-1][j].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i-1][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                //left and right
-                try {
-                    if(minefield[i][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                //bottom 3
-                try {
-                    if(minefield[i+1][j-1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i+1][j].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
-                try {
-                    if(minefield[i+1][j+1].getState() == TileState.MINE){count++;}
-                }catch (IndexOutOfBoundsException ignored){}
+                List<Integer> surroundingMinesAmount = checkAround(i,j);
 
                 //write to the current tile which's surrounding mines we counted
-                minefield[i][j].setSurroundingMines(count);
+                minefield[i][j].setSurroundingMines(surroundingMinesAmount.size());
             }
         }
     }
@@ -150,7 +175,6 @@ public class Field {
                 if(isMine(mMin,nMin)){
                     returnList.add(((int) Math.pow(2,(1+mMin-m)))*(2*(nMin-n)+1));
                 }
-
             }
         }
         return returnList;
@@ -354,7 +378,8 @@ public class Field {
     public boolean isMine(int rowIndex, int colIndex){
         return (minefield[rowIndex][colIndex].getState() == TileState.MINE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_MINE) ||
-                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE);
+                (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) ||
+                (minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE);
     }
 
     /**
