@@ -12,6 +12,7 @@ import view.*;
 import model.timer.SecondsTimer;
 
 import javax.swing.*;
+
 /**
  * controller class
  * is the mouse listener and also observes the model
@@ -39,7 +40,7 @@ public class Controller implements MouseListener, Observer {
      * call to initialize the controller class
      */
 
-    public void initializeController(Gui gui){
+    public void initializeController(Gui gui) {
         this.gui = gui;
 
     }
@@ -118,26 +119,38 @@ public class Controller implements MouseListener, Observer {
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Load game")) {
+
+                //load the seed string
                 String encodedSting = gui.loadFromSeed();
-                if(!(encodedSting==null)&&(!(encodedSting.equals("")))) {
+
+                //check on empty
+                if (!(encodedSting == null) && (!(encodedSting.equals("")))) {
+
+                    //decode seed string
                     Base64.Decoder decoder = Base64.getDecoder();
                     byte[] byteSeed = decoder.decode(encodedSting.getBytes());
                     String seed = new String(byteSeed);
+
+                    //create new model by seed
                     model = new Model(seed);
                     model.setGameState(GameState.RUNNING);
                     model.attach(this);
                     gui.calculateSize(model);
                     gui.loadScene(model.getGameState());
+
+                    //initialize timer
                     SecondsTimer.counter = 0;
                     secondsTimer = new SecondsTimer();
                     //run model.timer ever 1000ms = 1s
                     timer.schedule(secondsTimer, 0, 1000);
-                    model.setGameState(GameState.RUNNING);
+
+                    //load the scene and update the window
                     gui.loadScene(model.getGameState());
                     gui.getWindow().repaint();
                     gui.getWindow().revalidate();
                 }
-                else{
+                else {
+                    //if string is empty, return to main menu
                     gui.loadScene(GameState.MAIN_MENU);
                     return;
                 }
@@ -158,7 +171,7 @@ public class Controller implements MouseListener, Observer {
                 SecondsTimer.unpauseTimer();
                 timer.schedule(secondsTimer, 0, 1000);
             }
-            else if(whatItDoes.equals("Pause")){
+            else if (whatItDoes.equals("Pause")) {
 
                 //pause the timer
                 SecondsTimer.pauseTimer();
@@ -171,7 +184,7 @@ public class Controller implements MouseListener, Observer {
                 //load pause menu
                 gui.loadScene(model.getGameState());
             }
-            else if(whatItDoes.equals("Exit to main menu")){
+            else if (whatItDoes.equals("Exit to main menu")) {
                 //set game state
                 model.setGameState(GameState.MAIN_MENU);
 
@@ -184,7 +197,8 @@ public class Controller implements MouseListener, Observer {
 
                 //send the command to handleInput
                 handleInput(whatItDoes);
-            } else if (SwingUtilities.isLeftMouseButton(e)) {
+            }
+            else if (SwingUtilities.isLeftMouseButton(e)) {
 
                 //send the command to handleInput
                 handleInput(whatItDoes);
@@ -222,6 +236,7 @@ public class Controller implements MouseListener, Observer {
     }
 
 
+
     /**
      * @param button JButton oder Tilebutton
      * @return a string, identifing the button
@@ -229,7 +244,8 @@ public class Controller implements MouseListener, Observer {
     private String buttonInfo(JButton button) {
         if (button instanceof TileButton) {
             return ((TileButton) button).getM() + ":" + ((TileButton) button).getN();
-        }else {
+        }
+        else {
             return button.getText();
         }
     }
@@ -274,7 +290,7 @@ public class Controller implements MouseListener, Observer {
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
 
-            model.sweepTile(m, n,false);
+            model.sweepTile(m, n, false);
         }
     }
 
@@ -285,7 +301,7 @@ public class Controller implements MouseListener, Observer {
         GameState current = model.getGameState();
 
         //switch game state
-        switch (current){
+        switch (current) {
             case WON:
                 //update timer display
                 gui.updateTimerDisplay();
