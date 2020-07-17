@@ -116,7 +116,8 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
-            } else if (whatItDoes.equals("Load game")) {
+            }
+            else if (whatItDoes.equals("Load game")) {
                 String encodedSting = gui.loadFromSeed();
                 if(!(encodedSting==null)&&(!(encodedSting.equals("")))) {
                     Base64.Decoder decoder = Base64.getDecoder();
