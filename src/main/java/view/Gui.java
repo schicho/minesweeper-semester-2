@@ -6,6 +6,7 @@ import model.enums.Difficulty;
 import model.enums.GameState;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 
 /**
@@ -412,9 +413,7 @@ public class Gui {
     public void displayWin() {
         JOptionPane.showMessageDialog(
                 minefield,
-
-                " Congratulations! Du hast " + model.timer.SecondsTimer.counter + " Sekunden fuer das Spiel gebraucht.",
-
+                " Congratulations! It took you " + model.timer.SecondsTimer.counter + " seconds to finish the game.",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
@@ -429,16 +428,26 @@ public class Gui {
 
 
     public void returnSeed(String seed) {
-        JTextArea seedField = new JTextArea(15, 15);
+        JPanel saveSeedPanel = new JPanel();
+        saveSeedPanel.setLayout(new BoxLayout(saveSeedPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel instructionField = new JLabel("Highlight and Ctrl-C to save game to clipboard.");
+        instructionField.setPreferredSize(new Dimension(50, 50));
+
+        JTextArea seedField = new JTextArea(20, 60);
         seedField.setText(seed);
         seedField.setWrapStyleWord(true);
         seedField.setLineWrap(true);
         seedField.setCaretPosition(0);
         seedField.setEditable(false);
-        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!", JOptionPane.PLAIN_MESSAGE);
+
+        saveSeedPanel.add(instructionField);
+        saveSeedPanel.add(seedField);
+
+        JOptionPane.showMessageDialog(null, new JScrollPane(saveSeedPanel), "Save Game", JOptionPane.PLAIN_MESSAGE);
     }
 
     public String loadFromSeed() {
-        return  JOptionPane.showInputDialog(minefield, "Input Seed, please:", "Load Game", JOptionPane.PLAIN_MESSAGE);
+        return JOptionPane.showInputDialog(minefield, "Please enter a seed:", "Load Game", JOptionPane.PLAIN_MESSAGE);
     }
 }
