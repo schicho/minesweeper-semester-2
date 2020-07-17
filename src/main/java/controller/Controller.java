@@ -52,7 +52,6 @@ public class Controller implements MouseListener, Observer {
             //...to switch between the different buttons actions
             if (whatItDoes.equals("Exit")) {
                 //exit the program
-                model.setGameState(GameState.EXIT);
                 gui.getWindow().dispatchEvent(new WindowEvent(gui.getWindow(), WindowEvent.WINDOW_CLOSING));
             }
             else if (whatItDoes.equals("Play easy")) {
@@ -114,7 +113,7 @@ public class Controller implements MouseListener, Observer {
                 secondsTimer = new SecondsTimer();
 
                 //run model.timer ever 1000ms = 1s
-                timer.schedule(timerTask, 0, 1000);
+                timer.schedule(secondsTimer, 0, 1000);
             } else if (whatItDoes.equals("Load game")) {
                 String encodedSting = gui.loadFromSeed();
                 if(!(encodedSting==null)&&(!(encodedSting.equals("")))) {
@@ -127,9 +126,9 @@ public class Controller implements MouseListener, Observer {
                     gui.calculateSize(model);
                     gui.loadScene(model.getGameState());
                     SecondsTimer.counter = 0;
-                    timerTask = new SecondsTimer();
+                    secondsTimer = new SecondsTimer();
                     //run model.timer ever 1000ms = 1s
-                    timer.schedule(timerTask, 0, 1000);
+                    timer.schedule(secondsTimer, 0, 1000);
                     model.setGameState(GameState.RUNNING);
                     gui.loadScene(model.getGameState());
                 }
