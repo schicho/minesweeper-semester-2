@@ -305,7 +305,8 @@ public class Gui {
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
-
+                window.addKeyListener(controller.getMouseHandler());
+                focusOnKeyListner();
                 updateFlagDisplay();
                 updateTimerDisplay();
             }
@@ -315,6 +316,8 @@ public class Gui {
     public JFrame getWindow(){
         return window;
     }
+
+    public void focusOnKeyListner(){window.requestFocus();}
   
     /**
      * Changes the Text on a button in TileButtons[][]
@@ -414,6 +417,17 @@ public class Gui {
                 JOptionPane.PLAIN_MESSAGE);
     }
 
+
+    public void returnSeed(String seed){
+        JTextArea seedField = new JTextArea(15, 15);
+        seedField.setText(seed);
+        seedField.setWrapStyleWord(true);
+        seedField.setLineWrap(true);
+        seedField.setCaretPosition(0);
+        seedField.setEditable(false);
+        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!",JOptionPane.PLAIN_MESSAGE);
+    }
+      
     public String loadFromSeed(){
         String seed = JOptionPane.showInputDialog(minefield,"Input Seed, please:","Load Game",JOptionPane.PLAIN_MESSAGE);
         return seed;

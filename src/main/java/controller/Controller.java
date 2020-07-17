@@ -12,12 +12,12 @@ import view.*;
 import model.timer.SecondsTimer;
 
 import javax.swing.*;
-
 /**
  * controller class
  * is the mouse listener and also observes the model
  */
-public class Controller implements MouseListener, Observer {
+public class Controller implements KeyListener, MouseListener, Observer {
+
 
     /**
      * holds the model instance
@@ -38,8 +38,10 @@ public class Controller implements MouseListener, Observer {
     /**
      * call to initialize the controller class
      */
+
     public void initializeController(Gui gui){
         this.gui = gui;
+
     }
 
     @Override
@@ -211,6 +213,23 @@ public class Controller implements MouseListener, Observer {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyChar()=='s'){
+            String seed = model.getSeed();
+            model.touch();
+            gui.returnSeed(seed);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
     /**
      * @param button JButton oder Tilebutton
      * @return a string, identifing the button
@@ -263,7 +282,7 @@ public class Controller implements MouseListener, Observer {
             m = Integer.parseInt(parts[0]);
             n = Integer.parseInt(parts[1]);
 
-            model.sweepTile(m, n);
+            model.sweepTile(m, n,false);
         }
     }
 
@@ -306,5 +325,8 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
         }
+        gui.focusOnKeyListner();
     }
+
+
 }

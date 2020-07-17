@@ -45,6 +45,8 @@ public class Model implements Subject {
 
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
+
+    private SaveGame gameSaver= new SaveGame();
     private int sweepedTilesCount = 0;
     private GameState gameState = GameState.MAIN_MENU;
 
@@ -117,7 +119,7 @@ public class Model implements Subject {
      * @param rowIndex row index of the clicked on tile
      * @param colIndex column index of the clicked on tile
      */
-    public void sweepTile(int rowIndex, int colIndex){
+    public void sweepTile(int rowIndex, int colIndex, boolean inRecursion){
         //make sure the first field has zero surrounding mines and is not a mine itself
         if (untouched){
             sweepClearOnUntouched(rowIndex, colIndex);
@@ -140,6 +142,9 @@ public class Model implements Subject {
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
             //sweep adjacent tiles
+            if(!inRecursion){
+                gameSaver.addSweepCoords(rowIndex,colIndex);
+            }
             sweepRecursively(rowIndex, colIndex);
             notifyObservers();
         }
@@ -157,7 +162,7 @@ public class Model implements Subject {
             for (int offsetRow = -1; offsetRow <= 1; offsetRow++) {
                 for (int offsetCol = -1; offsetCol <= 1; offsetCol++) {
                     if(existingSurroundingMines[arrayIndex]){
-                        sweepTile(rowIndex + offsetRow, colIndex + offsetCol);
+                        sweepTile(rowIndex + offsetRow, colIndex + offsetCol,true);
                     }
                     arrayIndex++;
                 }
@@ -321,5 +326,14 @@ public class Model implements Subject {
      */
     public int getRemainingMines(){
         return minesweeperField.getRemainingMines();
+    }
+
+    public String getSeed(){
+        return gameSaver.genSeed(minesweeperField);
+    }
+
+    public void touch(){
+        //don't disrespect my NoNoSquare!
+        untouched=false;
     }
 }
