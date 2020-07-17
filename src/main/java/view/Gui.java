@@ -7,30 +7,39 @@ import model.enums.GameState;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * gui class
+ * represents the user interface
+ */
 public class Gui {
 
+    //panels for the different game states
     private JFrame window;
     private JPanel mainMenu;
     private JPanel pauseMenu;
     private JPanel minefield;
     private JPanel endGameMessage;
+    private JPanel gamePanel;
 
     //important vars for the design
-    int width, height;
-    int unifiedMenuButtonWidth, unifiedMenuButtonHeight;
-    int buffer;
-  
-  
+    public int width, height;
+    public final int menuWidth = 500, menuHeight = 500;
+
+    //flag counter
     private JLabel remainingFlagsDisplay;
 
+    //timer display
     private JSeparator separator;
     private JLabel remainingTimerDisplay;
 
-
-
+    //describes the minefields dimensions
     private int minefieldCols;
     private int minefieldRows;
 
+    /**
+     * main method
+     * @param args startup commands
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Gui::new);
     }
@@ -41,17 +50,24 @@ public class Gui {
      */
     private TileButton[][] tileButtons;
 
-    private Controller controller;
+    /**
+     * holds the controller instance
+     */
+    private final Controller controller;
 
     /**
      * creates a new Gui instance
      */
     public Gui() {
-        controller = new Controller(this);
-        controller.setController(controller);
-        createWindow(1280, 720,"Minesweeper");
+        //initialize controller
+        controller = new Controller();
+        controller.initializeController(this);
 
-        controller.gameloop();
+        //create window
+        createWindow(menuWidth, menuHeight,"Minesweeper");
+
+        //load main menu
+        loadScene(GameState.MAIN_MENU);
     }
 
     /**
@@ -70,17 +86,11 @@ public class Gui {
         //set privates
         this.width = width;
         this.height = height;
-
-        unifiedMenuButtonHeight = 1/10*height;
-        unifiedMenuButtonWidth = 1/10*width;
-
-        buffer = 20;
     }
 
     /**
      * creates a new flag display
      */
-
     public void createFlagsDisplay(){
         remainingFlagsDisplay = new JLabel();
         remainingFlagsDisplay.setForeground(Color.RED);
@@ -176,6 +186,27 @@ public class Gui {
     }
 
     /**
+     * continues the game after pause menu by
+     * repainting the window to its state before pause
+     */
+    public void continueAfterPause(){
+        //clear
+        window.getContentPane().removeAll();
+
+        //update the window to display the previous game panel
+        window.getContentPane().add(gamePanel);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.repaint();
+        window.revalidate();
+        window.setVisible(true);
+
+        //update the 2 information panels
+        updateFlagDisplay();
+        updateTimerDisplay();
+    }
+
+    /**
      * loads a specific scene, which is determined by the given state
      *
      * @param state the state to tell the function what to load
@@ -236,16 +267,21 @@ public class Gui {
                 load.addMouseListener(controller.getMouseHandler());
                 pauseMenu.add(load);
 
+                //exit to main menu
+                JButton exitTMM = new JButton("Exit to main menu");
+                exitTMM.addMouseListener(controller.getMouseHandler());
+                pauseMenu.add(exitTMM);
+
                 window.getContentPane().add(pauseMenu);
 
                 window.setVisible(true);
-            }
+            }break;
             case RUNNING: {
                 //minefield panel
                 minefield = new JPanel();
 
-                JPanel gamePane = new JPanel();
-                gamePane.setLayout(new BoxLayout(gamePane, BoxLayout.PAGE_AXIS));
+                gamePanel = new JPanel();
+                gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.PAGE_AXIS));
 
                 createFlagsDisplay();
                 createSeparatorDisplay();
@@ -253,17 +289,25 @@ public class Gui {
 
                 fieldBuilder(minefieldRows, minefieldCols);
 
-                gamePane.add(remainingFlagsDisplay);
+                //pause button
+                JButton pause = new JButton("Pause");
+                pause.addMouseListener(controller.getMouseHandler());
+                gamePanel.add(pause);
 
-                gamePane.add(separator);
-                gamePane.add(remainingTimerDisplay);
+                gamePanel.add(remainingFlagsDisplay);
 
-                gamePane.add(minefield);
+                gamePanel.add(separator);
+                gamePanel.add(remainingTimerDisplay);
+
+                gamePanel.add(minefield);
                 //pack is important to make each button actually use it's preferred Dimension.
-                window.add(gamePane);
+                window.add(gamePanel);
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
+
+                updateFlagDisplay();
+                updateTimerDisplay();
             }
         }
     }

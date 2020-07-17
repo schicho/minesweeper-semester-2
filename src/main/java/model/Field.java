@@ -6,10 +6,27 @@ import java.util.Random;
 
 import model.enums.*;
 
+/**
+ * field class
+ * represents the minefield
+ * basically consists out of a tile array
+ */
 public class Field {
 
+    /**
+     * how many rows the field has
+     */
     private final int rows;
+
+    /**
+     * how many columns the field has
+     */
     private final int cols;
+
+    /**
+     * how many mines are yet to be found on this field
+     * this is the real number of mines, not the number displayed for the flags
+     */
     private int remainingMines;
 
     /**
@@ -23,11 +40,16 @@ public class Field {
      * @param cols  columns of the minefield grid
      */
     public Field(int rows, int cols, int numberOfMines){
+        //initialize members
         this.rows = rows;
         this.cols = cols;
         this.minefield = new Tile[rows][cols];
+
+        //filling in the mines
         populate();
         placeMinesRNG(numberOfMines);
+
+        //check the surrounding mines
         calcSurroundingMines();
     }
 
@@ -156,6 +178,36 @@ public class Field {
             }
         }
         return returnList;
+    }
+
+    /**
+     *
+     * @param encodedValue
+     * @return offset to determine the relativ M position of a mine
+     */
+    public int decodeSurroundingMineRowOffset(int encodedValue){
+        if (encodedValue%4==0){
+            return 1;
+        }
+        else if (encodedValue%2==0){
+            return 0;
+        }
+        else return -1;
+    }
+
+    /**
+     *
+     * @param encodedValue
+     * @return offset to determine the relativ N position of a mine
+     */
+    public int decodeSurroundingMineColOffset(int encodedValue){
+        if(encodedValue<0){
+            return -1;
+        }
+        else if(encodedValue%3==0){
+            return 1;
+        }
+        else return 0;
     }
 
     /**

@@ -6,8 +6,15 @@ import observer_subject.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * model class
+ * holds all the information and provides methods to alter these
+ */
 public class Model implements Subject {
 
+    /**
+     * the observers bound to the model
+     */
     private List<Observer> observerList = new ArrayList<>();
 
     @Override
@@ -32,13 +39,14 @@ public class Model implements Subject {
      * Model manipulations are forwarded to this object.
      */
     private boolean untouched; //true until first tile is sweeped
-    private Field minesweeperField;
-    private final Difficulty difficulty;
+    private Field minesweeperField; //the basic field, the majority of the game is about
+    private final Difficulty difficulty; //the current difficulty the game is running on
     private int numberOfMines;
+
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
-    private int countSweepedTiles = 0;
-    private GameState gameState = GameState.RUNNING;
+    private int sweepedTilesCount = 0;
+    private GameState gameState = GameState.MAIN_MENU;
 
 
     /**
@@ -48,8 +56,13 @@ public class Model implements Subject {
      * @param difficulty either EASY, NORMAL OR HARD
      */
     public Model(Difficulty difficulty){
+        //the field is untouched in the beginning
         this.untouched=true;
-        this.difficulty = difficulty; //remember difficulty
+
+        //remember difficulty
+        this.difficulty = difficulty;
+
+        //pick the right field size and mine count according to the difficulty
         switch (difficulty){
             case EASY:
                 numberOfMines = 10;
@@ -109,18 +122,21 @@ public class Model implements Subject {
         if (untouched){
             sweepClearOnUntouched(rowIndex, colIndex);
         }
+
         //do not allow sweeping of flagged tiles
         if (isFlagged(rowIndex, colIndex) || isQmarked(rowIndex, colIndex)) {
             return;
-        }else if (isMine(rowIndex, colIndex)){
+        }
+        else if (isMine(rowIndex, colIndex)){
             minesweeperField.sweepTile(rowIndex, colIndex);
             gameState = GameState.LOST;
             notifyObservers();
             return; //no need to further swipe any tiles
         }
+
         //recursion
         if(!isSweeped(rowIndex, colIndex)) {
-            countSweepedTiles++;
+            sweepedTilesCount++;
             //sweep Tile which was called to do be sweeped.
             minesweeperField.sweepTile(rowIndex, colIndex);
             //sweep adjacent tiles
@@ -180,29 +196,17 @@ public class Model implements Subject {
      * @param colIndex column index of the clicked tile
      */
     private void sweepClearOnUntouched(int rowIndex, int colIndex){
+        //get all mined tiles near this one
         List<Integer> surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
-        int pos;
-        int m;
-        int n;
+
         while (surroundingMines.size()!=0){
-            pos = surroundingMines.get(0);
+            int encodedOffsets = surroundingMines.get(0);
             surroundingMines.remove(0);
-            if(pos<0){
-                n=-1;
-            }
-            else if(pos%3==0){
-                n=1;
-            }
-            else n=0;
-            if (pos%4==0){
-                m=1;
-            }
-            else if (pos%2==0){
-                m=0;
-            }
-            else m=-1;
-            minesweeperField.clearTile(rowIndex+m,colIndex+n);
-            surroundingMines= minesweeperField.checkAround(rowIndex,colIndex);
+            int rowOffset = minesweeperField.decodeSurroundingMineRowOffset(encodedOffsets);
+            int colOffest = minesweeperField.decodeSurroundingMineColOffset(encodedOffsets);
+            minesweeperField.clearTile(rowIndex+rowOffset,colIndex+colOffest);
+            // this is needed in case we move a mine/bomb
+            surroundingMines = minesweeperField.checkAround(rowIndex,colIndex);
         }
         this.untouched=false;
     }
@@ -323,7 +327,7 @@ public class Model implements Subject {
      */
     public GameState getGameState(){
         final int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
-        if(numberOfNotMineTiles == countSweepedTiles && gameState != GameState.LOST){
+        if(numberOfNotMineTiles == sweepedTilesCount && gameState != GameState.LOST){
             gameState = GameState.WON;
         }
         return gameState;
