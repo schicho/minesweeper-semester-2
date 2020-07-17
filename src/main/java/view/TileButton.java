@@ -17,7 +17,7 @@ public class TileButton extends JButton {
     /**
      * creates a new tile button
      */
-    public TileButton(){
+    public TileButton() {
         setContentAreaFilled(false);
         setBorderPainted(true);
         Border border = BorderFactory.createLineBorder(Color.gray);
@@ -26,12 +26,13 @@ public class TileButton extends JButton {
 
     /**
      * binds this button to a new position / tile
+     *
      * @param m column index
      * @param n row index
      */
-    public void setCoordinates(int m,int n){
-        this.m=m;
-        this.n=n;
+    public void setCoordinates(int m, int n) {
+        this.m = m;
+        this.n = n;
     }
 
     public int getM() {
@@ -43,8 +44,8 @@ public class TileButton extends JButton {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
-        Graphics2D g2 = (Graphics2D)g.create();
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
         g2.setPaint(new GradientPaint(
                 new Point(0, 0),
                 getBackground(),
@@ -52,11 +53,11 @@ public class TileButton extends JButton {
                 Color.darkGray));
         g2.fillRect(0, 0, getWidth(), getHeight());
         g2.setPaint(new GradientPaint(
-                new Point(0, getHeight()/5),
+                new Point(0, getHeight() / 5),
                 Color.lightGray,
                 new Point(0, getHeight()),
                 getBackground()));
-        g2.fillRect(0, getHeight()/4, getWidth(), getHeight());
+        g2.fillRect(0, getHeight() / 4, getWidth(), getHeight());
         g2.dispose();
 
         super.paintComponent(g);
