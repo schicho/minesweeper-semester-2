@@ -106,7 +106,7 @@ public class Model implements Subject {
         for(int i = seedBuilder.indexOf("9999")+4; i<seedBuilder.length(); i+=4){
             m=Integer.parseInt(seedBuilder.substring(i,i+2));
             n=Integer.parseInt(seedBuilder.substring(i+2,i+4));
-            sweepTile(m,n);
+            sweepTile(m,n,false);
         }
         untouched=false;
     }

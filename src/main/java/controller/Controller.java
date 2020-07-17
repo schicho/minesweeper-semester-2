@@ -133,6 +133,8 @@ public class Controller implements KeyListener, MouseListener, Observer {
                     timer.schedule(secondsTimer, 0, 1000);
                     model.setGameState(GameState.RUNNING);
                     gui.loadScene(model.getGameState());
+                    gui.getWindow().repaint();
+                    gui.getWindow().revalidate();
                 }
                 else{
                     gui.loadScene(GameState.MAIN_MENU);
