@@ -70,6 +70,7 @@ public class ModelTests {
     @DisplayName("Test multiple different scenarios when setting flags")
     void testFlaggingScenarios() {
         Model easyModel = new Model(Difficulty.EASY);
+        easyModel.touch();
         Tile[][] tileArray = easyModel.getTileArray();
         for (int i = 0; i < tileArray.length; i++){
             for (int j = 0; j < tileArray[0].length; j++){
@@ -78,7 +79,7 @@ public class ModelTests {
                     assertEquals(TileState.FLAGGED_MINE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i,j);
+                    easyModel.sweepTile(i,j,false);
                     assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.MINE, tileArray[i][j].getState());
@@ -90,14 +91,14 @@ public class ModelTests {
                 if(tileArray[i][j].getState() == TileState.FREE){
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i,j);
+                    easyModel.sweepTile(i,j,false);
                     assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.QMARKED_FREE, tileArray[i][j].getState());
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.FREE, tileArray[i][j].getState());
 
-                    easyModel.sweepTile(i,j);
+                    easyModel.sweepTile(i,j,false);
                     easyModel.flagTile(i,j);
                     assertEquals(TileState.SWEEPED_FREE, tileArray[i][j].getState());
                 }
