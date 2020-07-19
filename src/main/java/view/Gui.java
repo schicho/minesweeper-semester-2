@@ -277,6 +277,7 @@ public class Gui {
                 window.setVisible(true);
             }break;
             case RUNNING: {
+
                 //minefield panel
                 minefield = new JPanel();
 

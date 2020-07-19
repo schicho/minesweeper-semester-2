@@ -138,8 +138,6 @@ public class Controller implements MouseListener, Observer {
 
                         //todo: restart a Timer
 
-
-
                         //load the scene and update the window
                         gui.calculateSize(model);
                         gui.loadScene(model.getGameState());

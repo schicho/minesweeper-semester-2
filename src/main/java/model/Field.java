@@ -115,14 +115,17 @@ public class Field {
                         }
                         else if (isQmarked(m, n)) {
                             minefield[m][n].setState(TileState.QMARKED_MINE);
+                            remainingMines++;
                         }
                         else {
                             minefield[m][n].setState(TileState.MINE);
+                            remainingMines++;
                         }
                     }
                 }
             }
 
+        calcSurroundingMines();
     }
 
     /**
