@@ -33,7 +33,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
     /**
      * variables used for the timer.
      */
-    private static final Timer timer = new Timer();
+    private static Timer timer = new Timer();
     private static TimerTask secondsTimer = null;
 
     /**
@@ -71,10 +71,10 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.loadScene(model.getGameState());
 
                 //initialize timer
-                SecondsTimer.counter = 0;
+                timer = new Timer();
                 secondsTimer = new SecondsTimer();
 
-                //run model.timer every 1000ms = 1s
+                //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Play medium")) {
@@ -91,11 +91,10 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.loadScene(model.getGameState());
 
                 //initialize timer
-                SecondsTimer.counter = 0;
+                timer = new Timer();
                 secondsTimer = new SecondsTimer();
 
                 //run model.timer ever 1000ms = 1s
-
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Play hard")) {
@@ -112,7 +111,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.loadScene(model.getGameState());
 
                 //initialize timer
-                SecondsTimer.counter = 0;
+                timer = new Timer();
                 secondsTimer = new SecondsTimer();
 
                 //run model.timer ever 1000ms = 1s
@@ -164,14 +163,12 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
                 //resume the timer
                 SecondsTimer.unpauseTimer();
-                timer.schedule(secondsTimer, 0, 1000);
+                //timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Pause")) {
 
                 //pause the timer
                 SecondsTimer.pauseTimer();
-                timer.cancel();
-                timer.purge();
 
                 //set new game state
                 model.setGameState(GameState.PAUSE);
