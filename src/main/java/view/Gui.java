@@ -136,8 +136,8 @@ public class Gui {
     /**
      * Updates the timer display with the current number of seconds
      */
-    public void updateTimerDisplay() {
-        String sec = String.valueOf(model.timer.SecondsTimer.counter);
+    public void updateTimerDisplay(int timeInSeconds) {
+        String sec = String.valueOf(timeInSeconds);
         remainingTimerDisplay.setText(sec);
     }
 
@@ -190,7 +190,7 @@ public class Gui {
      * continues the game after pause menu by
      * repainting the window to its state before pause
      */
-    public void continueAfterPause() {
+    public void continueAfterPause(int timeAfterPause) {
         //clear
         window.getContentPane().removeAll();
 
@@ -202,9 +202,12 @@ public class Gui {
         window.revalidate();
         window.setVisible(true);
 
-        //update the 2 information panels
+        //update the information panels
         updateFlagDisplay();
-        updateTimerDisplay();
+        //we need to update the timer display here manually after the pause
+        //to hide the fact that the timer was actually still running and we just
+        //write the old value back
+        updateTimerDisplay(timeAfterPause);
     }
 
     /**
@@ -310,7 +313,6 @@ public class Gui {
                 window.addKeyListener(controller.getMouseHandler());
                 focusOnKeyListner();
                 updateFlagDisplay();
-                updateTimerDisplay();
             }
         }
     }
@@ -409,10 +411,10 @@ public class Gui {
         }
     }
 
-    public void displayWin() {
+    public void displayWin(int timeNeeded) {
         JOptionPane.showMessageDialog(
                 minefield,
-                " Congratulations! It took you " + model.timer.SecondsTimer.counter + " seconds to finish the game.",
+                " Congratulations! It took you " + timeNeeded + " seconds to finish the game.",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }

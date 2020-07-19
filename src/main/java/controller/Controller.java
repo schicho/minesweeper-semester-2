@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.*;
 import java.util.Base64;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import model.*;
 import model.enums.*;
@@ -33,8 +32,8 @@ public class Controller implements KeyListener, MouseListener, Observer {
     /**
      * variables used for the timer.
      */
-    private static Timer timer = new Timer();
-    private static TimerTask secondsTimer = null;
+    private Timer timer = null;
+    private SecondsTimer secondsTimer = null;
 
     /**
      * call to initialize the controller class
@@ -73,6 +72,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 //initialize timer
                 timer = new Timer();
                 secondsTimer = new SecondsTimer();
+                secondsTimer.attach(this);
 
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
@@ -93,6 +93,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 //initialize timer
                 timer = new Timer();
                 secondsTimer = new SecondsTimer();
+                secondsTimer.attach(this);
 
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
@@ -113,6 +114,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 //initialize timer
                 timer = new Timer();
                 secondsTimer = new SecondsTimer();
+                secondsTimer.attach(this);
 
                 //run model.timer ever 1000ms = 1s
                 timer.schedule(secondsTimer, 0, 1000);
@@ -138,7 +140,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                     gui.loadScene(model.getGameState());
 
                     //initialize timer
-                    SecondsTimer.counter = 0;
+                    timer = new Timer();
                     secondsTimer = new SecondsTimer();
                     //run model.timer ever 1000ms = 1s
                     timer.schedule(secondsTimer, 0, 1000);
@@ -159,15 +161,14 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 //set the game state and load the scene accordingly
                 model.setGameState(GameState.RUNNING);
 
-                gui.continueAfterPause();
-
                 //resume the timer
-                SecondsTimer.unpauseTimer();
+                secondsTimer.unpauseTimer();
+                gui.continueAfterPause(secondsTimer.counter);
             }
             else if (whatItDoes.equals("Pause")) {
 
                 //pause the timer
-                SecondsTimer.pauseTimer();
+                secondsTimer.pauseTimer();
 
                 //set new game state
                 model.setGameState(GameState.PAUSE);
@@ -181,6 +182,9 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
                 //load main menu
                 gui.loadScene(model.getGameState());
+
+                //stop timer
+                timer.cancel();
             }
             else if (SwingUtilities.isRightMouseButton(e)) {
                 //add a f in front of the command to flag
@@ -200,9 +204,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
             //update flag display
             gui.updateFlagDisplay();
-
-            //update timer display
-            gui.updateTimerDisplay();
         }
     }
 
@@ -302,41 +303,36 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
     @Override
     public void update(Subject s) {
-
+        //update timer display
+        gui.updateTimerDisplay(secondsTimer.counter);
         //get game state
         GameState current = model.getGameState();
 
         //switch game state
         switch (current) {
             case WON:
-                //update timer display
-                gui.updateTimerDisplay();
+
+                //stop timer
+                timer.cancel();
 
                 gui.updateTileText(model);
-                gui.displayWin();
+                gui.displayWin(secondsTimer.counter);
 
-                //stop timerTask and reset
-                timer.cancel();
-                timer.purge();
-                SecondsTimer.counter = 0;
-
+                model.setGameState(GameState.MAIN_MENU);
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
-                //update timer display
-                gui.updateTimerDisplay();
+
+                //stop timer
+                timer.cancel();
 
                 model.sweepAllOnLost();
 
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
-                //stop timerTask and reset
-                timer.cancel();
-                timer.purge();
-                SecondsTimer.counter = 0;
-
-                gui.loadScene(GameState.MAIN_MENU);
+                model.setGameState(GameState.MAIN_MENU);
+                gui.loadScene(model.getGameState());
                 break;
         }
         gui.focusOnKeyListner();
