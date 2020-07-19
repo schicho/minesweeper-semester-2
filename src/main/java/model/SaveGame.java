@@ -11,7 +11,7 @@ public class SaveGame {
      * Saves the Coordinates of Tiles, that were clicked/chosen to sweep, but not recursivly chosen
      * in order n, m.
      */
-    private Stack SweepCoordinats = new Stack();
+    private Stack<Integer> SweepCoordinats = new Stack<>();
 
     /**
      * add sweepcoordinates to stack
