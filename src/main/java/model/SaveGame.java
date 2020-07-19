@@ -109,6 +109,7 @@ public class SaveGame {
             }
             seed.append(nextCoor);
         }
+        System.out.println(seed);
         Base64.Encoder encoder = Base64.getEncoder();
         return encoder.encodeToString(seed.toString().getBytes());
 

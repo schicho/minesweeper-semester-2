@@ -135,21 +135,18 @@ public class Controller implements MouseListener, Observer {
                         model = new Model(seed);
                         model.setGameState(GameState.RUNNING);
                         model.attach(this);
-                        gui.calculateSize(model);
-                        gui.loadScene(model.getGameState());
 
-                        //initialize timer
-                        SecondsTimer.counter = 0;
-                        secondsTimer = new SecondsTimer();
-                        //run model.timer ever 1000ms = 1s
-                        timer.schedule(secondsTimer, 0, 1000);
+                        //todo: restart a Timer
+
+
 
                         //load the scene and update the window
+                        gui.calculateSize(model);
                         gui.loadScene(model.getGameState());
                         gui.getWindow().repaint();
                         gui.getWindow().revalidate();
                     }
-                    catch (Exception ex){
+                    catch (NumberFormatException | IndexOutOfBoundsException ex){
                         gui.invalidSeed();
                     }
                 }
