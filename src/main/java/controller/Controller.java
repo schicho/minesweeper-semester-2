@@ -312,29 +312,27 @@ public class Controller implements KeyListener, MouseListener, Observer {
         switch (current) {
             case WON:
 
+                //stop timer
+                timer.cancel();
+
                 gui.updateTileText(model);
                 gui.displayWin(secondsTimer.counter);
 
-                //stop timerTask and reset
-                timer.cancel();
-                timer.purge();
-                secondsTimer.counter = 0;
-
+                model.setGameState(GameState.MAIN_MENU);
                 gui.loadScene(GameState.MAIN_MENU);
                 break;
             case LOST:
+
+                //stop timer
+                timer.cancel();
 
                 model.sweepAllOnLost();
 
                 gui.updateTileText(model);
                 gui.displayFailure(model.getRemainingMines());
 
-                //stop timerTask and reset
-                timer.cancel();
-                timer.purge();
-                secondsTimer.counter = 0;
-
-                gui.loadScene(GameState.MAIN_MENU);
+                model.setGameState(GameState.MAIN_MENU);
+                gui.loadScene(model.getGameState());
                 break;
         }
         gui.focusOnKeyListner();
