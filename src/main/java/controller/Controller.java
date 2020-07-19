@@ -319,7 +319,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.displayWin(secondsTimer.counter);
 
                 model.setGameState(GameState.MAIN_MENU);
-                gui.loadScene(GameState.MAIN_MENU);
+                gui.loadScene(model.getGameState());
                 break;
             case LOST:
 

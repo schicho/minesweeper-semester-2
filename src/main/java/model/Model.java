@@ -323,10 +323,16 @@ public class Model implements Subject {
      * @return GameState
      */
     public GameState getGameState() {
+        //if there was a "special" gameState set externally we return that one
+        if (gameState == GameState.EXIT || gameState == GameState.PAUSE || gameState == GameState.MAIN_MENU){
+            return gameState;
+        }
+        //otherwise we check if the game was won
         final int numberOfNotMineTiles = (minesweeperField.getRows() * minesweeperField.getCols()) - numberOfMines;
         if (numberOfNotMineTiles == sweepedTilesCount && gameState != GameState.LOST) {
             gameState = GameState.WON;
         }
+        //and if none of the conditions above are met we return Running or Lost
         return gameState;
     }
 
