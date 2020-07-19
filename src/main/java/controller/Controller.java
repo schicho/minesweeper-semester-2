@@ -163,7 +163,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
                 //resume the timer
                 SecondsTimer.unpauseTimer();
-                //timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Pause")) {
 
