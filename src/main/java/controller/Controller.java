@@ -268,11 +268,19 @@ public class Controller implements MouseListener, Observer {
         return model;
     }
 
+    /**
+     * sets the model
+     * ONLY FOR TESTING, DO NOT USE FOR OTHER THAN TESTING
+     * @param m the new model to overwrite the existing one
+     */
+    public void setModel(Model m){
+        model = m;
+    }
 
     /**
      * interprets the given input
      */
-    private void handleInput(String input) {
+    public void handleInput(String input) {
 
         //index of row and column
         int m, n;
