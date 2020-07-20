@@ -12,17 +12,18 @@ import java.util.List;
  */
 public class Model implements Subject {
 
-    private final Difficulty difficulty; //the current difficulty the game is running on
     /**
      * the observers bound to the model
      */
     private List<Observer> observerList = new ArrayList<>();
+
     /**
      * the Field itself provides the core functionality on the 2D Tile array.
      * Model manipulations are forwarded to this object.
      */
     private boolean untouched; //true until first tile is sweeped
     private Field minesweeperField; //the basic field, the majority of the game is about
+    private final Difficulty difficulty; //the current difficulty the game is running on
     private int numberOfMines;
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
