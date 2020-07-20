@@ -271,11 +271,18 @@ public class Controller implements KeyListener, MouseListener, Observer {
         return model;
     }
 
+    /**
+     * sets the model
+     * @param m the new model to overwrite the existing one
+     */
+    public void setModel(Model m){
+        model = m;
+    }
 
     /**
      * interprets the given input
      */
-    private void handleInput(String input) {
+    public void handleInput(String input) {
 
         //index of row and column
         int m, n;
