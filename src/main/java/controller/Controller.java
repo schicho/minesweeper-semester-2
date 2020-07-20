@@ -135,6 +135,14 @@ public class Controller implements MouseListener, Observer {
                         byte[] byteSeed = decoder.decode(encodedSting.getBytes());
                         String seed = new String(byteSeed);
 
+                        //get the index, after which the time is saved
+                        int timerIndex = -1;
+                        for (int i = 1; i < seed.length() - 3; i += 4) {
+                            if (seed.substring(i, i + 4).equals("9898")) {
+                                timerIndex = i;
+                            }
+                        }
+
                         //create new model by seed
                         model = new Model(seed);
                         model.setGameState(GameState.RUNNING);
@@ -143,6 +151,7 @@ public class Controller implements MouseListener, Observer {
                         //initialize timer
                         timer = new Timer();
                         secondsTimer = new SecondsTimer();
+                        secondsTimer.counter=Integer.parseInt(seed.substring(timerIndex+4));
                         secondsTimer.attach(this);
                         //run model.timer ever 1000ms = 1s
                         timer.schedule(secondsTimer, 0, 1000);
@@ -165,7 +174,7 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(model.getGameState());
             }
             else if (whatItDoes.equals("Save game")) {
-                String seed = model.getSeed();
+                String seed = model.getSeed(secondsTimer.pausedAt);
                 model.touch();
                 gui.returnSeed(seed);
             }
@@ -276,7 +285,6 @@ public class Controller implements MouseListener, Observer {
     public void setModel(Model m){
         model = m;
     }
-
     /**
      * interprets the given input
      */
