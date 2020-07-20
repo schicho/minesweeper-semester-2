@@ -80,19 +80,25 @@ public class Model implements Subject {
             this.difficulty = Difficulty.HARD;
             numberOfMines = 99;
         }
-        int partitionIndex = 1;
-        for (int i = 1; i < seed.length() - 4; i += 4) {
+        int sweepIndex = -1;
+        for (int i = 1; i < seed.length() - 3; i += 4) {
             if (seed.substring(i, i + 4).equals("9999")) {
-                partitionIndex = i;
+                sweepIndex = i;
             }
         }
-        minesweeperField = new Field(seed.substring(0, partitionIndex));
+        int timerIndex = -1;
+        for (int i = 1; i < seed.length() - 3; i += 4) {
+            if (seed.substring(i, i + 4).equals("9898")) {
+                timerIndex = i;
+            }
+        }
+        minesweeperField = new Field(seed.substring(0, sweepIndex));
         StringBuilder seedBuilder = new StringBuilder(seed);
         int m;
         int n;
         //cant be done in Field, since field doesnt support recursion
 
-        for (int i = partitionIndex + 4; i < seedBuilder.length(); i += 4) {
+        for (int i = sweepIndex + 4; i < timerIndex; i += 4) {
             m = Integer.parseInt(seedBuilder.substring(i, i + 2));
             n = Integer.parseInt(seedBuilder.substring(i + 2, i + 4));
             sweepTile(m, n, false);
@@ -359,8 +365,8 @@ public class Model implements Subject {
         return minesweeperField.getRemainingMines();
     }
 
-    public String getSeed() {
-        return gameSaver.genSeed(minesweeperField);
+    public String getSeed(int time) {
+        return gameSaver.genSeed(minesweeperField,time);
     }
 
     public void touch() {

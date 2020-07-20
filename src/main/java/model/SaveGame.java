@@ -34,7 +34,7 @@ public class SaveGame {
      * @param mineField
      * @return seed, representing the Minefield encoded in base64
      */
-    public String genSeed(Field mineField) {
+    public String genSeed(Field mineField, int time) {
         int rows = mineField.getRows();
         int cols = mineField.getCols();
         int toAddi;
@@ -126,6 +126,9 @@ public class SaveGame {
             }
             seed.append(nextCoor);
         });
+
+        seed.append("9898"); // the second identifier
+        seed.append(time);
         Base64.Encoder encoder = Base64.getEncoder();
         return encoder.encodeToString(seed.toString().getBytes());
 
