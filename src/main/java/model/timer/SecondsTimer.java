@@ -1,29 +1,31 @@
 package model.timer;
 
 import observer_subject.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
 public class SecondsTimer extends TimerTask implements Subject {
     public int counter = 0;
-    public int pausedAt = 0;
+    private boolean isPaused = false;
 
     private List<Observer> observerList = new ArrayList<>();
 
     public void pauseTimer() {
-        pausedAt = counter;
+        isPaused = true;
     }
 
     public void unpauseTimer() {
-        counter = pausedAt;
-        pausedAt = 0;
+        isPaused = false;
     }
 
     @Override
     public void run() {
-        counter++;
-        notifyObservers();
+        if (!isPaused) {
+            counter++;
+            notifyObservers();
+        }
     }
 
     @Override

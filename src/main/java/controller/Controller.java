@@ -144,14 +144,17 @@ public class Controller implements MouseListener, Observer {
                         timer = new Timer();
                         secondsTimer = new SecondsTimer();
                         secondsTimer.attach(this);
-                        //run model.timer ever 1000ms = 1s
-                        timer.schedule(secondsTimer, 0, 1000);
 
                         //load the scene and update the window
                         gui.calculateSize(model);
                         gui.loadScene(model.getGameState());
                         gui.getWindow().repaint();
                         gui.getWindow().revalidate();
+
+                        // Only schedule after gui was initialised to avoid race-condition
+                        // run model.timer ever 1000ms = 1s
+                        timer.schedule(secondsTimer, 0, 1000);
+
                     } catch (NumberFormatException | IndexOutOfBoundsException ex) {
                         gui.invalidSeed();
                     }
@@ -271,9 +274,10 @@ public class Controller implements MouseListener, Observer {
     /**
      * sets the model
      * ONLY FOR TESTING, DO NOT USE FOR OTHER THAN TESTING
+     *
      * @param m the new model to overwrite the existing one
      */
-    public void setModel(Model m){
+    public void setModel(Model m) {
         model = m;
     }
 
