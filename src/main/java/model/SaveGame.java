@@ -15,6 +15,7 @@ public class SaveGame {
      */
     private List<Integer> sweepedCoordinates = new LinkedList<>();
 
+
     /**
      * add sweepcoordinates to stack
      *

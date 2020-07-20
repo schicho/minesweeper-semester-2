@@ -136,8 +136,8 @@ public class Gui {
     /**
      * Updates the timer display with the current number of seconds
      */
-    public void updateTimerDisplay() {
-        String sec = String.valueOf(model.timer.SecondsTimer.counter);
+    public void updateTimerDisplay(int timeInSeconds) {
+        String sec = String.valueOf(timeInSeconds);
         remainingTimerDisplay.setText(sec);
     }
 
@@ -190,7 +190,7 @@ public class Gui {
      * continues the game after pause menu by
      * repainting the window to its state before pause
      */
-    public void continueAfterPause() {
+    public void continueAfterPause(int timeAfterPause) {
         //clear
         window.getContentPane().removeAll();
 
@@ -202,9 +202,12 @@ public class Gui {
         window.revalidate();
         window.setVisible(true);
 
-        //update the 2 information panels
+        //update the information panels
         updateFlagDisplay();
-        updateTimerDisplay();
+        //we need to update the timer display here manually after the pause
+        //to hide the fact that the timer was actually still running and we just
+        //write the old value back
+        updateTimerDisplay(timeAfterPause);
     }
 
     /**
@@ -309,7 +312,6 @@ public class Gui {
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
                 updateFlagDisplay();
-                updateTimerDisplay();
             }
         }
     }
@@ -405,12 +407,10 @@ public class Gui {
         }
     }
 
-    public void displayWin() {
+    public void displayWin(int timeNeeded) {
         JOptionPane.showMessageDialog(
                 minefield,
-
-                " Congratulations! Du hast " + model.timer.SecondsTimer.counter + " Sekunden fuer das Spiel gebraucht.",
-
+                " Congratulations! It took you " + timeNeeded + " seconds to finish the game.",
                 "YOU WON!",
                 JOptionPane.PLAIN_MESSAGE);
     }
@@ -425,17 +425,27 @@ public class Gui {
 
 
     public void returnSeed(String seed) {
-        JTextArea seedField = new JTextArea(15, 15);
+        JPanel saveSeedPanel = new JPanel();
+        saveSeedPanel.setLayout(new BoxLayout(saveSeedPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel instructionField = new JLabel("Highlight and Ctrl-C to save game to clipboard.");
+        instructionField.setPreferredSize(new Dimension(50, 50));
+
+        JTextArea seedField = new JTextArea(20, 60);
         seedField.setText(seed);
         seedField.setWrapStyleWord(true);
         seedField.setLineWrap(true);
         seedField.setCaretPosition(0);
         seedField.setEditable(false);
-        JOptionPane.showMessageDialog(null, new JScrollPane(seedField), "Highlight Ctrl-C, to save game to clipboard!", JOptionPane.PLAIN_MESSAGE);
+
+        saveSeedPanel.add(instructionField);
+        saveSeedPanel.add(seedField);
+
+        JOptionPane.showMessageDialog(null, new JScrollPane(saveSeedPanel), "Save Game", JOptionPane.PLAIN_MESSAGE);
     }
 
     public String loadFromSeed() {
-        return  JOptionPane.showInputDialog(minefield, "Input Seed, please:", "Load Game", JOptionPane.PLAIN_MESSAGE);
+        return JOptionPane.showInputDialog(minefield, "Please enter a seed:", "Load Game", JOptionPane.PLAIN_MESSAGE);
     }
 
     public void invalidSeed(){
