@@ -177,6 +177,7 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(model.getGameState());
             }
             else if (whatItDoes.equals("Save game")) {
+
                 String seed = model.getSeed(secondsTimer.counter);
                 model.touch();
                 gui.returnSeed(seed);
