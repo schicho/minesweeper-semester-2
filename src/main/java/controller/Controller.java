@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.*;
 import java.util.Base64;
 import java.util.Timer;
-import java.util.TimerTask;
+
 
 import model.*;
 import model.enums.*;
@@ -20,7 +20,6 @@ import javax.swing.*;
 public class Controller implements MouseListener, Observer {
 
 
-
     /**
      * holds the model instance
      */
@@ -31,7 +30,6 @@ public class Controller implements MouseListener, Observer {
     private Gui gui;
 
     /**
-
      * variables used for the timer.
      */
     private Timer timer = null;
@@ -128,7 +126,7 @@ public class Controller implements MouseListener, Observer {
                 //check on empty
                 if (!(encodedSting == null) && (!(encodedSting.equals("")))) {
                     //if a timer was previously running, cancel first
-                    if (timer != null){
+                    if (timer != null) {
                         timer.cancel();
                     }
                     try {
@@ -154,20 +152,19 @@ public class Controller implements MouseListener, Observer {
                         gui.loadScene(model.getGameState());
                         gui.getWindow().repaint();
                         gui.getWindow().revalidate();
-                    }
-                    catch (NumberFormatException | IndexOutOfBoundsException ex){
+                    } catch (NumberFormatException | IndexOutOfBoundsException ex) {
                         gui.invalidSeed();
                     }
 
                 }
-                if (model==null) {
+                if (model == null) {
                     //if string is empty, return to main menu
                     gui.loadScene(GameState.MAIN_MENU);
                     return;
                 }
                 gui.loadScene(model.getGameState());
             }
-            else if (whatItDoes.equals("Save game")){
+            else if (whatItDoes.equals("Save game")) {
                 String seed = model.getSeed();
                 model.touch();
                 gui.returnSeed(seed);
@@ -242,7 +239,6 @@ public class Controller implements MouseListener, Observer {
     public void mouseExited(MouseEvent e) {
 
     }
-
 
 
     /**

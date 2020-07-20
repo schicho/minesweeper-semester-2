@@ -448,10 +448,10 @@ public class Gui {
         return JOptionPane.showInputDialog(minefield, "Please enter a seed:", "Load Game", JOptionPane.PLAIN_MESSAGE);
     }
 
-    public void invalidSeed(){
+    public void invalidSeed() {
         JOptionPane.showMessageDialog(
                 minefield,
-                "I'm sorry, this seed contains an Error",
+                "This seed contains an error!",
                 "Invalid Seed!",
                 JOptionPane.PLAIN_MESSAGE);
     }
