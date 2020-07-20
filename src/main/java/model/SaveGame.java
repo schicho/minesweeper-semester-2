@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Base64;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -11,7 +13,7 @@ public class SaveGame {
      * Saves the Coordinates of Tiles, that were clicked/chosen to sweep, but not recursivly chosen
      * in order n, m.
      */
-    private Stack SweepCoordinats = new Stack();
+    private List<Integer> sweepedCoordinates = new LinkedList<>();
 
     /**
      * add sweepcoordinates to stack
@@ -19,9 +21,10 @@ public class SaveGame {
      * @param m m coordinate
      * @param n n coordinate of Tile to sweep
      */
+
     public void addSweepCoords(int m, int n) {
-        SweepCoordinats.push(n);
-        SweepCoordinats.push(m);
+        sweepedCoordinates.add(m);
+        sweepedCoordinates.add(n);
     }
 
     /**
@@ -115,13 +118,13 @@ public class SaveGame {
         }
 
         seed.append("9999"); // identifierer
-        while (true != SweepCoordinats.empty()) {
-            int nextCoor = (int) SweepCoordinats.pop();
+        sweepedCoordinates.forEach(elements -> {
+            int nextCoor = elements.intValue();
             if (Math.ceil(Math.log10(nextCoor + 1)) <= 1) {
                 seed.append("0");
             }
             seed.append(nextCoor);
-        }
+        });
         Base64.Encoder encoder = Base64.getEncoder();
         return encoder.encodeToString(seed.toString().getBytes());
 

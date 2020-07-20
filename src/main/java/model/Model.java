@@ -12,44 +12,23 @@ import java.util.List;
  */
 public class Model implements Subject {
 
+    private final Difficulty difficulty; //the current difficulty the game is running on
     /**
      * the observers bound to the model
      */
     private List<Observer> observerList = new ArrayList<>();
-
-    @Override
-    public void attach(Observer o) {
-        observerList.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        observerList.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for( Observer o : observerList){
-            o.update(this);
-        }
-    }
-
     /**
      * the Field itself provides the core functionality on the 2D Tile array.
      * Model manipulations are forwarded to this object.
      */
     private boolean untouched; //true until first tile is sweeped
     private Field minesweeperField; //the basic field, the majority of the game is about
-    private final Difficulty difficulty; //the current difficulty the game is running on
     private int numberOfMines;
-
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
-
     private SaveGame gameSaver= new SaveGame();
     private int sweepedTilesCount = 0;
     private GameState gameState = GameState.MAIN_MENU;
-
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -80,7 +59,6 @@ public class Model implements Subject {
                 break;
         }
     }
-
     /**
      * Second constructor, to decode/load seed
      * @param seed given by load case in Controller.handleInput
@@ -125,6 +103,23 @@ public class Model implements Subject {
         }
 
         untouched=false;
+    }
+
+    @Override
+    public void attach(Observer o) {
+        observerList.add(o);
+    }
+
+    @Override
+    public void detach(Observer o) {
+        observerList.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for( Observer o : observerList){
+            o.update(this);
+        }
     }
 
     /**

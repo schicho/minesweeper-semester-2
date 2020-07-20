@@ -21,20 +21,18 @@ public class Controller implements MouseListener, Observer {
 
 
     /**
-     * holds the model instance
-     */
-    private Model model;
-
-    /**
-     * holds the gui instance
-     */
-    private Gui gui;
-
-    /**
      * variables used for the timer.
      */
     private static final Timer timer = new Timer();
     private static TimerTask secondsTimer = null;
+    /**
+     * holds the model instance
+     */
+    private Model model;
+    /**
+     * holds the gui instance
+     */
+    private Gui gui;
 
     /**
      * call to initialize the controller class
