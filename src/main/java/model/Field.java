@@ -36,10 +36,11 @@ public class Field {
 
     /**
      * Initializes the minefield.
-     * @param rows  rows of the minefield grid
-     * @param cols  columns of the minefield grid
+     *
+     * @param rows rows of the minefield grid
+     * @param cols columns of the minefield grid
      */
-    public Field(int rows, int cols, int numberOfMines){
+    public Field(int rows, int cols, int numberOfMines) {
         //initialize members
         this.rows = rows;
         this.cols = cols;
@@ -55,76 +56,71 @@ public class Field {
 
     /**
      * Second Constructor for decoding/loading seed, just handels mine, flag, Qmarked placement, as well as surrounding Mines
+     *
      * @param seed given by model, representing the state of the game which is supposed to be loaded
      */
-    public Field(String seed){
+    public Field(String seed) {
 
-            //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
-            if (seed.charAt(0) == '0') {
-                this.rows = 9;
-                this.cols = 9;
-            }
-            else if (seed.charAt(0) == '1') {
-                this.rows = 16;
-                this.cols = 16;
-            }
-            else {
-                this.rows = 16;
-                this.cols = 30;
-            }
+        //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
+        if (seed.charAt(0) == '0') {
+            this.rows = 9;
+            this.cols = 9;
+        }
+        else if (seed.charAt(0) == '1') {
+            this.rows = 16;
+            this.cols = 16;
+        }
+        else {
+            this.rows = 16;
+            this.cols = 30;
+        }
 
-            this.minefield = new Tile[rows][cols];
-            populate();
+        this.minefield = new Tile[rows][cols];
+        populate();
 
-            boolean sweeping = false;
-            StringBuilder workSeed = new StringBuilder(seed);
-            for (int i = 1; i < workSeed.length(); i += 4) {
-                int m = Integer.parseInt(workSeed.substring(i, i + 2));
-                int n = Integer.parseInt(workSeed.substring(i + 2, i + 4));
-                if ((m == 99) && (n == 99)) {
-                    sweeping = true;
-                    calcSurroundingMines();
+
+        StringBuilder workSeed = new StringBuilder(seed);
+        for (int i = 1; i < workSeed.length(); i += 4) {
+            int m = Integer.parseInt(workSeed.substring(i, i + 2));
+            int n = Integer.parseInt(workSeed.substring(i + 2, i + 4));
+
+
+            if (m >= 16) {
+                if (m >= 32) {
+                    flagTile(m - 32, n);
                 }
-                else if (!sweeping) {
-
-                    if (m >= 16) {
-                        if (m >= 32) {
-                            flagTile(m - 32, n);
-                        }
-                        else {
-                            flagTile(m - 16, n);
-                        }
-                    }
-                    if (n >= 30) {
-                        if (n >= 60) {
-                            qmarkTile(m, n - 60);
-                        }
-                        else {
-                            qmarkTile(m, n - 30);
-                        }
-                    }
-                    if ((m < 32) && (n < 60)) {
-                        if (m >= 16) {
-                            m -= 16;
-                        }
-                        if (n >= 30) {
-                            n -= 30;
-                        }
-                        if (isFlagged(m, n)) {
-                            minefield[m][n].setState(TileState.FLAGGED_MINE);
-                        }
-                        else if (isQmarked(m, n)) {
-                            minefield[m][n].setState(TileState.QMARKED_MINE);
-                            remainingMines++;
-                        }
-                        else {
-                            minefield[m][n].setState(TileState.MINE);
-                            remainingMines++;
-                        }
-                    }
+                else {
+                    flagTile(m - 16, n);
                 }
             }
-
+            if (n >= 30) {
+                if (n >= 60) {
+                    qmarkTile(m, n - 60);
+                }
+                else {
+                    qmarkTile(m, n - 30);
+                }
+            }
+            if ((m < 32) && (n < 60)) {
+                if (m >= 16) {
+                    m -= 16;
+                }
+                if (n >= 30) {
+                    n -= 30;
+                }
+                if (isFlagged(m, n)) {
+                    minefield[m][n].setState(TileState.FLAGGED_MINE);
+                }
+                else if (isQmarked(m, n)) {
+                    minefield[m][n].setState(TileState.QMARKED_MINE);
+                    remainingMines++;
+                }
+                else {
+                    minefield[m][n].setState(TileState.MINE);
+                    remainingMines++;
+                }
+            }
+        }
         calcSurroundingMines();
     }
 
@@ -132,9 +128,9 @@ public class Field {
      * Fills initially empty minefield with tiles.
      * Does not have to be run manually. Is done in constructor.
      */
-    private void populate(){
-        for(int i=0; i < rows; i++){
-            for(int j=0; j < cols; j++){
+    private void populate() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 minefield[i][j] = new Tile();
             }
         }
@@ -142,21 +138,24 @@ public class Field {
 
     /**
      * Randomly spreads mines of the minefield.
+     *
      * @param numberOfMines number of mines to be placed on the minefield.
      */
-    private void placeMinesRNG(int numberOfMines){
+    private void placeMinesRNG(int numberOfMines) {
         Random rng = new Random();
         int count = numberOfMines;
-        while(count > 0){
+        while (count > 0) {
             int rowIndex = rng.nextInt(rows);  //value between zero (inclusive) and
             int colIndex = rng.nextInt(cols);  // rows/cols (exclusive)
-            if(minefield[rowIndex][colIndex].getState() != TileState.MINE) {
+            if (minefield[rowIndex][colIndex].getState() != TileState.MINE) {
                 minefield[rowIndex][colIndex].setState(TileState.MINE);
                 count--;
                 //if Tile is a mine already skip to next loop cycle
             }
         }
-        if(numberOfMines>1){remainingMines = numberOfMines;}//set new only if there is a new field. Not wenn recalculating mines
+        if (numberOfMines > 1) {
+            remainingMines = numberOfMines;
+        }//set new only if there is a new field. Not wenn recalculating mines
     }
 
     /**
@@ -166,10 +165,10 @@ public class Field {
      * for gameplay.
      * This method must only be run once.
      */
-    private void calcSurroundingMines(){
-        for(int i=0; i < rows; i++){
-            for(int j=0; j < cols; j++){
-                List<Integer> surroundingMinesAmount = checkAround(i,j);
+    private void calcSurroundingMines() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                List<Integer> surroundingMinesAmount = checkAround(i, j);
 
                 //write to the current tile which's surrounding mines we counted
                 minefield[i][j].setSurroundingMines(surroundingMinesAmount.size());
@@ -182,20 +181,21 @@ public class Field {
      * -1 1 3
      * -2 2 6
      * -4 4 12
-     *
+     * <p>
      * while 2 is the Tile of which the surroundings ar being checked
+     *
      * @param m row
      * @param n collumn
      * @return 's an encoded List of the mines arround and in a tile
      */
-    public List<Integer> checkAround(int m, int n){
+    public List<Integer> checkAround(int m, int n) {
         List<Integer> returnList = new ArrayList<>();
-        int mMax = Math.min(this.getRows()-1,m+1);
-        int nMax = Math.min(this.getCols()-1,n+1);
-        for (int mMin = Math.max(0,m-1); mMin<=mMax; mMin++){
-            for (int nMin = Math.max(0,n-1); nMin <= nMax; nMin++){
-                if(isMine(mMin,nMin)){
-                    returnList.add(((int) Math.pow(2,(1+mMin-m)))*(2*(nMin-n)+1));
+        int mMax = Math.min(this.getRows() - 1, m + 1);
+        int nMax = Math.min(this.getCols() - 1, n + 1);
+        for (int mMin = Math.max(0, m - 1); mMin <= mMax; mMin++) {
+            for (int nMin = Math.max(0, n - 1); nMin <= nMax; nMin++) {
+                if (isMine(mMin, nMin)) {
+                    returnList.add(((int) Math.pow(2, (1 + mMin - m))) * (2 * (nMin - n) + 1));
                 }
             }
         }
@@ -203,30 +203,28 @@ public class Field {
     }
 
     /**
-     *
      * @param encodedValue
      * @return offset to determine the relativ M position of a mine
      */
-    public int decodeSurroundingMineRowOffset(int encodedValue){
-        if (encodedValue%4==0){
+    public int decodeSurroundingMineRowOffset(int encodedValue) {
+        if (encodedValue % 4 == 0) {
             return 1;
         }
-        else if (encodedValue%2==0){
+        else if (encodedValue % 2 == 0) {
             return 0;
         }
         else return -1;
     }
 
     /**
-     *
      * @param encodedValue
      * @return offset to determine the relativ N position of a mine
      */
-    public int decodeSurroundingMineColOffset(int encodedValue){
-        if(encodedValue<0){
+    public int decodeSurroundingMineColOffset(int encodedValue) {
+        if (encodedValue < 0) {
             return -1;
         }
-        else if(encodedValue%3==0){
+        else if (encodedValue % 3 == 0) {
             return 1;
         }
         else return 0;
@@ -238,6 +236,7 @@ public class Field {
      * 0 1 2    | 4 is the tile we passed.
      * 3 4 5    | save boolean value if the surrounding tile exists or not
      * 6 7 8
+     *
      * @param rowIndex rowIndex of the tile
      * @param colIndex colIndex of the tile
      * @return boolean[] true if the surrounding tile exists
@@ -260,14 +259,15 @@ public class Field {
 
     /**
      * changes the tile to the mine free equivalent of it's current status
+     *
      * @param m row
      * @param n collumn
      */
-    private void deMine(int m, int n){
-        if (minefield[m][n].getState()==TileState.FLAGGED_MINE){
+    private void deMine(int m, int n) {
+        if (minefield[m][n].getState() == TileState.FLAGGED_MINE) {
             minefield[m][n].setState(TileState.FLAGGED_FREE);
         }
-        else if (minefield[m][n].getState()==TileState.QMARKED_MINE){
+        else if (minefield[m][n].getState() == TileState.QMARKED_MINE) {
             minefield[m][n].setState(TileState.QMARKED_FREE);
         }
         else minefield[m][n].setState(TileState.FREE);
@@ -275,21 +275,24 @@ public class Field {
 
     /**
      * Defuses given mine, places new random mine, recalculates the surrounding mines(sadly every time)
+     *
      * @param rowIndex Row
      * @param colIndex Collumn
      */
-    public void clearTile(int rowIndex, int colIndex){
-        deMine(rowIndex,colIndex);
+    public void clearTile(int rowIndex, int colIndex) {
+        deMine(rowIndex, colIndex);
         placeMinesRNG(1);
         calcSurroundingMines();
     }
+
     /**
      * Sweep/Open up a covered tile
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void sweepTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.MINE){
+    public void sweepTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.MINE) {
             minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
             return;
         }
@@ -299,33 +302,35 @@ public class Field {
     /**
      * Sweeps a Tile accordingly no matter what the previous state was.
      * Used at the end of a lost game.
+     *
      * @param rowIndex row index in the 2D Tile Array
      * @param colIndex column index in the 2D Tile Array
      */
-    public void sweepTileForce(int rowIndex, int colIndex){
-        switch (minefield[rowIndex][colIndex].getState()){
+    public void sweepTileForce(int rowIndex, int colIndex) {
+        switch (minefield[rowIndex][colIndex].getState()) {
             case FREE:
             case SWEEPED_FREE:
             case FLAGGED_FREE:
             case QMARKED_FREE:
                 minefield[rowIndex][colIndex].setState(TileState.SWEEPED_FREE);
-            break;
+                break;
             case MINE:
             case FLAGGED_MINE:
             case QMARKED_MINE:
             case SWEEPED_MINE:
                 minefield[rowIndex][colIndex].setState(TileState.SWEEPED_MINE);
-            break;
+                break;
         }
     }
 
     /**
      * mark a tile with a flag, the state is set respectively
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void flagTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.MINE){
+    public void flagTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.MINE) {
             minefield[rowIndex][colIndex].setState(TileState.FLAGGED_MINE);
             //reduce remainingMines, because a mine was found
             remainingMines--;
@@ -336,6 +341,7 @@ public class Field {
 
     /**
      * replaces a flag with a question mark
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
@@ -351,11 +357,12 @@ public class Field {
 
     /**
      * takes the flag off the tile
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public void unQmarkTile(int rowIndex, int colIndex){
-        if(minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE){
+    public void unQmarkTile(int rowIndex, int colIndex) {
+        if (minefield[rowIndex][colIndex].getState() == TileState.QMARKED_MINE) {
             minefield[rowIndex][colIndex].setState(TileState.MINE);
             return;
         }
@@ -364,16 +371,18 @@ public class Field {
 
     /**
      * returns true if tile at given index is sweeped.
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public boolean isSweeped(int rowIndex, int colIndex){
+    public boolean isSweeped(int rowIndex, int colIndex) {
         return (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_FREE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_MINE);
     }
 
     /**
      * returns true if tile at given index is flagged.
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
@@ -384,6 +393,7 @@ public class Field {
 
     /**
      * returns true if tile at given index is question marked.
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
@@ -394,10 +404,11 @@ public class Field {
 
     /**
      * returns true if tile at given index contains a mine.
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public boolean isMine(int rowIndex, int colIndex){
+    public boolean isMine(int rowIndex, int colIndex) {
         return (minefield[rowIndex][colIndex].getState() == TileState.MINE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.SWEEPED_MINE) ||
                 (minefield[rowIndex][colIndex].getState() == TileState.FLAGGED_MINE) ||
@@ -406,17 +417,18 @@ public class Field {
 
     /**
      * returns number of mines surrounding the tile at given index. maximum of 8.
+     *
      * @param rowIndex index of row
      * @param colIndex index of column
      */
-    public int getSurroundingMines(int rowIndex, int colIndex){
-        return  minefield[rowIndex][colIndex].getSurroundingMines();
+    public int getSurroundingMines(int rowIndex, int colIndex) {
+        return minefield[rowIndex][colIndex].getSurroundingMines();
     }
 
     /**
      * @return 2D Array of Tiles
      */
-    public Tile[][] getTileArray(){
+    public Tile[][] getTileArray() {
         return minefield;
     }
 
@@ -437,7 +449,7 @@ public class Field {
     /**
      * @return number of remaining mines the player has yet to find
      */
-    public int getRemainingMines(){
+    public int getRemainingMines() {
         return remainingMines;
     }
 }
