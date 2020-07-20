@@ -151,7 +151,7 @@ public class Controller implements MouseListener, Observer {
                         //initialize timer
                         timer = new Timer();
                         secondsTimer = new SecondsTimer();
-                        secondsTimer.counter=Integer.parseInt(seed.substring(timerIndex+4));
+                        secondsTimer.counter = Integer.parseInt(seed.substring(timerIndex + 4));
                         secondsTimer.attach(this);
 
                         //load the scene and update the window
@@ -289,6 +289,7 @@ public class Controller implements MouseListener, Observer {
     public void setModel(Model m) {
         model = m;
     }
+
     /**
      * interprets the given input
      */

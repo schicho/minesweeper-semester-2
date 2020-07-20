@@ -366,7 +366,7 @@ public class Model implements Subject {
     }
 
     public String getSeed(int time) {
-        return gameSaver.genSeed(minesweeperField,time);
+        return gameSaver.genSeed(minesweeperField, time);
     }
 
     public void touch() {
