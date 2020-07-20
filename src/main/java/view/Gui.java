@@ -150,6 +150,14 @@ public class Gui {
     }
 
     /**
+     * Returns text from TimerDisplay for junit tests.
+     * @return String that is displayed in TimerDisplay
+     */
+    public String getTimerDisplayText() {
+        return remainingTimerDisplay.getText();
+    }
+
+    /**
      * Returns controller for junit tests
      * @return controller
      */
