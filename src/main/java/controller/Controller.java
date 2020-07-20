@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.*;
 import java.util.Base64;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import model.*;
 import model.enums.*;
@@ -19,11 +20,7 @@ import javax.swing.*;
 public class Controller implements MouseListener, Observer {
 
 
-    /**
-     * variables used for the timer.
-     */
-    private static final Timer timer = new Timer();
-    private static TimerTask secondsTimer = null;
+
     /**
      * holds the model instance
      */
@@ -130,7 +127,10 @@ public class Controller implements MouseListener, Observer {
 
                 //check on empty
                 if (!(encodedSting == null) && (!(encodedSting.equals("")))) {
-
+                    //if a timer was previously running, cancel first
+                    if (timer != null){
+                        timer.cancel();
+                    }
                     try {
                         //decode seed string
                         Base64.Decoder decoder = Base64.getDecoder();
@@ -145,6 +145,7 @@ public class Controller implements MouseListener, Observer {
                         //initialize timer
                         timer = new Timer();
                         secondsTimer = new SecondsTimer();
+                        secondsTimer.attach(this);
                         //run model.timer ever 1000ms = 1s
                         timer.schedule(secondsTimer, 0, 1000);
 
