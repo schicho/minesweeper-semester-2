@@ -19,6 +19,14 @@ public class Tile {
     private int surroundingMines;
 
     /**
+     * constructs a new tile
+     */
+    public Tile() {
+        this.state = TileState.FREE;
+        this.surroundingMines = 0;
+    }
+
+    /**
      * returns the tiles state
      *
      * @return state
@@ -51,14 +59,5 @@ public class Tile {
      */
     public void setSurroundingMines(int surroundingMines) {
         this.surroundingMines = surroundingMines;
-    }
-
-
-    /**
-     * constructs a new tile
-     */
-    public Tile() {
-        this.state = TileState.FREE;
-        this.surroundingMines = 0;
     }
 }

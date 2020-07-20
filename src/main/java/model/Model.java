@@ -17,23 +17,6 @@ public class Model implements Subject {
      */
     private List<Observer> observerList = new ArrayList<>();
 
-    @Override
-    public void attach(Observer o) {
-        observerList.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        observerList.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer o : observerList) {
-            o.update(this);
-        }
-    }
-
     /**
      * the Field itself provides the core functionality on the 2D Tile array.
      * Model manipulations are forwarded to this object.
@@ -42,14 +25,11 @@ public class Model implements Subject {
     private Field minesweeperField; //the basic field, the majority of the game is about
     private final Difficulty difficulty; //the current difficulty the game is running on
     private int numberOfMines;
-
     //Initialize GameState variables with default values
     private int numberOfFlags = 0;
-
     private SaveGame gameSaver = new SaveGame();
     private int sweepedTilesCount = 0;
     private GameState gameState = GameState.MAIN_MENU;
-
 
     /**
      * Constructs the model which creates a minesweeper field
@@ -100,17 +80,42 @@ public class Model implements Subject {
             this.difficulty = Difficulty.HARD;
             numberOfMines = 99;
         }
-        minesweeperField = new Field(seed);
+        int partitionIndex = 1;
+        for (int i = 1; i < seed.length() - 4; i += 4) {
+            if (seed.substring(i, i + 4).equals("9999")) {
+                partitionIndex = i;
+            }
+        }
+        minesweeperField = new Field(seed.substring(0, partitionIndex));
         StringBuilder seedBuilder = new StringBuilder(seed);
         int m;
         int n;
         //cant be done in Field, since field doesnt support recursion
-        for (int i = seedBuilder.indexOf("9999") + 4; i < seedBuilder.length(); i += 4) {
+
+        for (int i = partitionIndex + 4; i < seedBuilder.length(); i += 4) {
             m = Integer.parseInt(seedBuilder.substring(i, i + 2));
             n = Integer.parseInt(seedBuilder.substring(i + 2, i + 4));
             sweepTile(m, n, false);
         }
+
         untouched = false;
+    }
+
+    @Override
+    public void attach(Observer o) {
+        observerList.add(o);
+    }
+
+    @Override
+    public void detach(Observer o) {
+        observerList.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observerList) {
+            o.update(this);
+        }
     }
 
     /**
@@ -147,6 +152,7 @@ public class Model implements Subject {
             //sweep adjacent tiles
             if (!inRecursion) {
                 gameSaver.addSweepCoords(rowIndex, colIndex);
+
             }
             sweepRecursively(rowIndex, colIndex);
             notifyObservers();
@@ -322,9 +328,10 @@ public class Model implements Subject {
      *
      * @return GameState
      */
+
     public GameState getGameState() {
         //if there was a "special" gameState set externally we return that one
-        if (gameState == GameState.EXIT || gameState == GameState.PAUSE || gameState == GameState.MAIN_MENU){
+        if (gameState == GameState.EXIT || gameState == GameState.PAUSE || gameState == GameState.MAIN_MENU) {
             return gameState;
         }
         //otherwise we check if the game was won

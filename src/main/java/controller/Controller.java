@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.Base64;
 import java.util.Timer;
 
+
 import model.*;
 import model.enums.*;
 import observer_subject.*;
@@ -16,14 +17,13 @@ import javax.swing.*;
  * controller class
  * is the mouse listener and also observes the model
  */
-public class Controller implements KeyListener, MouseListener, Observer {
+public class Controller implements MouseListener, Observer {
 
 
     /**
      * holds the model instance
      */
     private Model model;
-
     /**
      * holds the gui instance
      */
@@ -120,41 +120,54 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 timer.schedule(secondsTimer, 0, 1000);
             }
             else if (whatItDoes.equals("Load game")) {
-
                 //load the seed string
                 String encodedSting = gui.loadFromSeed();
 
                 //check on empty
                 if (!(encodedSting == null) && (!(encodedSting.equals("")))) {
+                    //if a timer was previously running, cancel first
+                    if (timer != null) {
+                        timer.cancel();
+                    }
+                    try {
+                        //decode seed string
+                        Base64.Decoder decoder = Base64.getDecoder();
+                        byte[] byteSeed = decoder.decode(encodedSting.getBytes());
+                        String seed = new String(byteSeed);
 
-                    //decode seed string
-                    Base64.Decoder decoder = Base64.getDecoder();
-                    byte[] byteSeed = decoder.decode(encodedSting.getBytes());
-                    String seed = new String(byteSeed);
+                        //create new model by seed
+                        model = new Model(seed);
+                        model.setGameState(GameState.RUNNING);
+                        model.attach(this);
 
-                    //create new model by seed
-                    model = new Model(seed);
-                    model.setGameState(GameState.RUNNING);
-                    model.attach(this);
-                    gui.calculateSize(model);
-                    gui.loadScene(model.getGameState());
+                        //initialize timer
+                        timer = new Timer();
+                        secondsTimer = new SecondsTimer();
+                        secondsTimer.attach(this);
+                        //run model.timer ever 1000ms = 1s
+                        timer.schedule(secondsTimer, 0, 1000);
 
-                    //initialize timer
-                    timer = new Timer();
-                    secondsTimer = new SecondsTimer();
-                    //run model.timer ever 1000ms = 1s
-                    timer.schedule(secondsTimer, 0, 1000);
+                        //load the scene and update the window
+                        gui.calculateSize(model);
+                        gui.loadScene(model.getGameState());
+                        gui.getWindow().repaint();
+                        gui.getWindow().revalidate();
+                    } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+                        gui.invalidSeed();
+                    }
 
-                    //load the scene and update the window
-                    gui.loadScene(model.getGameState());
-                    gui.getWindow().repaint();
-                    gui.getWindow().revalidate();
                 }
-                else {
+                if (model == null) {
                     //if string is empty, return to main menu
                     gui.loadScene(GameState.MAIN_MENU);
                     return;
                 }
+                gui.loadScene(model.getGameState());
+            }
+            else if (whatItDoes.equals("Save game")) {
+                String seed = model.getSeed();
+                model.touch();
+                gui.returnSeed(seed);
             }
             else if (whatItDoes.equals("Continue")) {
 
@@ -227,22 +240,6 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == 's') {
-            String seed = model.getSeed();
-            model.touch();
-            gui.returnSeed(seed);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
 
     /**
      * @param button JButton oder Tilebutton
@@ -335,7 +332,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
                 gui.loadScene(model.getGameState());
                 break;
         }
-        gui.focusOnKeyListner();
+
     }
 
 

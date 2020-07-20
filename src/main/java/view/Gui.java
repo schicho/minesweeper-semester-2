@@ -282,6 +282,7 @@ public class Gui {
             }
             break;
             case RUNNING: {
+
                 //minefield panel
                 minefield = new JPanel();
 
@@ -310,8 +311,6 @@ public class Gui {
                 window.pack();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);
-                window.addKeyListener(controller.getMouseHandler());
-                focusOnKeyListner();
                 updateFlagDisplay();
             }
         }
@@ -321,9 +320,6 @@ public class Gui {
         return window;
     }
 
-    public void focusOnKeyListner() {
-        window.requestFocus();
-    }
 
     /**
      * Changes the Text on a button in TileButtons[][]
@@ -450,5 +446,13 @@ public class Gui {
 
     public String loadFromSeed() {
         return JOptionPane.showInputDialog(minefield, "Please enter a seed:", "Load Game", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public void invalidSeed() {
+        JOptionPane.showMessageDialog(
+                minefield,
+                "This seed contains an error!",
+                "Invalid Seed!",
+                JOptionPane.PLAIN_MESSAGE);
     }
 }

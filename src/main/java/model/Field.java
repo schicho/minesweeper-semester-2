@@ -60,6 +60,7 @@ public class Field {
      * @param seed given by model, representing the state of the game which is supposed to be loaded
      */
     public Field(String seed) {
+
         //if you are confused, look into the SaveGame.genSeed() to understand how the seed was encoded
         if (seed.charAt(0) == '0') {
             this.rows = 9;
@@ -77,55 +78,50 @@ public class Field {
         this.minefield = new Tile[rows][cols];
         populate();
 
-        boolean sweeping = false;
-        int m;
-        int n;
+
         StringBuilder workSeed = new StringBuilder(seed);
         for (int i = 1; i < workSeed.length(); i += 4) {
-            m = Integer.parseInt(workSeed.substring(i, i + 2));
-            n = Integer.parseInt(workSeed.substring(i + 2, i + 4));
-            if ((m == 99) && (n == 99)) {
-                sweeping = true;
-                calcSurroundingMines();
-            }
-            else if (!sweeping) {
+            int m = Integer.parseInt(workSeed.substring(i, i + 2));
+            int n = Integer.parseInt(workSeed.substring(i + 2, i + 4));
 
+
+            if (m >= 16) {
+                if (m >= 32) {
+                    flagTile(m - 32, n);
+                }
+                else {
+                    flagTile(m - 16, n);
+                }
+            }
+            if (n >= 30) {
+                if (n >= 60) {
+                    qmarkTile(m, n - 60);
+                }
+                else {
+                    qmarkTile(m, n - 30);
+                }
+            }
+            if ((m < 32) && (n < 60)) {
                 if (m >= 16) {
-                    if (m >= 32) {
-                        flagTile(m - 32, n);
-                    }
-                    else {
-                        flagTile(m - 16, n);
-                    }
+                    m -= 16;
                 }
                 if (n >= 30) {
-                    if (n >= 60) {
-                        qmarkTile(m, n - 60);
-                    }
-                    else {
-                        qmarkTile(m, n - 30);
-                    }
+                    n -= 30;
                 }
-                if ((m < 32) && (n < 60)) {
-                    if (m >= 16) {
-                        m -= 16;
-                    }
-                    if (n >= 30) {
-                        n -= 30;
-                    }
-                    if (isFlagged(m, n)) {
-                        minefield[m][n].setState(TileState.FLAGGED_MINE);
-                    }
-                    else if (isQmarked(m, n)) {
-                        minefield[m][n].setState(TileState.QMARKED_MINE);
-                    }
-                    else {
-                        minefield[m][n].setState(TileState.MINE);
-                    }
+                if (isFlagged(m, n)) {
+                    minefield[m][n].setState(TileState.FLAGGED_MINE);
+                }
+                else if (isQmarked(m, n)) {
+                    minefield[m][n].setState(TileState.QMARKED_MINE);
+                    remainingMines++;
+                }
+                else {
+                    minefield[m][n].setState(TileState.MINE);
+                    remainingMines++;
                 }
             }
         }
-
+        calcSurroundingMines();
     }
 
     /**
@@ -207,7 +203,7 @@ public class Field {
     }
 
     /**
-     * @param encodedValue an encoded value from checkArround
+     * @param encodedValue
      * @return offset to determine the relativ M position of a mine
      */
     public int decodeSurroundingMineRowOffset(int encodedValue) {
@@ -221,7 +217,7 @@ public class Field {
     }
 
     /**
-     * @param encodedValue an encoded value from checkArround
+     * @param encodedValue
      * @return offset to determine the relativ N position of a mine
      */
     public int decodeSurroundingMineColOffset(int encodedValue) {
