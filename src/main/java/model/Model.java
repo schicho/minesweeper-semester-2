@@ -87,14 +87,6 @@ public class Model implements Subject {
         int m;
         int n;
         //cant be done in Field, since field doesnt support recursion
-        int loschDas=0;
-        for(int i = 0;i<minesweeperField.getRows();i++){
-            for(int j = 0; j<minesweeperField.getCols();j++){
-                if (minesweeperField.isMine(i,j)){loschDas++;}
-            }
-        }
-
-
 
         for(int i = partitionIndex+4; i<seedBuilder.length(); i+=4){
             m=Integer.parseInt(seedBuilder.substring(i,i+2));
