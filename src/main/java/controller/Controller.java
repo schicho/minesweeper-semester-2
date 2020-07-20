@@ -273,6 +273,7 @@ public class Controller implements KeyListener, MouseListener, Observer {
 
     /**
      * sets the model
+     * ONLY FOR TESTING, DO NOT USE FOR OTHER THAN TESTING
      * @param m the new model to overwrite the existing one
      */
     public void setModel(Model m){
