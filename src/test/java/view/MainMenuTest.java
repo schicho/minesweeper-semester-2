@@ -23,11 +23,15 @@ public class MainMenuTest {
         bot.mouseMove(590, 333);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
 
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.EASY);
     }
@@ -40,14 +44,18 @@ public class MainMenuTest {
         Robot bot = new Robot();
 
         // bot.mouseMove(158,47); relative coordinates to the application window
-        bot.mouseMove(676,333);
+        bot.mouseMove(676, 333);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
 
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.NORMAL);
     }
@@ -60,14 +68,18 @@ public class MainMenuTest {
         Robot bot = new Robot();
 
         // bot.mouseMove(272,47); relative coordinates to the application window
-        bot.mouseMove(790,333);
+        bot.mouseMove(790, 333);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
 
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.HARD);
     }
@@ -80,14 +92,18 @@ public class MainMenuTest {
         Robot bot = new Robot();
 
         // bot.mouseMove(367,47); relative coordinates to the application window
-        bot.mouseMove(885,333);
+        bot.mouseMove(885, 333);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
 
         assertEquals(gui.loadFromSeed(), JOptionPane.PLAIN_MESSAGE);
     }
@@ -100,14 +116,18 @@ public class MainMenuTest {
         Robot bot = new Robot();
 
         // bot.mouseMove(440,47); relative coordinates to the application window
-        bot.mouseMove(958,333);
+        bot.mouseMove(958, 333);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        try{Thread.sleep(250);
-        }catch(InterruptedException e){}
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
 
         assertEquals(JFrame.EXIT_ON_CLOSE, JFrame.EXIT_ON_CLOSE);
     }
