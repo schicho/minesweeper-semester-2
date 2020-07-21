@@ -137,4 +137,19 @@ public class ModelTests {
         assertEquals(8,minefieldFlags.getSurroundingMines(7,4));
         assertEquals(0,minefieldFlags.getSurroundingMines(7,7));
     }
+
+
+    @Test
+    @DisplayName("Test if a save and fair start is assured")
+    void testFairStart(){
+        /*
+         * The chance for the first tile sweeped(not near the edge) an the 8 surrounding tiles not being mines may be 7,3*10^(-7)(idk i'm not the best at stochastic s)
+         * So therefore the chance of that happening 100 consecutive times is 7,3*10^(-700). For comparison: the likelihood of being killed by an asteroid is: around 7,5*10^(8)
+         */
+        for(int i = 0; i<100;i++){
+            Model model= new Model(Difficulty.HARD);
+            model.sweepTile(8,8,false);
+            assertEquals(0,model.getSurroundingMines(8,8));
+        }
+    }
 }
