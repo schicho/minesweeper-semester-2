@@ -111,6 +111,14 @@ public class Gui {
         remainingFlagsDisplay.setText(text);
     }
 
+    /**
+     * Method for getting the displaytext for junit test
+     * @return Text that is shown in the display
+     */
+    public String getFlagDisplayText() {
+        return remainingFlagsDisplay.getText();
+    }
+
 
     /**
      * creates a separator between flags display and new timer display
@@ -141,6 +149,21 @@ public class Gui {
         remainingTimerDisplay.setText(sec);
     }
 
+    /**
+     * Returns text from TimerDisplay for junit tests.
+     * @return String that is displayed in TimerDisplay
+     */
+    public String getTimerDisplayText() {
+        return remainingTimerDisplay.getText();
+    }
+
+    /**
+     * Returns controller for junit tests
+     * @return controller
+     */
+    public Controller getController() {
+        return controller;
+    }
 
     /**
      * Writes Vlaues for the field sizes
