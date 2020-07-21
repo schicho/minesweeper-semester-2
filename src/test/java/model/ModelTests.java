@@ -105,4 +105,52 @@ public class ModelTests {
             }
         }
     }
+
+    @Test
+    @DisplayName("81 tiles on an easy-sized minefield:")
+    void testCorrectNumberOfTilesEasy() {
+        Model easyModel = new Model(Difficulty.EASY);
+
+        int tilesCounter = 0;
+        Tile[][] twoDarray = easyModel.getTileArray();
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                tilesCounter++;
+            }
+        }
+
+        assertEquals(81, tilesCounter);
+    }
+
+    @Test
+    @DisplayName("256 tiles on an normal-sized minefield:")
+    void testCorrectNumberOfTilesNormal() {
+        Model normalModel = new Model(Difficulty.NORMAL);
+
+        int tilesCounter = 0;
+        Tile[][] twoDarray = normalModel.getTileArray();
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                tilesCounter++;
+            }
+        }
+
+        assertEquals(256, tilesCounter);
+    }
+
+    @Test
+    @DisplayName("480 tiles on an hard-sized minefield:")
+    void testCorrectNumberOfTilesHard() {
+        Model hardModel = new Model(Difficulty.HARD);
+
+        int tilesCounter = 0;
+        Tile[][] twoDarray = hardModel.getTileArray();
+        for (Tile[] oneDarray : twoDarray) {
+            for (Tile t : oneDarray) {
+                tilesCounter++;
+            }
+        }
+
+        assertEquals(480, tilesCounter);
+    }
 }
