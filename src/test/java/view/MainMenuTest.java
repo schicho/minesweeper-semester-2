@@ -19,7 +19,7 @@ public class MainMenuTest {
         Gui gui = new Gui();
         Robot bot = new Robot();
 
-        bot.mouseMove(0,0);
+        bot.mouseMove(70,47);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
         try{Thread.sleep(250);
@@ -38,7 +38,7 @@ public class MainMenuTest {
         Gui gui = new Gui();
         Robot bot = new Robot();
 
-        bot.mouseMove(0,0);
+        bot.mouseMove(170,47);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
         try{Thread.sleep(250);
@@ -57,7 +57,7 @@ public class MainMenuTest {
         Gui gui = new Gui();
         Robot bot = new Robot();
 
-        bot.mouseMove(0,0);
+        bot.mouseMove(267,47);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
         try{Thread.sleep(250);
@@ -76,7 +76,7 @@ public class MainMenuTest {
         Gui gui = new Gui();
         Robot bot = new Robot();
 
-        bot.mouseMove(0,0);
+        bot.mouseMove(360,47);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
         try{Thread.sleep(250);
@@ -95,7 +95,7 @@ public class MainMenuTest {
         Gui gui = new Gui();
         Robot bot = new Robot();
 
-        bot.mouseMove(0,0);
+        bot.mouseMove(447,47);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
         try{Thread.sleep(250);
