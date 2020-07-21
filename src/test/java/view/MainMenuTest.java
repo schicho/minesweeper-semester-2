@@ -85,10 +85,10 @@ public class MainMenuTest {
         try{Thread.sleep(250);
         }catch(InterruptedException e){}
 
-        assertEquals(gui.loadFromSeed());
+        assertEquals(gui.loadFromSeed(), JOptionPane.PLAIN_MESSAGE);
     }
 
-
+/*
     @Test
     @DisplayName("Exit")
     void testLoadGame() throws AWTException {
@@ -105,6 +105,6 @@ public class MainMenuTest {
         }catch(InterruptedException e){}
 
         assertEquals(gui.createWindow(), JFrame.EXIT_ON_CLOSE);
-    }
+    }*/
 }
 

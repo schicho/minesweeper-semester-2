@@ -251,24 +251,39 @@ public class Gui {
                 JButton playEasy = new JButton("Play easy");
                 playEasy.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playEasy);
+                // Convert a coordinate relative to a component's bounds to screen coordinates
+                Point ptEasy = new Point(playEasy.getLocation());
+                SwingUtilities.convertPointToScreen(ptEasy, playEasy);
 
                 JButton playMedium = new JButton("Play medium");
                 playMedium.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playMedium);
+                // Convert a coordinate relative to a component's bounds to screen coordinates
+                Point ptMedium = new Point(playMedium.getLocation());
+                SwingUtilities.convertPointToScreen(ptMedium, playMedium);
 
                 JButton playHard = new JButton("Play hard");
                 playHard.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(playHard);
+                // Convert a coordinate relative to a component's bounds to screen coordinates
+                Point ptHard = new Point(playHard.getLocation());
+                SwingUtilities.convertPointToScreen(ptHard, playHard);
 
                 //load game button
                 JButton load = new JButton("Load game");
                 load.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(load);
+                // Convert a coordinate relative to a component's bounds to screen coordinates
+                Point ptLoadGame = new Point(load.getLocation());
+                SwingUtilities.convertPointToScreen(ptLoadGame, load);
 
                 //exit button
                 JButton exit = new JButton("Exit");
                 exit.addMouseListener(controller.getMouseHandler());
                 mainMenu.add(exit);
+                // Convert a coordinate relative to a component's bounds to screen coordinates
+                Point ptExit = new Point(exit.getLocation());
+                SwingUtilities.convertPointToScreen(ptExit, exit);
 
                 window.getContentPane().add(mainMenu);
 
