@@ -105,6 +105,14 @@ public class Model implements Subject {
         }
 
         untouched = false;
+        //sets number of Flags to the right amount
+        for (int row = 0; row < this.minesweeperField.getRows(); row++) {
+            for (int col = 0; col < this.minesweeperField.getCols(); col++) {
+                if (isFlagged(row, col)) {
+                    this.numberOfFlags++;
+                }
+            }
+        }
     }
 
     @Override
