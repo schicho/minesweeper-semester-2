@@ -132,3 +132,4 @@ public class MainMenuTest {
         assertEquals(JFrame.EXIT_ON_CLOSE, JFrame.EXIT_ON_CLOSE);
     }
 }
+
