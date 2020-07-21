@@ -1,156 +1,134 @@
-package model;
+package view;
 
 import model.enums.Difficulty;
-
-import model.enums.TileState;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.InputEvent;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ModelTests {
+
+public class MainMenuTest {
 
     @Test
-    @DisplayName("10 mines on an easy-sized minefield:")
-    void testCorrectNumberOfMinesEasy() {
-        Model easyModel = new Model(Difficulty.EASY);
+    @DisplayName("Play easy game")
+    void testEasyGame() throws AWTException {
+        Gui gui = new Gui();
+        Robot bot = new Robot();
 
-        int bombCounter = 0;
-        Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                if (t.getState() == TileState.MINE) {
-                    bombCounter++;
-                }
-            }
+        // bot.mouseMove(72,47); relative coordinates to the application window
+        bot.mouseMove(590, 333);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
         }
-        assertEquals(10, bombCounter);
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
+
+        assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.EASY);
     }
 
+
     @Test
-    @DisplayName("40 mines on an normal-sized minefield:")
-    void testCorrectNumberOfMinesNormal() {
-        Model easyModel = new Model(Difficulty.NORMAL);
+    @DisplayName("Play medium game")
+    void testMediumGame() throws AWTException {
+        Gui gui = new Gui();
+        Robot bot = new Robot();
 
-        int bombCounter = 0;
-        Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                if (t.getState() == TileState.MINE) {
-                    bombCounter++;
-                }
-            }
+        // bot.mouseMove(158,47); relative coordinates to the application window
+        bot.mouseMove(676, 333);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
         }
-        assertEquals(40, bombCounter);
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
+
+        assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.NORMAL);
     }
 
+
     @Test
-    @DisplayName("99 mines on an hard-sized minefield:")
-    void testCorrectNumberOfMinesHard() {
-        Model easyModel = new Model(Difficulty.HARD);
+    @DisplayName("Play hard game")
+    void testHardGame() throws AWTException {
+        Gui gui = new Gui();
+        Robot bot = new Robot();
 
-        int bombCounter = 0;
-        Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                if (t.getState() == TileState.MINE) {
-                    bombCounter++;
-                }
-            }
+        // bot.mouseMove(272,47); relative coordinates to the application window
+        bot.mouseMove(790, 333);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
         }
-        assertEquals(99, bombCounter);
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
+
+        assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.HARD);
     }
 
-    @Test
-    @DisplayName("Test multiple different scenarios when setting flags")
-    void testFlaggingScenarios() {
-        Model easyModel = new Model(Difficulty.EASY);
-        easyModel.touch();
-        Tile[][] tileArray = easyModel.getTileArray();
-        for (int i = 0; i < tileArray.length; i++) {
-            for (int j = 0; j < tileArray[0].length; j++) {
-                if (tileArray[i][j].getState() == TileState.MINE) {
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.FLAGGED_MINE, tileArray[i][j].getState());
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i, j, false);
-                    assertEquals(TileState.QMARKED_MINE, tileArray[i][j].getState());
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.MINE, tileArray[i][j].getState());
-                }
-            }
-        }
-        for (int i = 0; i < tileArray.length; i++) {
-            for (int j = 0; j < tileArray[0].length; j++) {
-                if (tileArray[i][j].getState() == TileState.FREE) {
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
-                    easyModel.sweepTile(i, j, false);
-                    assertEquals(TileState.FLAGGED_FREE, tileArray[i][j].getState());
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.QMARKED_FREE, tileArray[i][j].getState());
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.FREE, tileArray[i][j].getState());
 
-                    easyModel.sweepTile(i, j, false);
-                    easyModel.flagTile(i, j);
-                    assertEquals(TileState.SWEEPED_FREE, tileArray[i][j].getState());
-                }
-            }
+    @Test
+    @DisplayName("Load Game")
+    void testLoadGame() throws AWTException {
+        Gui gui = new Gui();
+        Robot bot = new Robot();
+
+        // bot.mouseMove(367,47); relative coordinates to the application window
+        bot.mouseMove(885, 333);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
         }
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
+
+        assertEquals(gui.loadFromSeed(), JOptionPane.PLAIN_MESSAGE);
     }
 
-    @Test
-    @DisplayName("81 tiles on an easy-sized minefield:")
-    void testCorrectNumberOfTilesEasy() {
-        Model easyModel = new Model(Difficulty.EASY);
-
-        int tilesCounter = 0;
-        Tile[][] twoDarray = easyModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                tilesCounter++;
-            }
-        }
-
-        assertEquals(81, tilesCounter);
-    }
 
     @Test
-    @DisplayName("256 tiles on an normal-sized minefield:")
-    void testCorrectNumberOfTilesNormal() {
-        Model normalModel = new Model(Difficulty.NORMAL);
+    @DisplayName("Exit")
+    void testExit() throws AWTException {
+        Gui gui = new Gui();
+        Robot bot = new Robot();
 
-        int tilesCounter = 0;
-        Tile[][] twoDarray = normalModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                tilesCounter++;
-            }
+        // bot.mouseMove(440,47); relative coordinates to the application window
+        bot.mouseMove(958, 333);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+        }
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
         }
 
-        assertEquals(256, tilesCounter);
-    }
-
-    @Test
-    @DisplayName("480 tiles on an hard-sized minefield:")
-    void testCorrectNumberOfTilesHard() {
-        Model hardModel = new Model(Difficulty.HARD);
-
-        int tilesCounter = 0;
-        Tile[][] twoDarray = hardModel.getTileArray();
-        for (Tile[] oneDarray : twoDarray) {
-            for (Tile t : oneDarray) {
-                tilesCounter++;
-            }
-        }
-
-        assertEquals(480, tilesCounter);
+        assertEquals(JFrame.EXIT_ON_CLOSE, JFrame.EXIT_ON_CLOSE);
     }
 }
