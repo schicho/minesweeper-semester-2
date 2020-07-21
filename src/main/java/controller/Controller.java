@@ -153,14 +153,17 @@ public class Controller implements MouseListener, Observer {
                         secondsTimer = new SecondsTimer();
                         secondsTimer.counter = Integer.parseInt(seed.substring(timerIndex + 4));
                         secondsTimer.attach(this);
-                        //run model.timer ever 1000ms = 1s
-                        timer.schedule(secondsTimer, 0, 1000);
 
                         //load the scene and update the window
                         gui.calculateSize(model);
                         gui.loadScene(model.getGameState());
                         gui.getWindow().repaint();
                         gui.getWindow().revalidate();
+
+                        // Only schedule after gui was initialised to avoid race-condition
+                        // run model.timer ever 1000ms = 1s
+                        timer.schedule(secondsTimer, 0, 1000);
+
                     } catch (NumberFormatException | IndexOutOfBoundsException ex) {
                         gui.invalidSeed();
                     }
@@ -174,7 +177,8 @@ public class Controller implements MouseListener, Observer {
                 gui.loadScene(model.getGameState());
             }
             else if (whatItDoes.equals("Save game")) {
-                String seed = model.getSeed(secondsTimer.pausedAt);
+
+                String seed = model.getSeed(secondsTimer.counter);
                 model.touch();
                 gui.returnSeed(seed);
             }
