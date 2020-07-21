@@ -29,7 +29,6 @@ public class MainMenuTest {
         }catch(InterruptedException e){}
 
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.EASY);
-
     }
 
 
@@ -51,6 +50,7 @@ public class MainMenuTest {
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.NORMAL);
     }
 
+
     @Test
     @DisplayName("Play hard game")
     void testHardGame() throws AWTException {
@@ -69,7 +69,8 @@ public class MainMenuTest {
         assertEquals(gui.getController().getModel().getDifficulty(), Difficulty.HARD);
     }
 
-    /*@Test
+
+    @Test
     @DisplayName("Load Game")
     void testLoadGame() throws AWTException {
         Gui gui = new Gui();
@@ -83,7 +84,6 @@ public class MainMenuTest {
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         try{Thread.sleep(250);
         }catch(InterruptedException e){}
-
 
         assertEquals(gui.loadFromSeed());
     }
@@ -104,11 +104,7 @@ public class MainMenuTest {
         try{Thread.sleep(250);
         }catch(InterruptedException e){}
 
-
         assertEquals(gui.createWindow(), JFrame.EXIT_ON_CLOSE);
     }
-
-     */
-
 }
 
