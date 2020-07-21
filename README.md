@@ -30,3 +30,9 @@ auch folgende erweiternde Funktionen:
 - Markieren eines Feldes als unsicher "?", durch erneutes Rechtsklicken auf ein als Mine markiertes Feld
 
 Die Implementierung besitzt ein GUI und wird intern über das Model-View-Controller Pattern gesteuert.
+Das Spiel startet im Hauptmenü, über das man die Möglichkeit hat ein neues Spiel auf Einfach, Mittel oder Schwer zu starten.
+Außerdem kann der Spieler hier ein gespeichertes Spiel laden, sowie die Anwendung beenden.
+
+Sobald ein Spiel gestartet wurde, kann der Pausezustand ausgerufen werden. Dadurch betritt der Spieler das Pausemenü,
+welches dem Spieler die Gelegenheit gibt sein Spiel zu speichern, oder ins Hauptmenü zurückzukehren, 
+sowie das aktuelle Spiel weiterzuspielen.
